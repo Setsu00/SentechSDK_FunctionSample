@@ -338,7 +338,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\Grab.cpp"
+			RelativePath=".\Grab_OutputExposureActive.cpp"
 			>
 		</File>
 	</Files>
