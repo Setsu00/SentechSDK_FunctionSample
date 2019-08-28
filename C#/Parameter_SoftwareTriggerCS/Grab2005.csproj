@@ -52,9 +52,6 @@
   </Target>
   -->
   <ItemGroup>
-    <Compile Include="Grab.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="GenApiDotNet20_v3_0, Version=3.0.2.0, Culture=neutral, PublicKeyToken=702a7d0a1d42e9d9, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -62,5 +59,8 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Grab_SoftwareTrigger.cs" />
   </ItemGroup>
 </Project>
