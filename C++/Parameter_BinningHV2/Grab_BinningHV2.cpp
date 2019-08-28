@@ -1,5 +1,5 @@
 ﻿/*
-	Exposure Time Setting: Set camera exposure time to 100,000 us.
+	BinningHV2: Set Camera Binning Horizontal / Binning Vertical to 2
 */
 
 #define ENABLED_ST_GUI
@@ -29,27 +29,25 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
-		// Demostration of changing exposure time(us) of camera.
+		// Demostration of setting Binning Horizontal / Binning Veritcal to 2
 
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Switch off exposure auto. If exposure auto is on, exposure time cannot be set.
-		GenApi::CEnumerationPtr pIEnumExpoAuto(pNodeMapCameraParam->GetNode("ExposureAuto"));
-		*pIEnumExpoAuto = "Off";
+		// Get Node for Binning Horizontal
+		GenApi::CNodePtr pNodeBinningH = pNodeMapCameraParam->GetNode("BinningHorizontal");
+		// Convert Node to CIntegerPtr for setting value
+		GenApi::CIntegerPtr pIntBinningH(pNodeBinningH);
+		// Set BinningHorizontal to 2
+		pIntBinningH->SetValue(2);
 
-		// For setting camera exposure time, exposure mode must set to Timed to enable value input
-		GenApi::CEnumerationPtr pIEnumExpoMode(pNodeMapCameraParam->GetNode("ExposureMode"));
-		*pIEnumExpoMode = "Timed";
+		// Get Node for WiBinning Vertical
+		GenApi::CNodePtr pNodeBinningV = pNodeMapCameraParam->GetNode("BinningVertical");
+		// Convert Node to CIntegerPtr for setting value
+		GenApi::CIntegerPtr pIntBinningV(pNodeBinningV);
+		// Set BinningVertical to 2
+		pIntBinningV->SetValue(2);
 
-		// Get Node for ExposureTime
-		GenApi::CNodePtr pNodeExposureTIme = pNodeMapCameraParam->GetNode("ExposureTime");
-
-		// Convert Node to CFloatPtr for setting value
-		GenApi::CFloatPtr pFloatExpoTime(pNodeExposureTIme);
-
-		// Set Exposure time to 100,000 usec
-		pFloatExpoTime->SetValue(100000);
 
 		// ==============================================================================================================
 
@@ -76,7 +74,6 @@ int main(int /* argc */, char ** /* argv */)
 				if (!pIStImageDisplayWnd->IsVisible())
 				{
 					pIStImageDisplayWnd->SetPosition(0, 0, pIStImage->GetImageWidth(), pIStImage->GetImageHeight());
-
 					pIStImageDisplayWnd->Show(NULL, StWindowMode_ModalessOnNewThread);
 				}
 
