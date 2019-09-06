@@ -12,7 +12,7 @@
 
 using namespace StApi;
 using namespace std;
-//const uint64_t nCountOfImagesToGrab = 100;
+const uint64_t nCountOfImagesToGrab = 100;
 
 int main(int /* argc */, char ** /* argv */)
 {
@@ -65,7 +65,7 @@ int main(int /* argc */, char ** /* argv */)
 
 		// ==============================================================================================================
 
-		pIStDataStream->StartAcquisition();
+		pIStDataStream->StartAcquisition(nCountOfImagesToGrab);
 		pIStDevice->AcquisitionStart();
 		while (pIStDataStream->IsGrabbing())
 		{

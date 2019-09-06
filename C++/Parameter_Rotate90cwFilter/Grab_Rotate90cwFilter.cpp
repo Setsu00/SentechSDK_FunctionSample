@@ -5,6 +5,7 @@
 #define ENABLED_ST_GUI
 
 #include <StApi_TL.h>
+#include <StApi_IP.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
 #include <iomanip>	//std::setprecision
