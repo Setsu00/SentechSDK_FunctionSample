@@ -34,7 +34,7 @@ int main(int /* argc */, char ** /* argv */)
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Switch BalanceWhiteAuto to Preset0 for manual input value
+		// Switch BalanceWhiteAuto to Off for manual input value
 		GenApi::CEnumerationPtr pIEnumBalanceWhite(pNodeMapCameraParam->GetNode("BalanceWhiteAuto"));
 		*pIEnumBalanceWhite = "Off";
 
