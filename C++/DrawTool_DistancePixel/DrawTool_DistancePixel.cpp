@@ -133,22 +133,23 @@ void OnNodeCallbackDrawingEvent(GenApi::INode* pINode, EDrawingEventType_t eType
 			const double dblX2 = pIFloat_X->GetValue() * pIStImage->GetImageWidth();
 			const double dblY2 = pIFloat_Y->GetValue() * pIStImage->GetImageHeight();
 
-			// Calculate and output distance
+			// Calculate distance
 			const double dDistance = CalculateDistancePixel(dblX1, dblY1, dblX2, dblY2);
 
 			// Print out result on console
-			// Note that when start drawing, this callback will also be trigger and will have a distance 0 result.
+			// Note that when start drawing, this callback will also be triggered and will have a distance 0 result.
 			// Here we ignore the result of 0 and output the result which is not 0.
 			if (dDistance != 0)
 			{
-				cout << "Selected Item Point Distance: " << CalculateDistancePixel(dblX1, dblY1, dblX2, dblY2) << endl;
+				cout << "   Selected Item Point Distance: " << CalculateDistancePixel(dblX1, dblY1, dblX2, dblY2) << endl;
 			}
 		}
 	}
 }
 
-
+//-----------------------------------------------------------------------------
 // Main function
+//-----------------------------------------------------------------------------
 int main(int /* argc */, char ** /* argv */)
 {
 	try
