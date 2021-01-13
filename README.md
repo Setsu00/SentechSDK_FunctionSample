@@ -29,8 +29,14 @@ Some of the U3V cameras may have different naming in functions due to different 
 For CoaXPress cameras, it related to the grabber of CoaXPress with its GenTL producer.
 The grabber at least must provide GenTL producer for working with Sentech SDK.
 
+## Python with Sentech SDK
+For using Sentech SDK in Python, you will need to install Sentech SDK first, then install the .whl which corresponds to the Python version of your environment for use.
+Detail can be found within the Python .whl file.
+Note:
+IDE other than IDLE of Python may have problem when including or importing files and components.
+
 ## Further Implementation
 For further implementation with Sentech SDK, please reference to the help file comes with SDK package with FULL installation.
 
 
-**2019 OMRON SENTECH Technical Support Team
+**2021 OMRON SENTECH Technical Support Team
