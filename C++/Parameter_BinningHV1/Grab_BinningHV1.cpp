@@ -54,14 +54,14 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CNodePtr pNodeWidth = pNodeMapCameraParam->GetNode("Width");
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntWidthl(pNodeWidth);
-		// Set Width to 640
+		// Set Width to Max as it can
 		pIntWidthl->SetValue(pIntWidthl->GetMax());
 
 		// Get Node for Height
 		GenApi::CNodePtr pNodeHeight = pNodeMapCameraParam->GetNode("Height");
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntHeight(pNodeHeight);
-		// Set Height to 480
+		// Set Height to Max as it can
 		pIntHeight->SetValue(pIntHeight->GetMax());
 
 		// ==============================================================================================================

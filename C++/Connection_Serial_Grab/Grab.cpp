@@ -1,11 +1,10 @@
 ﻿/*
-	Rotate90cwFilter: using Filter to rotate image clock wise 90 degree.
+
 */
 
-#define ENABLED_ST_GUI
+//#define ENABLED_ST_GUI
 
 #include <StApi_TL.h>
-#include <StApi_IP.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
 #include <iomanip>	//std::setprecision
@@ -15,36 +14,89 @@ using namespace StApi;
 using namespace std;
 const uint64_t nCountOfImagesToGrab = 100;
 
+using namespace GenApi;
+
 int main(int /* argc */, char ** /* argv */)
 {
 	try
 	{
 		CStApiAutoInit objStApiAutoInit;
+
 		CIStSystemPtr pIStSystem(CreateIStSystem(StSystemVendor_Sentech));
-		CIStDevicePtr pIStDevice(pIStSystem->CreateFirstIStDevice());
+
+		// ==== Connect to target camera with camera serial. ================================================================
+		// Input Serial.
+		cout << "Please input serial number of target camera: " << endl;
+		wstring wsSerial;
+		wcin >> wsSerial;
+		GenICam::gcstring strDeviceSerial(wsSerial.c_str());
+
+		// Clear enter input.
+		fflush(stdin);
+
+		// Acquire interface count
+		uint32_t uintInterfaceCnt = pIStSystem->GetInterfaceCount();
+
+		// Prepear gcstring for saving device ID if hit.
+		GenICam::gcstring strTgtDeviceID;
+
+		// Prepear for # of interface for later use.
+		uint32_t uintTgtInterfaceNo = 0;
+
+		// Camera found hit flag.
+		bool bHit = false;
+
+		// Check all interface if target camera is exist.
+		for (uint32_t i = 0; i < uintInterfaceCnt; i++)
+		{
+			IStInterface * pInterface = pIStSystem->GetIStInterface(i);
+			uint32_t uintCamCnt = pInterface->GetDeviceCount();
+			for (uint32_t j = 0; j < uintCamCnt; j++)
+			{
+				const IStDeviceInfo * tmpDeviceInfoPtr = pInterface->GetIStDeviceInfo(j);
+				if (tmpDeviceInfoPtr->GetSerialNumber() == strDeviceSerial)
+				{
+					// Hit target camera
+					strTgtDeviceID = tmpDeviceInfoPtr->GetID();
+					uintTgtInterfaceNo = i;
+					bHit = true;
+					break;
+				}
+			}
+			if (bHit)
+				break;
+		}
+
+		if (!bHit)
+		{
+			// Not found, exit program with message
+			cout << "Target camera not found." << endl << "Press Enter to exit." << endl;
+			cin.get();
+			return (0);
+		}
+
+		// Create IStDevice via using found device ID.
+		CIStDevicePtr pIStDevice(pIStSystem->GetIStInterface(uintTgtInterfaceNo)->CreateIStDevice(strTgtDeviceID));
+
+		// ==================================================================================================================
+
 		cout << "Device=" << pIStDevice->GetIStDeviceInfo()->GetDisplayName() << endl;
 
 #ifdef ENABLED_ST_GUI
+
 		CIStImageDisplayWndPtr pIStImageDisplayWnd(CreateIStWnd(StWindowType_ImageDisplay));
 #endif
+
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
-		// ==============================================================================================================
-		// Demostration of using Filter to rotate image clock wise 90 degree.
-
-		// Create an ReverseConverter filter object.
-		CIStReverseConverterPtr filter(CreateIStConverter(StConverterType_Reverse));
-
-		// Set ReverseConverter reverse to clock wise 90 degree.
-		filter->SetRotationMode(StRotationMode_Clockwise90);
-
-		// ==============================================================================================================
-
 		pIStDataStream->StartAcquisition(nCountOfImagesToGrab);
+
 		pIStDevice->AcquisitionStart();
+
 		while (pIStDataStream->IsGrabbing())
 		{
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
+
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
 			{
 				IStImage *pIStImage = pIStStreamBuffer->GetIStImage();
@@ -63,20 +115,11 @@ int main(int /* argc */, char ** /* argv */)
 				if (!pIStImageDisplayWnd->IsVisible())
 				{
 					pIStImageDisplayWnd->SetPosition(0, 0, pIStImage->GetImageWidth(), pIStImage->GetImageHeight());
+
 					pIStImageDisplayWnd->Show(NULL, StWindowMode_ModalessOnNewThread);
 				}
 
-				// ==============================================================================================================
-				// Create another buffer for storing rotated image
-				CIStImageBufferPtr imageBuffer = CreateIStImageBuffer();
-
-				// Rotate original image and output to another buffer
-				filter->Convert(pIStImage, imageBuffer);
-
-				// Display rotated image
-				pIStImageDisplayWnd->RegisterIStImage(imageBuffer->GetIStImage());
-				// ==============================================================================================================
-
+				pIStImageDisplayWnd->RegisterIStImage(pIStImage);
 #else
 				cout << "BlockId=" << pIStStreamBuffer->GetIStStreamBufferInfo()->GetFrameID()
 					<< " Size:" << pIStImage->GetImageWidth() << " x " << pIStImage->GetImageHeight()
@@ -88,7 +131,9 @@ int main(int /* argc */, char ** /* argv */)
 				cout << "Image data does not exist" << endl;
 			}
 		}
+
 		pIStDevice->AcquisitionStop();
+
 		pIStDataStream->StopAcquisition();
 	}
 	catch (const GenICam::GenericException &e)
