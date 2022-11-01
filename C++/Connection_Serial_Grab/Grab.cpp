@@ -49,7 +49,11 @@ int main(int /* argc */, char ** /* argv */)
 		// Check all interface if target camera is exist.
 		for (uint32_t i = 0; i < uintInterfaceCnt; i++)
 		{
+			// Acquire interface
 			IStInterface * pInterface = pIStSystem->GetIStInterface(i);
+			// Update interface to see if any newer device comes in.
+			pInterface->UpdateDeviceList();
+
 			uint32_t uintCamCnt = pInterface->GetDeviceCount();
 			for (uint32_t j = 0; j < uintCamCnt; j++)
 			{
