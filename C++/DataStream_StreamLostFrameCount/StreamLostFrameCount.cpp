@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 ﻿// StreamLostFrameCount.cpp : このサンプルは、IStDataStreamよりLost Frame Countを取得、表示する方法を示します
+=======
+﻿// StreamLostFrameCount.cpp : 
+// 
+// このサンプルは、IStDataStreamよりLost Frame Countを取得、表示する方法を示します
+// This sample demonstrate the way of acquiring Lost Frame Count from IStDataStream.
+>>>>>>> 6196dfcda454323bf1a61dd8171ddc1b3b27f9d7
 //
 
 #include <StApi_TL.h>
@@ -20,9 +27,17 @@ int main(int /* argc */, char ** /* argv */)
 
 		// ==============================================================================================================
 		// DataSteam対してのノードマップ生成
+<<<<<<< HEAD
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDataStream->GetIStPort()->GetINodeMap());
 
 		// StreamLostFrameCountのノードを取得
+=======
+		// Create NodeMap for DataStream
+		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDataStream->GetIStPort()->GetINodeMap());
+
+		// StreamLostFrameCountのノードを取得
+		// Acquire StreamLostFrameCount Node from NodeMap of DataStream for showing lost frame count.
+>>>>>>> 6196dfcda454323bf1a61dd8171ddc1b3b27f9d7
 		GenApi::CIntegerPtr pIntegerLostFrameCount(pNodeMapCameraParam->GetNode("StreamLostFrameCount"));
 		
 		// ==============================================================================================================
@@ -44,6 +59,10 @@ int main(int /* argc */, char ** /* argv */)
 					<< " First byte =" << (uint32_t)*(uint8_t*)pIStImage->GetImageBuffer()
 					// ==============================================================================================================
 					// StreamLostFrameCountの出力
+<<<<<<< HEAD
+=======
+					// Output StreamLostFrameCount every frame.
+>>>>>>> 6196dfcda454323bf1a61dd8171ddc1b3b27f9d7
 					<< " LostFrameCount =" << pIntegerLostFrameCount->GetValue() << endl;
 					// ==============================================================================================================
 			}
