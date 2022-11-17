@@ -1,4 +1,5 @@
 ﻿/*
+	Acquisition Frame Rate: カメラのFPSを2に設定し、20枚画像を取得する
 	Acquisition Frame Rate: Set camera FPS to 2 then take 20 pics.
 */
 
@@ -29,25 +30,32 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// フレームレート(FPS)を変更するデモ
 		// Demostration of changing acquisition frame rate (FPS)
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// ExposureAutoをOffに切替。もしExposureAutoがOnの場合、FPS設定を行うことができない場合がある
 		// Switch off exposure auto. If exposure auto is on, FPS setting may not able to implemented.
 		GenApi::CEnumerationPtr pIEnumExpoAuto(pNodeMapCameraParam->GetNode("ExposureAuto"));
 		*pIEnumExpoAuto = "Off";
 
+		// また、露光時間がFPSに影響を与えないように、ExposureModeをOffに切り替えます。
 		// Also switch Exposure Mode to Off for not letting exposure time to influence the actual FPS.
 		GenApi::CEnumerationPtr pIEnumExpoMode(pNodeMapCameraParam->GetNode("ExposureMode"));
 		*pIEnumExpoMode = "Off";
 
+		// AcquisitionFrameRateノードを取得
 		// Get Node for Acquisition Frame Rate.
 		GenApi::CNodePtr pNodeFPS = pNodeMapCameraParam->GetNode("AcquisitionFrameRate");
 
+		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value.
 		GenApi::CFloatPtr pFloaFPS(pNodeFPS);
 
+		// FPSを2に設定
 		// Set FPS to 2.
 		pFloaFPS->SetValue(2);
 
