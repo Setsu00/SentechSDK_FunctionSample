@@ -24,33 +24,43 @@ int main(int /* argc */, char ** /* argv */)
 
 		CIStSystemPtr pIStSystem(CreateIStSystem(StSystemVendor_Sentech));
 
+		// ==== カメラシリアルでターゲットカメラに接続 ================================================================
 		// ==== Connect to target camera with camera serial. ================================================================
+		// シリアル入力
 		// Input Serial.
 		cout << "Please input serial number of target camera: " << endl;
 		wstring wsSerial;
 		wcin >> wsSerial;
 		GenICam::gcstring strDeviceSerial(wsSerial.c_str());
 
+		// 入力をクリア
 		// Clear enter input.
 		fflush(stdin);
 
+		// インターフェースの数を取得
 		// Acquire interface count
 		uint32_t uintInterfaceCnt = pIStSystem->GetInterfaceCount();
 
+		// ヒットした場合、デバイスIDを保存するためのgcstringを準備
 		// Prepear gcstring for saving device ID if hit.
 		GenICam::gcstring strTgtDeviceID;
 
+		// 後に使うためインターフェースのナンバーを準備
 		// Prepear for # of interface for later use.
 		uint32_t uintTgtInterfaceNo = 0;
 
+		// ヒットフラグ
 		// Camera found hit flag.
 		bool bHit = false;
 
+		// ターゲットカメラが存在するか全てのインターフェースをチェック
 		// Check all interface if target camera is exist.
 		for (uint32_t i = 0; i < uintInterfaceCnt; i++)
 		{
+			// インターフェース取得
 			// Acquire interface
 			IStInterface * pInterface = pIStSystem->GetIStInterface(i);
+			// 新しいデバイスを検出した場合インターフェースを更新
 			// Update interface to see if any newer device comes in.
 			pInterface->UpdateDeviceList();
 
@@ -60,6 +70,7 @@ int main(int /* argc */, char ** /* argv */)
 				const IStDeviceInfo * tmpDeviceInfoPtr = pInterface->GetIStDeviceInfo(j);
 				if (tmpDeviceInfoPtr->GetSerialNumber() == strDeviceSerial)
 				{
+					// ターゲットカメラの発見
 					// Hit target camera
 					strTgtDeviceID = tmpDeviceInfoPtr->GetID();
 					uintTgtInterfaceNo = i;
@@ -73,12 +84,14 @@ int main(int /* argc */, char ** /* argv */)
 
 		if (!bHit)
 		{
+			// 見つからなければメッセージと共に終了
 			// Not found, exit program with message
 			cout << "Target camera not found." << endl << "Press Enter to exit." << endl;
 			cin.get();
 			return (0);
 		}
 
+		// 見つけたデバイスIDを使うためIStDevice経由で生成
 		// Create IStDevice via using found device ID.
 		CIStDevicePtr pIStDevice(pIStSystem->GetIStInterface(uintTgtInterfaceNo)->CreateIStDevice(strTgtDeviceID));
 
