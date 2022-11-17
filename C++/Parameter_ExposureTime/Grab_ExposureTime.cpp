@@ -1,4 +1,5 @@
 ﻿/*
+	Exposure Time Setting: 露光時間に100000usを設定する
 	Exposure Time Setting: Set camera exposure time to 100,000 us.
 */
 
@@ -29,25 +30,32 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// カメラの露光時間(us)を変更するデモ
 		// Demostration of changing exposure time(us) of camera.
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// ExposureAutoをOffに切替。もしExposureAutoがOnの場合、露光時間を設定できない
 		// Switch off exposure auto. If exposure auto is on, exposure time cannot be set.
 		GenApi::CEnumerationPtr pIEnumExpoAuto(pNodeMapCameraParam->GetNode("ExposureAuto"));
 		*pIEnumExpoAuto = "Off";
 
+		// 値を入力出来るようにするためExposureModeをTimedに設定する必要がある
 		// For setting camera exposure time, exposure mode must set to Timed to enable value input
 		GenApi::CEnumerationPtr pIEnumExpoMode(pNodeMapCameraParam->GetNode("ExposureMode"));
 		*pIEnumExpoMode = "Timed";
 
+		// ExposureTimeのノードを取得
 		// Get Node for ExposureTime
 		GenApi::CNodePtr pNodeExposureTime = pNodeMapCameraParam->GetNode("ExposureTime");
 
+		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatExpoTime(pNodeExposureTime);
 
+		// 露光時間に100000usを設定
 		// Set Exposure time to 100,000 usec
 		pFloatExpoTime->SetValue(100000);
 
