@@ -1,4 +1,5 @@
 ﻿/*
+	Analog Gain Setting: アナログゲインを2dBに設定する。
 	Analog Gain Setting: Set analog gain to 2 dB.
 */
 
@@ -29,23 +30,30 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// アナログゲインを2dBに設定するデモ
 		// Demostration of set analog Gain to 2dB.
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// GainAutoをOffに切替。GainAutoがOnの場合、ゲイン値を設定できない。
 		// Switch off gain auto. If gain auto is on, gain value cannot be set.
 		GenApi::CEnumerationPtr pIEnumGainAuto(pNodeMapCameraParam->GetNode("GainAuto"));
 		*pIEnumGainAuto = "Off";
 
+		// アナログゲインを設定するため、アナログゲインにアクセスするためにGainSelectorをAnalogAllに設定する必要がある
 		// For setting analog gain, gain selector need to be set to AnalogAll to access analog gain.
 		GenApi::CEnumerationPtr pIEnumGainSelector(pNodeMapCameraParam->GetNode("GainSelector"));
 		*pIEnumGainSelector = "AnalogAll";
 
+		// Gainノードを取得
 		// Get Node for Gain
 		GenApi::CNodePtr pNodeGain = pNodeMapCameraParam->GetNode("Gain");
+		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatGain(pNodeGain);
+		// ゲインに2dBを設定
 		// Set Gain to 2 dB.
 		pFloatGain->SetValue(20);
 
