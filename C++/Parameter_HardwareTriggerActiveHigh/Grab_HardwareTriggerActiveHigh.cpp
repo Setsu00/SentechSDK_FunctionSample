@@ -1,4 +1,5 @@
 ﻿/*
+	Hardware Trigger (Active High): Line 0を入力、アクティブハイ (Trigger activation as rising edge) としてカメラをハードウェアトリガーモードに設定します。
 	Hardware Trigger (Active High): Set camera to hardware trigger mode for Line0 as input and active high (Trigger activation as rising edge).
 */
 
@@ -25,6 +26,7 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
+		// アクティブハイでハードウェアトリガーをONに設定するデモ
 		// Demostration of Setting Hardware Trigger ON with active high
 
 #ifdef ENABLED_ST_GUI
@@ -32,23 +34,28 @@ int main(int /* argc */, char ** /* argv */)
 #endif
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// Line0に入力を設定
 		// Set Line0 to input
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line0";
 		GenApi::CEnumerationPtr pIEnumLine0Mode(pNodeMapCameraParam->GetNode("LineMode"));
 		*pIEnumLine0Mode = "Input";
 
+		// TriggerMode(IEnumeration)をOnに切替
 		// Switch on Trigger Mode(IEnumeration).
 		GenApi::CEnumerationPtr pIEnumTrigMode(pNodeMapCameraParam->GetNode("TriggerMode"));
 		*pIEnumTrigMode = "On";
 
+		// TriggerSourceにハードウェア入力としてLine0を設定
 		// Set Trigger Source to Line0 as Hardware input
 		GenApi::CEnumerationPtr pIEnumTrigSource(pNodeMapCameraParam->GetNode("TriggerSource"));
 		*pIEnumTrigSource = "Line0";
 
+		// TriggerActivationにアクティブハイを設定
 		// Set trigger activation to active high
 		GenApi::CEnumerationPtr pIEnumTrigActivation(pNodeMapCameraParam->GetNode("TriggerActivation"));
 		*pIEnumTrigActivation = "RisingEdge";
@@ -60,6 +67,7 @@ int main(int /* argc */, char ** /* argv */)
 		while (pIStDataStream->IsGrabbing())
 		{
 
+			// ソフトウェアトリガーが送信された直後のフレームを取得
 			// Retrieve a frame right after a software trigger is sent.
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
@@ -103,6 +111,7 @@ int main(int /* argc */, char ** /* argv */)
 		// ==============================================================================================================
 		// Set Software Trigger OFF after using
 
+		// 取得後はTriggerMode(IEnumeration)をOffに切替
 		// Switch off Trigger Mode(IEnumeration) after acquiring.
 		*pIEnumTrigMode = "Off";
 
