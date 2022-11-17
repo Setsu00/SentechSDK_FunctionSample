@@ -1,4 +1,5 @@
 ﻿/*
+	BinningHV1: カメラの水平ビニング、垂直ビニングに1を設定
 	BinningHV1: Set Camera Binning Horizontal / Binning Vertical to 1
 */
 
@@ -29,38 +30,53 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// 水平、垂直Binningに1を設定するデモ
 		// Demostration of setting Binning Horizontal / Binning Veritcal to 1
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// BinningHorizontalのノードを取得
 		// Get Node for Binning Horizontal
 		GenApi::CNodePtr pNodeBinningH = pNodeMapCameraParam->GetNode("BinningHorizontal");
+		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntBinningH(pNodeBinningH);
+		// BinningHorizontalに1を設定
 		// Set BinningHorizontal to 1
 		pIntBinningH->SetValue(1);
 
-		// Get Node for WiBinning Vertical
+		// BinningVerticalのノードを取得
+		// Get Node for Binning Vertical
 		GenApi::CNodePtr pNodeBinningV = pNodeMapCameraParam->GetNode("BinningVertical");
+		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntBinningV(pNodeBinningV);
+		// BinningVerticalに1を設定
 		// Set BinningVertical to 1
 		pIntBinningV->SetValue(1);
 
+		// Binningに1を設定するためにHeight、Widthを手動で最大値に設定する必要がある。
 		// For setting Binning to 1, both height and width need to be set to max manually.
 
+		// Widthノードを取得
 		// Get Node for Width
 		GenApi::CNodePtr pNodeWidth = pNodeMapCameraParam->GetNode("Width");
+		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntWidthl(pNodeWidth);
+		// Widthに可能な限り最大値を設定
 		// Set Width to Max as it can
 		pIntWidthl->SetValue(pIntWidthl->GetMax());
 
+		// Heightノードを取得
 		// Get Node for Height
 		GenApi::CNodePtr pNodeHeight = pNodeMapCameraParam->GetNode("Height");
+		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntHeight(pNodeHeight);
+		// Heightに可能な限り最大値を設定
 		// Set Height to Max as it can
 		pIntHeight->SetValue(pIntHeight->GetMax());
 
