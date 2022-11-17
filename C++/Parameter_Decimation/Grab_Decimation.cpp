@@ -1,4 +1,5 @@
 ﻿/*
+	Decimation: 水平、垂直デシメーションに2を設定する
 	Decimation: Set horizontal/vertical decimation to 2.
 */
 
@@ -29,22 +30,30 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// 水平、垂直デシメーションに2を設定するデモ
 		// Demostration of setting decimation horizontal/vertical to 2.
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// DecimationHorizontalノードを取得
 		// Get Node for Horizontal Decimation
 		GenApi::CNodePtr pNodeDeciH = pNodeMapCameraParam->GetNode("DecimationHorizontal");
+		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntDeciHorizontal(pNodeDeciH);
+		// DecimationHorizontalに2を設定
 		// Set Decimation Horizontal to 2.
 		pIntDeciHorizontal->SetValue(2);
 
+		// DecimationVerticalノードを取得
 		// Get Node for Vertical Decimation
 		GenApi::CNodePtr pNodeDeciV = pNodeMapCameraParam->GetNode("DecimationVertical");
+		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntDeciVertical(pNodeDeciV);
+		// DecimationVerticalに2を設定
 		// Set Decimation Vertical to 2.
 		pIntDeciVertical->SetValue(2);
 
