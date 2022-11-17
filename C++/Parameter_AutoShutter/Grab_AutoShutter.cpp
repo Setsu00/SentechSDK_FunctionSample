@@ -1,4 +1,5 @@
 ﻿/*
+	Auto Shutter: オートシャッターを1000us-150000usの範囲で設定
 	Auto Shutter: Set auto shutter on with range 1,000 us to 150,000 us.
 */
 
@@ -29,33 +30,45 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// オートシャッターを特定の範囲で設定するデモ
 		// Demostration of Setting Auto Shutter with dedicated range.
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		//ExposureAuto(IEnumeration)に切替
 		// Switch on Exposure Auto(IEnumeration).
 		GenApi::CEnumerationPtr pIEnumExpoAuto(pNodeMapCameraParam->GetNode("ExposureAuto"));
 		*pIEnumExpoAuto = "Continuous";
 
+		// AutoLuminanceTarget(IInteger)ノードを取得
 		// Get Node for Auto Luminance Target(IInteger)
 		GenApi::CNodePtr pNodeAutoLuminTgt = pNodeMapCameraParam->GetNode("AutoLuminanceTarget");
+		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntNodeAutoLuminTgt(pNodeAutoLuminTgt);
+		// AutoLuminanceTargetに128を設定
 		// Set Auto Luminance Target to 128
 		pIntNodeAutoLuminTgt->SetValue(128);
 
+		// ExposureAutoLimitMin(IFloat)ノードを取得
 		// Get Node for ExposureAutoLimitMin(IFloat).
 		GenApi::CNodePtr pNodeAutoExpoLimitMin = pNodeMapCameraParam->GetNode("ExposureAutoLimitMin");
+		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatNodeAutoExpoLimitMin(pNodeAutoExpoLimitMin);
+		// AutoExposure timeの最小値に1000usを設定
 		// Set Auto Exposure time Min to 1,000 usec
 		pFloatNodeAutoExpoLimitMin->SetValue(1000);
 
+		// ExposureAutoLimitMax(IFloat)ノードを取得
 		// Get Node for ExposureAutoLimitMax(IFloat).
 		GenApi::CNodePtr pNodeAutoExpoLimitMax = pNodeMapCameraParam->GetNode("ExposureAutoLimitMin");
+		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatNodeAutoExpoLimitMax(pNodeAutoExpoLimitMax);
+		// AutoExposure timeの最大値に150000usを設定
 		// Set Auto Exposure time Max to 150,000 usec
 		pFloatNodeAutoExpoLimitMin->SetValue(150000);
 
