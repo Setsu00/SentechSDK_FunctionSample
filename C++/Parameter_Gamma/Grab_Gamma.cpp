@@ -1,4 +1,5 @@
 ﻿/*
+	Gamma : ガンマ値に4を設定する
 	Gamma : Set Gamma value to 4.
 */
 
@@ -29,15 +30,20 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// ガンマ値に4を設定するデモ
 		// Demostration of set Gamma value to 4
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// Gammaのノードを取得
 		// Get Node for Gamma
 		GenApi::CNodePtr pNodeGamma = pNodeMapCameraParam->GetNode("Gamma");
+		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatGamma(pNodeGamma);
+		// ガンマに4を設定
 		// Set Gamma to 4.
 		pFloatGamma->SetValue(4);
 
