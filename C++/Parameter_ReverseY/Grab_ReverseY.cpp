@@ -1,4 +1,5 @@
 ﻿/*
+	ReverseY: カメラを上下反転する
 	ReverseY: Set camera reverse Y on.
 */
 
@@ -29,11 +30,14 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// カメラを上下反転切替するデモ
 		// Demostration of switching on Reverse Y of camera.
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// 上下反転に切替
 		// Switch on Reverse Y.
 		GenApi::CBooleanPtr pIBoolReverseY(pNodeMapCameraParam->GetNode("ReverseY"));
 		pIBoolReverseY->SetValue(true);
