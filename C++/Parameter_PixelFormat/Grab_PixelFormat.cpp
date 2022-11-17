@@ -1,4 +1,5 @@
 ﻿/*
+	PixelFormat: 出力ピクセルフォーマットをMono8に設定する
 	PixelFormat: Set output pixel format to Mono8.
 */
 
@@ -29,11 +30,14 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// PixelFormatを変更するデモ
 		// Demostration of PixelFormat change.
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// ピクセルフォーマットをMono8に設定
 		// Set Pixel Format to Mono8.
 		GenApi::CEnumerationPtr pIEnumFormat(pNodeMapCameraParam->GetNode("PixelFormat"));
 		*pIEnumFormat = "Mono8";
