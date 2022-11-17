@@ -1,4 +1,5 @@
 ﻿/*
+	Manual White Balance: 手動で全色のホワイトバランス比率を10に設定する
 	Manual White Balance: Manually set white balance ratio of all color to 10.
 */
 
@@ -29,35 +30,44 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// ホワイトバランスを手動に変更し、全てのバランス比率を10に設定するデモ
 		// Demostration of changing white balance to manual with setting all balance ratio to 10
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// 入力値を手動にするためBalanceWhiteAutoをOffに切替
 		// Switch BalanceWhiteAuto to Off for manual input value
 		GenApi::CEnumerationPtr pIEnumBalanceWhite(pNodeMapCameraParam->GetNode("BalanceWhiteAuto"));
 		*pIEnumBalanceWhite = "Off";
 
+		// 赤の比率値にアクセスするためBalanceRatioSelectorをRedに切替
 		// Switch balance ration selector to Red for access Red ratio value
 		GenApi::CEnumerationPtr pIEnumBalanceRatioSelect(pNodeMapCameraParam->GetNode("BalanceRatioSelector"));
 		*pIEnumBalanceRatioSelect = "Red";
 
+		// BalanceRatioのノードを取得
 		// Get Node for BalanceRatio
 		GenApi::CNodePtr pNodeBalanceRatio = pNodeMapCameraParam->GetNode("BalanceRatio");
+		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatBalanceRatio(pNodeBalanceRatio);
+		// バランス比率に10を設定
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);
 
+		// 青の比率値にアクセスするためBalanceRatioSelectorをBlueに切替
 		// Switch balance ration selector to Blue for access Blue ratio value
 		*pIEnumBalanceRatioSelect = "Blue";
-
+		// バランス比率に10を設定
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);
 
+		// 緑の比率値にアクセスするためBalanceRatioSelectorをGreenに切替
 		// Switch balance ration selector to Green for access Green ratio value
 		*pIEnumBalanceRatioSelect = "Green";
-
+		// バランス比率に10を設定
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);
 
