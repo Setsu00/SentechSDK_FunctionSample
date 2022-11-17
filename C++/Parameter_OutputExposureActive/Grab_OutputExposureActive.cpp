@@ -1,4 +1,5 @@
 ﻿/*
+	Output Exposure Active: センサーのExposureActive信号(センサーの露光時間)出力をカメラのLine1に設定する
 	Output Exposure Active: Set camera Line1 as output for sensor exposure active signal(period of exposuring of sensor).
 */
 
@@ -25,6 +26,7 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
+		// ExposureActiveとしてLine1を設定するデモ
 		// Demostration of Setting Line1 as Exposure Active
 
 #ifdef ENABLED_ST_GUI
@@ -32,15 +34,18 @@ int main(int /* argc */, char ** /* argv */)
 #endif
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// Line1に出力を設定
 		// Set Line1 to output
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line1";
 		GenApi::CEnumerationPtr pIEnumLineMode(pNodeMapCameraParam->GetNode("LineMode"));
 		*pIEnumLineMode = "Output";
 
+		// LineSourceにExposureActiveを設定
 		// Set LineSource to Exposure Active
 		GenApi::CEnumerationPtr pIEnumTrigSource(pNodeMapCameraParam->GetNode("LineSource"));
 		*pIEnumTrigSource = "ExposureActive";
@@ -52,6 +57,7 @@ int main(int /* argc */, char ** /* argv */)
 		while (pIStDataStream->IsGrabbing())
 		{
 
+			// ソフトウェアトリガーが送信された直後のフレームを取得
 			// Retrieve a frame right after a software trigger is sent.
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
