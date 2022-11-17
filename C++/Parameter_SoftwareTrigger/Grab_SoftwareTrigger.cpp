@@ -1,4 +1,5 @@
 ﻿/*
+	Software Trigger: どのようにしてカメラにソフトウェアトリガーを設定し、トリガーコマンドを送るかを示す
 	Software Trigger: Demostrate how to set camera to Software Trigger mode and how to send Trigger command.
 */
 
@@ -29,19 +30,24 @@ int main(int /* argc */, char ** /* argv */)
 		CIStImageDisplayWndPtr pIStImageDisplayWnd(CreateIStWnd(StWindowType_ImageDisplay));
 #endif
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
+		// ソフトウェアトリガーをOnに設定するデモ
 		// Demostration of Setting Software Trigger ON
 
+		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// トリガーモードに切替
 		// Switch on Trigger Mode(IEnumeration).
 		GenApi::CEnumerationPtr pIEnumTrigMode(pNodeMapCameraParam->GetNode("TriggerMode"));
 		*pIEnumTrigMode = "On";
 
+		// TriggerSourceにソフトウェアを設定
 		// Set Trigger Source to Software
 		GenApi::CEnumerationPtr pIEnumTrigSource(pNodeMapCameraParam->GetNode("TriggerSource"));
 		*pIEnumTrigSource = "Software";
 
+		// 後に呼び出すためソフトウェアトリガーコマンドの準備
 		// Prepear Software Trigger Command for later calling
 		GenApi::CCommandPtr pcICommandTriggerSoftTrg(pNodeMapCameraParam->GetNode("TriggerSoftware"));
 
@@ -53,11 +59,13 @@ int main(int /* argc */, char ** /* argv */)
 		{
 
 			// ===============================================================================
+			// ソフトウェアトリガーを送るデモ
 			// Demostration sending software trigger
 			pcICommandTriggerSoftTrg->Execute();
 			cout << "Software Trigger Sent." << endl;
 			// ===============================================================================
 
+			// ソフトウェアトリガーが送信された直後のフレームを取得
 			// Retrieve a frame right after a software trigger is sent.
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
@@ -99,8 +107,10 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
+		// 使用後はソフトウェアトリガーをOffに設定
 		// Set Software Trigger OFF after using
 
+		// 取得後トリガーモードをOffに切替
 		// Switch off Trigger Mode(IEnumeration) after acquiring.
 		*pIEnumTrigMode = "Off";
 
