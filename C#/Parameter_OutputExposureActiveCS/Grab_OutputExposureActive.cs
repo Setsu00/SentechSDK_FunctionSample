@@ -1,4 +1,5 @@
 ﻿/*
+    Output Exposure Active: センサーのExposureActive信号(センサーの露光時間)出力をカメラのLine1に設定する
 	Output Exposure Active: Set camera Line1 as output for sensor exposure active signal(period of exposuring of sensor).
 */
 
@@ -31,17 +32,21 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // ExposureActiveとしてLine1を設定するデモ
                     // Demostration of Setting Line1 as Exposure Active
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // Line1に出力を設定
                     // Set Line1 to output
                     IEnum enumLineSelector = nodeMap.GetNode<IEnum>("LineSelector");
                     enumLineSelector.FromString("Line1");
                     IEnum enumLineMode = nodeMap.GetNode<IEnum>("LineMode");
                     enumLineMode.FromString("Output");
 
+                    // LineSourceにExposureActiveを設定
                     // Set LineSource to Exposure Active
                     IEnum enumLineSource = nodeMap.GetNode<IEnum>("LineSource");
                     enumLineSource.FromString("ExposureActive");
