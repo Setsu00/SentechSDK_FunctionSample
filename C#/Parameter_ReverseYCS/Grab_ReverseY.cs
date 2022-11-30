@@ -1,4 +1,5 @@
 ﻿/*
+    ReverseY: カメラを上下反転する
 	ReverseY: Set camera reverse Y on.
 */
 
@@ -31,11 +32,14 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // カメラを上下反転切替するデモ
                     // Demostration of switching on Reverse Y of camera.
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // 上下反転に切替
                     // Switch on Reverse Y.
                     IBool boolReverY = nodeMap.GetNode<IBool>("ReverseY");
                     boolReverY.Value = true;
