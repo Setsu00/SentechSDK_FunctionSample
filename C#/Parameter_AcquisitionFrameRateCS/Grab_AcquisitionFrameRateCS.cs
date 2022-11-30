@@ -1,4 +1,5 @@
 ﻿/*
+    Acquisition Frame Rate: カメラのFPSを2に設定し、20枚画像を取得する
 	Acquisition Frame Rate: Set camera FPS to 2 then take 20 pics.
 */
 
@@ -30,22 +31,27 @@ namespace Grab
 				{
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
-					// ==============================================================================================================
-					// Demostration of changing acquisition frame rate (FPS)
+                    // ==============================================================================================================
+                    // フレームレート(FPS)を変更するデモ
+                    // Demostration of changing acquisition frame rate (FPS)
 
-					// Create NodeMap pointer for accessing parameters
-					INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
+                    // パラメータにアクセスするためのノードマップポインタを生成
+                    // Create NodeMap pointer for accessing parameters
+                    INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
-					// Switch off exposure auto. If exposure auto is on, FPS setting may not able to implemented.
-					IEnum enumExposureAuto = nodeMap.GetNode<IEnum>("ExposureAuto");
+                    // ExposureAutoをOffに切替。もしExposureAutoがOnの場合、FPS設定を行うことができない場合がある
+                    // Switch off exposure auto. If exposure auto is on, FPS setting may not able to implemented.
+                    IEnum enumExposureAuto = nodeMap.GetNode<IEnum>("ExposureAuto");
                     enumExposureAuto.FromString("Off");
 
-					// Also switch Exposure Mode to Off for not letting exposure time to influence the actual FPS.
-					IEnum enumExposureMode = nodeMap.GetNode<IEnum>("ExposureMode");
+                    // また、露光時間がFPSに影響を与えないように、ExposureModeをOffに切り替えます。
+                    // Also switch Exposure Mode to Off for not letting exposure time to influence the actual FPS.
+                    IEnum enumExposureMode = nodeMap.GetNode<IEnum>("ExposureMode");
 					enumExposureMode.FromString("Off");
 
-					// Get Node for Acquisition Frame Rate then set FPS to 2.
-					IFloat floatFPS = nodeMap.GetNode<IFloat>("AcquisitionFrameRate");
+                    // AcquisitionFrameRateノードを取得し、FPSに2を設定
+                    // Get Node for Acquisition Frame Rate then set FPS to 2.
+                    IFloat floatFPS = nodeMap.GetNode<IFloat>("AcquisitionFrameRate");
 					floatFPS.SetValue(2, false);
 
 					// ==============================================================================================================
