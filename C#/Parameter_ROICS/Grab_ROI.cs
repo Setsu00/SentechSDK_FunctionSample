@@ -1,4 +1,5 @@
 ﻿/*
+    ROI: Offset(100,200)、640x480でROI設定をする
 	ROI: Set ROI to Offset (100, 200) and width/height (640, 480)
 */
 
@@ -31,28 +32,38 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // オフセット(100,200)、640x480でROI設定を行うデモ
                     // Demostration of setting ROI to 640 x 480 with offset (100, 200).
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // Widthノードを取得
                     // Get Node for Width
                     IInteger intWidth = nodeMap.GetNode<IInteger>("Width");
+                    // 幅を640に設定
                     // Set Width to 640
                     intWidth.Value = 640;
 
+                    // Heightノードを取得
                     // Get Node for Height
                     IInteger intHeight = nodeMap.GetNode<IInteger>("Height");
+                    // 高さを480に設定
                     // Set Height to 480
                     intHeight.Value = 480;
 
+                    // OffsetXのノードを取得
                     // Get Node for Offset X
                     IInteger intOffsetX = nodeMap.GetNode<IInteger>("OffsetX");
+                    // Xオフセットに100を設定
                     // Set Offset X to 100
                     intOffsetX.Value = 100;
 
+                    // OffsetYのノードを取得
                     // Get Node for Offset Y
                     IInteger intOffsetY = nodeMap.GetNode<IInteger>("OffsetY");
+                    // Yオフセットに200を設定
                     // Set Offset Y to 200
                     intOffsetY.Value = 200;
 
