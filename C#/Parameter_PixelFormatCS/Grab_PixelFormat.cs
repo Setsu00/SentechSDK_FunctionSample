@@ -1,4 +1,5 @@
 ﻿/*
+    PixelFormat: 出力ピクセルフォーマットをMono8に設定する
 	PixelFormat: Set output pixel format to Mono8.
 */
 
@@ -31,11 +32,14 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // PixelFormatを変更するデモ
                     // Demostration of PixelFormat change.
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // ピクセルフォーマットをMono8に設定
                     // Set Pixel Format to Mono8.
                     IEnum enumPixelFormat = nodeMap.GetNode<IEnum>("PixelFormat");
                     enumPixelFormat.FromString("Mono8");
