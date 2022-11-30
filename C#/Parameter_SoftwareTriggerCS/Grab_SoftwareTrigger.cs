@@ -1,4 +1,5 @@
 ﻿/*
+    Software Trigger: どのようにしてカメラにソフトウェアトリガーを設定し、トリガーコマンドを送るかを示す
 	Software Trigger: Demostrate how to set camera to Software Trigger mode and how to send Trigger command.
 */
 
@@ -31,20 +32,24 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // ソフトウェアトリガーをOnに設定するデモ
                     // Demostration of Setting Software Trigger ON
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // トリガーモードに切替
                     // Switch on Trigger Mode(IEnumeration).
                     IEnum enumTriggerMode = nodeMap.GetNode<IEnum>("TriggerMode");
                     enumTriggerMode.FromString("On");
 
+                    // TriggerSourceにソフトウェアを設定
                     // Set Trigger Source to Software
                     IEnum enumTriggerSource = nodeMap.GetNode<IEnum>("TriggerSource");
                     enumTriggerSource.FromString("Software");
 
-
+                    // 後に呼び出すためソフトウェアトリガーコマンドの準備
                     // Prepear Software Trigger Command for later calling
                     ICommand cmdTriggerSoftware = nodeMap.GetNode<ICommand>("TriggerSoftware");
 
@@ -58,13 +63,16 @@ namespace Grab
 					{
 
                         // ===============================================================================
+                        // ソフトウェアトリガーを送るデモ
                         // Demostration sending software trigger
                         cmdTriggerSoftware.Execute();
                         Console.WriteLine("Software Trigger Sent.");
 
                         // ===============================================================================
 
-						using (CStStreamBuffer streamBuffer = dataStream.RetrieveBuffer(5000))
+                        // ソフトウェアトリガーが送信された直後のフレームを取得
+                        // Retrieve a frame right after a software trigger is sent.
+                        using (CStStreamBuffer streamBuffer = dataStream.RetrieveBuffer(5000))
 						{
 							if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
 							{
@@ -95,8 +103,10 @@ namespace Grab
 					dataStream.StopAcquisition();
 
                     // ==============================================================================================================
+                    // 使用後はソフトウェアトリガーをOffに設定
                     // Set Software Trigger OFF after using
 
+                    // 取得後トリガーモードをOffに切替
                     // Switch off Trigger Mode(IEnumeration) after acquiring.
                     enumTriggerMode.FromString("Off");
 
