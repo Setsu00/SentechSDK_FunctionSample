@@ -1,4 +1,5 @@
 ﻿/*
+    Gamma : ガンマ値に4を設定する
 	Gamma : Set Gamma value to 4.
 */
 
@@ -31,13 +32,17 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // ガンマ値に4を設定するデモ
                     // Demostration of set Gamma value to 4
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // Gammaのノードを取得
                     // Get Node for Gamma
                     IFloat floatGamma = nodeMap.GetNode<IFloat>("Gamma");
+                    // ガンマに4を設定
                     // Set Gamma to 4.
                     floatGamma.Value = 4;
 
