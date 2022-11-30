@@ -1,4 +1,5 @@
 ﻿/*
+    Decimation: 水平、垂直デシメーションに2を設定する
 	Decimation: Set horizontal/vertical decimation to 2.
 */
 
@@ -31,18 +32,24 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // 水平、垂直デシメーションに2を設定するデモ
                     // Demostration of setting decimation horizontal/vertical to 2.
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // DecimationHorizontalノードを取得
                     // Get Node for Horizontal Decimation
                     IInteger IntDeciH = nodeMap.GetNode<IInteger>("DecimationHorizontal");
+                    // DecimationHorizontalに2を設定
                     // Set Decimation Horizontal to 2.
                     IntDeciH.Value = 2;
 
+                    // DecimationVerticalノードを取得
                     // Get Node for Vertical Decimation
                     IInteger IntDeciV = nodeMap.GetNode<IInteger>("DecimationVertical");
+                    // DecimationVerticalに2を設定
                     // Set Decimation Vertical to 2.
                     IntDeciV.Value = 2;
 
