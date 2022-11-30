@@ -1,4 +1,5 @@
 ﻿/*
+    Digital Gain Setting: デジタルゲインを2倍に設定する
 	Digital Gain Setting: Set digital gain to 2 times.
 */
 
@@ -31,21 +32,27 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // デジタルゲインを2倍に設定するデモ
                     // Demostration of set digital Gain to 2 times.
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // GainAutoをOffに切替。もしGainAutoがOnの場合、ゲイン値を正しく設定できません。
                     // Switch off gain auto. If gain auto is on, gain value cannot be set.
                     IEnum enumGainAuto = nodeMap.GetNode<IEnum>("GainAuto");
                     enumGainAuto.FromString("Off");
 
+                    // デジタルゲイン設定にアクセスするため、GainSelectorにDigitalAllを設定する必要がある
                     // For setting digital gain, gain selector need to be set to DigitalAll to access digital gain.
                     IEnum enumGainSelector = nodeMap.GetNode<IEnum>("GainSelector");
                     enumGainSelector.FromString("DigitalAll");
 
+                    // Gainノードを取得
                     // Get Node for Gain
                     IFloat floatGain = nodeMap.GetNode<IFloat>("Gain");
+                    // デジタルゲインを2倍(128)に設定
                     // Set digital gain to 2 times(128).
                     floatGain.Value = 128;
 
