@@ -1,4 +1,5 @@
 ﻿/*
+    Rotate90cwFilter: フィルターを使用して画像を時計回りに90度回転させます。
 	Rotate90cwFilter: using Filter to rotate image clock wise 90 degree.
 */
 
@@ -31,11 +32,14 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // フィルターを使用して画像を時計回りに90度回転させるデモ
                     // Demostration of using Filter to rotate image clock wise 90 degree.
 
+                    // ReverseConverterフィルターオブジェクトの生成
                     // Create an ReverseConverter filter object.
                     CStReverseConverter filter = new CStReverseConverter();
 
+                    // ReverseConverterを逆時計回り90度に設定します。
                     // Set ReverseConverter reverse to clock wise 90 degree.
                     filter.RotationMode = eStRotationMode.Clockwise90;
 
