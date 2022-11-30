@@ -1,4 +1,5 @@
 ﻿/*
+    Hardware Trigger (Active High): Line 0を入力、アクティブハイ (Trigger activation as rising edge) としてカメラをハードウェアトリガーモードに設定します。
 	Hardware Trigger (Active High): Set camera to hardware trigger mode for Line0 as input and active high (Trigger activation as rising edge).
 */
 
@@ -31,25 +32,31 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // アクティブハイでハードウェアトリガーをONに設定するデモ
                     // Demostration of Setting Hardware Trigger ON with active high
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    // Line0に入力を設定
                     // Set Line0 to input
                     IEnum enumLineSelector = nodeMap.GetNode<IEnum>("LineSelector");
                     enumLineSelector.FromString("Line0");
                     IEnum enumLineMode = nodeMap.GetNode<IEnum>("LineMode");
                     enumLineMode.FromString("Input");
 
+                    // TriggerMode(IEnumeration)をOnに切替
                     // Switch on Trigger Mode(IEnumeration).
                     IEnum enumTriggerMode = nodeMap.GetNode<IEnum>("TriggerMode");
                     enumTriggerMode.FromString("On");
 
+                    // TriggerSourceにハードウェア入力としてLine0を設定
                     // Set Trigger Source to Line0 as Hardware input
                     IEnum enumTriggerSource = nodeMap.GetNode<IEnum>("TriggerSource");
                     enumTriggerSource.FromString("Line0");
 
+                    // TriggerActivationにアクティブハイを設定
                     // Set trigger activation to active high
                     IEnum enumTriggerActive = nodeMap.GetNode<IEnum>("TriggerActivation");
                     enumTriggerActive.FromString("RisingEdge");
@@ -95,6 +102,7 @@ namespace Grab
                     // ==============================================================================================================
                     // Set Software Trigger OFF after using
 
+                    // 取得後はTriggerMode(IEnumeration)をOffに切替
                     // Switch off Trigger Mode(IEnumeration) after acquiring.
                     enumTriggerMode.FromString("Off");
 
