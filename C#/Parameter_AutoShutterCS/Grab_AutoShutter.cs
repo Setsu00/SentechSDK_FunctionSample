@@ -1,4 +1,5 @@
 ﻿/*
+    Auto Shutter: オートシャッターを1000us-150000usの範囲で設定
 	Auto Shutter: Set auto shutter on with range 1,000 us to 150,000 us.
 */
 
@@ -31,27 +32,36 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
+                    // オートシャッターを特定の範囲で設定するデモ
                     // Demostration of Setting Auto Gain Control with dedicated range.
 
+                    // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
+                    //ExposureAuto(IEnumeration)に切替
                     // Switch on Exposure Auto(IEnumeration).
                     IEnum enumExposureAuto = nodeMap.GetNode<IEnum>("ExposureAuto");
                     enumExposureAuto.FromString("Continuous");
 
+                    // AutoLuminanceTarget(IInteger)ノードを取得
                     // Get Node for Auto Luminance Target(IInteger)
-		            IInteger intAutoLuminTgt = nodeMap.GetNode<IInteger>("AutoLuminanceTarget");
+                    IInteger intAutoLuminTgt = nodeMap.GetNode<IInteger>("AutoLuminanceTarget");
+                    // AutoLuminanceTargetに128を設定
                     // Set Auto Luminance Target to 128
                     intAutoLuminTgt.Value = 128;
 
+                    // ExposureAutoLimitMin(IFloat)ノードを取得
                     // Get Node for ExposureAutoLimitMin(IFloat).
                     IFloat floatExpoAutoMin = nodeMap.GetNode<IFloat>("ExposureAutoLimitMin");
+                    // AutoExposure timeの最小値に1000usを設定
                     // Set Auto Exposure time Min to 1,000 usec
                     floatExpoAutoMin.Value = 1000;
 
+                    // ExposureAutoLimitMax(IFloat)ノードを取得
                     // Get Node for ExposureAutoLimitMax(IFloat).
                     IFloat floatExpoAutoMax = nodeMap.GetNode<IFloat>("ExposureAutoLimitMax");
+                    // AutoExposure timeの最大値に150000usを設定
                     // Set Auto Exposure time Max to 150,000 usec
                     floatExpoAutoMax.Value = 150000;
 
