@@ -1,6 +1,12 @@
-﻿// DataStream_ChangeResend.cpp : 
+﻿//
+// DataStream_ChangeResend.cpp : 
 //
 // このサンプルはIStDataStreamのMaximum Resend Requests Per Blockを50(Default)から0に変更する方法を示します。
+// * 0に変更することよりリセンド要求の上限を外れますことで、ずっと転送不安定な環境の場合ドロップ悪化する可能性はあります。
+//
+// This sample shows how to modify "Maximum Resend Requests Per Block" of DataStream from 50(default) to 0.
+// * Please note that by setting this value to 0, the limitation of resend request block will be disabled.
+//   If you are using a unstable transferring environment, modify this value may cause multiple frame drops.
 //
 
 #include <StApi_TL.h>
@@ -22,11 +28,14 @@ int main(int /* argc */, char ** /* argv */)
 
 		// ==============================================================================================================
 		// DataSteam対してのノードマップ生成
+		// Create NodeMap for accessing DataStream.
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDataStream->GetIStPort()->GetINodeMap());
 
 		// Maximum Resend Requests Per Blockのノードを取得
+		// Acquire Node for "MaximumResendRequestsPerBlock"
 		GenApi::CIntegerPtr pIntegerResendRequests(pNodeMapCameraParam->GetNode("MaximumResendRequestsPerBlock"));
 		// Maximum Resend Requests Per Blockに0を設定
+		// Set MaximumResendRequestsPerBloxk to 0 (to disable the limited of resend.
 		pIntegerResendRequests->SetValue(0);
 
 		// ==============================================================================================================
