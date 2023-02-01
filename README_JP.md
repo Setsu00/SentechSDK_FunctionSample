@@ -33,7 +33,9 @@ CoaXPressカメラでは、GenTL producerにCoaXPressのグラバーが関わっ
 ## PythonでSentech SDK使用する
 PythonでSentech SDKを使用するには、まずSentech SDKをインストールしてから、使用する環境のPythonバージョンに対応する.whlをインストールする必要があります。
 詳細にてつ、Python対応の.whlファイルのダウンロードページ内のマニュアルまでご参照ください。
+
 (注)
+
 PythonのIDLE以外のIDEでは、ファイルやコンポーネントをインクルードまたはインポートするときに問題が発生することがあります。
 詳細について、各IDEにライブラリインクルードについて確認して下さい。
 
