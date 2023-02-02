@@ -32,6 +32,7 @@ The grabber at least must provide GenTL producer for working with Sentech SDK.
 ## Python with Sentech SDK
 For using Sentech SDK in Python, you will need to install Sentech SDK first, then install the .whl which corresponds to the Python version of your environment for use.
 Detail can be found in the manual with the Python .whl file download page.
+
 Note:
 IDE other than IDLE of Python may have problem when including or importing files and components.
 For library including issue please refer to the information of the IDE for solution.
