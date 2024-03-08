@@ -17,7 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
-    # Demostration of set analog Gain to 2dB.
+    # Demostration of setting trigger source to Line0 with rising edge as trigger activation.
 
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
