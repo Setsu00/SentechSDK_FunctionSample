@@ -47,7 +47,12 @@ namespace Grab
                     // IPアドレス文字列を32ビットの数値に変換します。
                     // Convert the IP address string to a 32-bit number.
                     byte[] bytes = ipaddr.GetAddressBytes();
-					uint uiTgtDevIPAddress = (uint)(IPAddress.NetworkToHostOrder(BitConverter.ToUInt32(bytes, 0)) >> 32);
+					// IPv4アドレスを、SDKノードへ設定する32ビット値へ変換します。
+					// Convert the IPv4 address to the 32-bit value used by the SDK node.
+					uint uiTgtDevIPAddress = ((uint)bytes[0] << 24) |
+					                             ((uint)bytes[1] << 16) |
+					                             ((uint)bytes[2] << 8) |
+					                              bytes[3];
 
                     // インターフェースの数を取得
                     // Acquire interface counts
@@ -58,11 +63,11 @@ namespace Grab
 						IStInterface pInterface = system.GetIStInterface(i);
                         // 検出コマンドの宛先IPアドレスを設定して、ユニキャストカメラスキャンを有効にします。
                         // *ブロードキャストデバイススキャンのデフォルトは255.255.255.255です。
-                        // Set Discovery Command Distination IP Address to enable the unicast camera scanning.
-                        // *This is 255.255.255.255 in default for boradcast device scanning.
+                        // Set the discovery-command destination IP address to enable unicast camera scanning.
+                        // *The default value is 255.255.255.255 for broadcast device scanning.
                         INodeMap nodeMapInterface = pInterface.GetIStPort().GetINodeMap();
-						IInteger intDistiantionIPAddress = nodeMapInterface.GetNode<IInteger>("GevDeviceDiscoveryCommandDestinationIPAddress");
-						intDistiantionIPAddress.SetValue(uiTgtDevIPAddress, false);
+						IInteger intDestinationIPAddress = nodeMapInterface.GetNode<IInteger>("GevDeviceDiscoveryCommandDestinationIPAddress");
+						intDestinationIPAddress.SetValue(uiTgtDevIPAddress, false);
 
                         // 接続先IPの設定後、実際のスキャンプロセスの更新を呼び出します。
                         // ユニキャストスキャンパッケージは、この機能を介して送信されます。
@@ -76,7 +81,7 @@ namespace Grab
                         // デバイスが見つかり、接続されている場合は、デバイスの情報を出力します。
                         // それ以外の場合は例外処理に入ります。
                         // Print out information of device if found and connected.
-                        // Otherwise it will goes into exception handling.
+                        // Otherwise, continue to exception handling.
                         Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 						Console.WriteLine("Device found and connected.");
 					}

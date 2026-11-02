@@ -1,0 +1,18 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Parameter_PixelFormat", "Parameter_PixelFormat.vbproj", "{42F132DE-7D0E-45A8-8EC6-E5797C252427}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42F132DE-7D0E-45A8-8EC6-E5797C252427}.Debug|x86.ActiveCfg = Debug|x86
+		{42F132DE-7D0E-45A8-8EC6-E5797C252427}.Debug|x86.Build.0 = Debug|x86
+		{42F132DE-7D0E-45A8-8EC6-E5797C252427}.Release|x86.ActiveCfg = Release|x86
+		{42F132DE-7D0E-45A8-8EC6-E5797C252427}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal

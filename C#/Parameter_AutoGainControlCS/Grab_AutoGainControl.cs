@@ -61,7 +61,7 @@ namespace Grab
                     IFloat floatGainAutoMin = nodeMap.GetNode<IFloat>("GainAutoLimitMin");
                     // AutoGainの最小値に0dB(0)を設定
                     // Set Auto Gain Min to 0 dB (0).
-                    floatGainAutoMin.Value = 20;
+                    floatGainAutoMin.Value = 0;
 
                     // GainAutoLimitMax(IFloat)ノードを取得
                     // Get Node for GainAutoLimitMax(IFloat).

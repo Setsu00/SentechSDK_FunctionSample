@@ -45,7 +45,7 @@ int main(int /* argc */, char ** /* argv */)
 		// AutoLuminanceTarget(IInteger)ノードを取得
 		// Get Node for Auto Luminance Target(IInteger)
 		GenApi::CNodePtr pNodeAutoLuminTgt = pNodeMapCameraParam->GetNode("AutoLuminanceTarget");
-		// 値を設定するためにNodeをCFloatPtrに変換
+		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntNodeAutoLuminTgt(pNodeAutoLuminTgt);
 		// AutoLuminanceTargetを128に設定

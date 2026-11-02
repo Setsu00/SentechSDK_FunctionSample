@@ -338,7 +338,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\Grab_ExposureTime.cpp"
+			RelativePath=".\DrawTool_DistancePixel.cpp"
 			>
 		</File>
 	</Files>

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Grab</RootNamespace>
     <AssemblyName>Grab</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -54,11 +54,11 @@
     <Compile Include="Grab_AutoShutter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GenApiDotNet20_v3_0, Version=3.0.2.1, Culture=neutral, PublicKeyToken=702a7d0a1d42e9d9, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="GenApiDotNet40_v3_4">
+      <HintPath>$(STAPI_ROOT_PATH)assembly\$(Platform)\GenApiDotNet40_v3_4.dll</HintPath>
     </Reference>
-    <Reference Include="StApiDotNet20_v1_0, Version=1.0.5.1, Culture=neutral, PublicKeyToken=702a7d0a1d42e9d9, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="StApiDotNet40_v1_2">
+      <HintPath>$(STAPI_ROOT_PATH)assembly\$(Platform)\StApiDotNet40_v1_2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

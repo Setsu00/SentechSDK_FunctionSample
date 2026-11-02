@@ -1,5 +1,6 @@
 ﻿/*
-	Auto Shutter: Set auto shutter on with range 1,000 us to 150,000 us.
+	Auto Shutter: 自動露光を有効にし、露光時間範囲を1,000～150,000 µsに設定する。
+	Auto Shutter: Enable auto exposure and set its exposure-time range to 1,000–150,000 µs.
 */
 
 #define ENABLED_ST_GUI
@@ -29,35 +30,47 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
-		// Demostration of Setting Auto Shutter with dedicated range.
+		// 指定した露光時間範囲でオートシャッターを有効にする。
+		// Enable auto shutter within the specified exposure-time range.
 
-		// Create NodeMap pointer for accessing parameters
+		// カメラのパラメーターへアクセスするNodeMapを取得する。
+		// Get the NodeMap used to access camera parameters.
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Switch on Exposure Auto(IEnumeration).
+		// ExposureAuto（IEnumeration）をContinuousに設定する。
+		// Set ExposureAuto (IEnumeration) to Continuous.
 		GenApi::CEnumerationPtr pIEnumExpoAuto(pNodeMapCameraParam->GetNode("ExposureAuto"));
 		*pIEnumExpoAuto = "Continuous";
 
-		// Get Node for Auto Luminance Target(IInteger)
+		// AutoLuminanceTarget（IInteger）ノードを取得する。
+		// Get the AutoLuminanceTarget (IInteger) node.
 		GenApi::CNodePtr pNodeAutoLuminTgt = pNodeMapCameraParam->GetNode("AutoLuminanceTarget");
-		// Convert Node to CIntegerPtr for setting value
+		// 値を設定するためにノードをCIntegerPtrへ変換する。
+		// Convert the node to CIntegerPtr to set its value.
 		GenApi::CIntegerPtr pIntNodeAutoLuminTgt(pNodeAutoLuminTgt);
-		// Set Auto Luminance Target to 128
+		// AutoLuminanceTargetに128を設定する。
+		// Set AutoLuminanceTarget to 128.
 		pIntNodeAutoLuminTgt->SetValue(128);
 
-		// Get Node for ExposureAutoLimitMin(IFloat).
+		// ExposureAutoLimitMin（IFloat）ノードを取得する。
+		// Get the ExposureAutoLimitMin (IFloat) node.
 		GenApi::CNodePtr pNodeAutoExpoLimitMin = pNodeMapCameraParam->GetNode("ExposureAutoLimitMin");
-		// Convert Node to CFloatPtr for setting value
+		// 値を設定するためにノードをCFloatPtrへ変換する。
+		// Convert the node to CFloatPtr to set its value.
 		GenApi::CFloatPtr pFloatNodeAutoExpoLimitMin(pNodeAutoExpoLimitMin);
-		// Set Auto Exposure time Min to 1,000 usec
+		// 自動露光時間の最小値を1,000 µsに設定する。
+		// Set the minimum auto exposure time to 1,000 µs.
 		pFloatNodeAutoExpoLimitMin->SetValue(1000);
 
-		// Get Node for ExposureAutoLimitMax(IFloat).
-		GenApi::CNodePtr pNodeAutoExpoLimitMax = pNodeMapCameraParam->GetNode("ExposureAutoLimitMin");
-		// Convert Node to CFloatPtr for setting value
+		// ExposureAutoLimitMax（IFloat）ノードを取得する。
+		// Get the ExposureAutoLimitMax (IFloat) node.
+		GenApi::CNodePtr pNodeAutoExpoLimitMax = pNodeMapCameraParam->GetNode("ExposureAutoLimitMax");
+		// 値を設定するためにノードをCFloatPtrへ変換する。
+		// Convert the node to CFloatPtr to set its value.
 		GenApi::CFloatPtr pFloatNodeAutoExpoLimitMax(pNodeAutoExpoLimitMax);
-		// Set Auto Exposure time Max to 150,000 usec
-		pFloatNodeAutoExpoLimitMin->SetValue(150000);
+		// 自動露光時間の最大値を150,000 µsに設定する。
+		// Set the maximum auto exposure time to 150,000 µs.
+		pFloatNodeAutoExpoLimitMax->SetValue(150000);
 
 		// ==============================================================================================================
 

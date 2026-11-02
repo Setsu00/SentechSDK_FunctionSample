@@ -51,7 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Grab_ExposureTime.cs" />
+    <Compile Include="Grab_Gamma.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GenApiDotNet20_v3_0, Version=3.0.2.1, Culture=neutral, PublicKeyToken=702a7d0a1d42e9d9, processorArchitecture=x86">

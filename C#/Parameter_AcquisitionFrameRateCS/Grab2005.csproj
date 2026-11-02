@@ -61,6 +61,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Grab_AutoShutter.cs" />
+    <Compile Include="Grab_AcquisitionFrameRateCS.cs" />
   </ItemGroup>
 </Project>

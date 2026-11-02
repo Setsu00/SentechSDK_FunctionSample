@@ -32,8 +32,8 @@ namespace Grab
 					Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
                     // ==============================================================================================================
-                    // オートシャッターを特定の範囲で設定するデモ
-                    // Demostration of Setting Auto Gain Control with dedicated range.
+                    // オートシャッターを指定範囲で動作させる設定例
+                    // Demonstration of configuring auto shutter with a specified range.
 
                     // パラメータにアクセスするためのノードマップポインタを生成
                     // Create NodeMap pointer for accessing parameters

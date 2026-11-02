@@ -28,7 +28,7 @@ try:
             # Set Discovery Command Distination IP Address to enable the unicast camera scanning.
             st_node_discovery_cmd_desIP.get().set_value(tgt_device_ip_int)
             # After setting distination IP, call update for actual scanning process.
-            #nicast scanning package will be sent via this function.
+            # Unicast scanning package will be sent via this function.
             st_system.get_interface(index).update_device_list()
             
     # Try to connect to any camera with indicated IP address.
