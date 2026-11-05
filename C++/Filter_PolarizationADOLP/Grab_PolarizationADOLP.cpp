@@ -1,12 +1,13 @@
-/*
-    Analog Gain Setting: アナログゲインを2 dBに設定する。
-	Analog Gain Setting: Set analog gain to 2 dB.
+﻿/*
+	Grab_PolarizationADOLP.cpp
+	PixelFormatConverterで取得した偏光画像をADOLP画像へ変換して表示します。
+	Convert acquired polarization images to ADOLP images with PixelFormatConverter and display them.
 */
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
+#include <StApi_IP.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
 #include <iomanip>	//std::setprecision
@@ -14,7 +15,7 @@
 
 using namespace StApi;
 using namespace std;
-const uint64_t nCountOfImagesToGrab = 100;
+const uint64_t nCountOfImagesToGrab = 100000;
 
 int main(int /* argc */, char ** /* argv */)
 {
@@ -31,34 +32,25 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
-		// アナログゲインを2 dBに設定します。
-		// Set analog gain to 2 dB.
+		// PixelFormatConverterでADOLP変換を設定します。
+		// Configure ADOLP conversion with PixelFormatConverter.
+		CIStPixelFormatConverterPtr pIStPixelFormatConverter(CreateIStConverter(StConverterType_PixelFormat));
 
-		// リモートカメラのパラメーターにアクセスするNodeMapポインターを作成します。 
-		// Create NodeMap pointer for accessing parameters
-		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
+		// 変換後のピクセルフォーマットをBGR8に設定します。
+		// Set the destination pixel format to BGR8.
+		pIStPixelFormatConverter->SetDestinationPixelFormat(StPFNC_BGR8);
 
-		// GainAutoをOffに設定します。
-		// Set GainAuto to Off.
-		GenApi::CEnumerationPtr pIEnumGainAuto(pNodeMapCameraParam->GetNode("GainAuto"));
-		*pIEnumGainAuto = "Off";
+		// 変換器のNodeMapを取得します。
+		// Acquire the converter's NodeMap.
+		GenApi::CNodeMapPtr pNodeMapConverter(pIStPixelFormatConverter->GetINodeMap());
 
-		// GainSelectorをAnalogAllに設定します。
-		// Set GainSelector to AnalogAll.
-		GenApi::CEnumerationPtr pIEnumGainSelector(pNodeMapCameraParam->GetNode("GainSelector"));
-		*pIEnumGainSelector = "AnalogAll";
+		// 偏光画像変換方式のノードを取得します。
+		// Get the polarization image transformation method node.
+		GenApi::CEnumerationPtr pEnumPolarizationMethod(pNodeMapConverter->GetNode("PolarizationImageTransformationMethod"));
 
-		// Gainノードを取得します。
-		// Get Node for Gain.
-		GenApi::CNodePtr pNodeGain = pNodeMapCameraParam->GetNode("Gain");
-
-		// 値設定用にノードをCFloatPtrに変換します。
-		// Convert Node to CFloatPtr for setting value.
-		GenApi::CFloatPtr pFloatGain(pNodeGain);
-
-		// Gainに2 dBを設定します。
-		// Set Gain to 2 dB.
-		pFloatGain->SetValue(2.0);
+		// 直線偏光の角度と偏光度（ADOLP）への変換を設定します。
+		// Set conversion to angle and degree of linear polarization (ADOLP).
+		pEnumPolarizationMethod->FromString("AngleAndDegreeOfLinearPolarization");
 
 		// ==============================================================================================================
 
@@ -70,6 +62,17 @@ int main(int /* argc */, char ** /* argv */)
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
 			{
 				IStImage *pIStImage = pIStStreamBuffer->GetIStImage();
+
+				// ==============================================================================================================
+				// 変換後の画像を格納するバッファを生成します。
+				// Create a buffer for the converted image.
+				CIStImageBufferPtr imageBuffer(CreateIStImageBuffer());
+
+				// 表示前に、取得した偏光画像をADOLP画像へ変換します。
+				// Convert the acquired polarization image to an ADOLP image before display.
+				pIStPixelFormatConverter->Convert(pIStImage, imageBuffer);
+				pIStImage = imageBuffer->GetIStImage();
+				// ==============================================================================================================
 
 #ifdef ENABLED_ST_GUI
 				stringstream ss;
@@ -84,12 +87,14 @@ int main(int /* argc */, char ** /* argv */)
 
 				if (!pIStImageDisplayWnd->IsVisible())
 				{
-					pIStImageDisplayWnd->Show(NULL, StWindowMode_Modaless);
 					pIStImageDisplayWnd->SetPosition(0, 0, pIStImage->GetImageWidth(), pIStImage->GetImageHeight());
+					pIStImageDisplayWnd->Show(NULL, StWindowMode_ModalessOnNewThread);
 				}
 
+				// 変換後の画像を表示します。
+				// Display the converted image.
 				pIStImageDisplayWnd->RegisterIStImage(pIStImage);
-				processEventGUI();
+
 #else
 				cout << "BlockId=" << pIStStreamBuffer->GetIStStreamBufferInfo()->GetFrameID()
 					<< " Size:" << pIStImage->GetImageWidth() << " x " << pIStImage->GetImageHeight()
