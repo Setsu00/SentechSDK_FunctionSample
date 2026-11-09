@@ -39,7 +39,7 @@ namespace Grab
                     // Create an ReverseConverter filter object.
                     CStReverseConverter filter = new CStReverseConverter();
 
-                    // ReverseConverterを逆時計回り90度に設定します。
+                    // RotationModeをClockwise90に設定し、時計回りに90度回転させる
                     // Set ReverseConverter reverse to clock wise 90 degree.
                     filter.RotationMode = eStRotationMode.Clockwise90;
 
@@ -69,12 +69,15 @@ namespace Grab
 								}
 
                                 // ==============================================================================================================
+                                // 回転後の画像を格納するバッファーを生成
                                 // Create another buffer for storing rotated image
                                 CStImageBuffer imageBuffer = CStApiDotNet.CreateStImageBuffer();
 
+                                // 元画像を回転し、別バッファーへ出力
                                 // Rotate original image and output to another buffer
                                 filter.Convert(stImage, imageBuffer);
 
+                                // 回転後の画像を表示
                                 // Display rotated image
                                 wnd.RegisterIStImage(imageBuffer.GetIStImage());
                                 // ==============================================================================================================

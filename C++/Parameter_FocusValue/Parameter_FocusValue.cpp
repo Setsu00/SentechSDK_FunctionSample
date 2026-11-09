@@ -125,6 +125,7 @@ int main(int /* argc */, char ** /* argv */)
 		// ==============================================================================================================
 		// Demostration of Checking if Focus function is availavble, with showing image and providing value input.
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
@@ -162,6 +163,7 @@ int main(int /* argc */, char ** /* argv */)
 					}
 					else if (userFocus >= iMinFocus && userFocus <= iMaxFocus)
 					{
+						// 入力した値をFocusValueに設定します。
 						// Setting focus value by input value
 						pFocusValue->SetValue(userFocus);
 						std::cout << "FocusValue set to: " << userFocus << std::endl;

@@ -127,10 +127,12 @@ void funcAutoExposureSetting(GenApi::CNodeMapPtr nodeMap)
             switch (iExpoAutoSel)
             {
             case 1:
+                // ExposureAutoをContinuousに設定し、自動露光を継続します。
                 // Set Auto Exposure Mode to Continuous.
                 *pIEnumExpoAuto = "Continuous";
                 break;
             case 2:
+                // ExposureAutoをOffに設定し、自動露光を無効にします。
                 // Set Auto Exposure Mode Off.
                 *pIEnumExpoAuto = "Off";
                 break;
@@ -174,10 +176,12 @@ void funcAutoGainSetting(GenApi::CNodeMapPtr nodeMap)
             switch (iGainAutoSel)
             {
             case 1:
+                // GainAutoをContinuousに設定し、自動ゲイン調整を継続します。
                 // Set Auto Gain to continuous.
                 *pIEnumGainAuto = "Continuous";
                 break;
             case 2:
+                // GainAutoをOffに設定し、自動ゲイン調整を無効にします。
                 // Set Auto Gain to Off.
                 *pIEnumGainAuto = "Off";
                 break;
@@ -241,6 +245,7 @@ void funcAutoLuminanceTarget(GenApi::CNodeMapPtr nodeMap)
 
             int64_t iInputValue = ::atoi(sInput.c_str());
 
+            // 入力値をAutoLuminanceTargetに設定します。範囲外の値はここでは無視します。
             // Set target value. The value not in the range will be ignored here.
             if (iInputValue >= almMin && iInputValue <= almMax)
             {
@@ -292,15 +297,19 @@ void funcAutoWBSetting(GenApi::CNodeMapPtr nodeMap)
             switch (iAWBSel)
             {
             case 1:
+                // BalanceWhiteAutoをOffに設定し、現在のホワイトバランス値を使います。
                 // Switch off AWB and use current WB value of camera.
                 *pIEnumBalanceWhite = "Off";
                 break;
             case 2:
-                // Switch to AWB Once. 
+                // BalanceWhiteAutoをOnceに設定し、一度だけ自動調整します。
+                // Switch to AWB Once.
+                // カメラは複数フレームでホワイトバランスを計算し、その後Offへ戻ります。
                 // The camera will takes several frames for WB calculation then switch back to "Off".
                 *pIEnumBalanceWhite = "Once";
                 break;
             case 3:
+                // BalanceWhiteAutoをContinuousに設定し、ホワイトバランスを継続して自動調整します。
                 // Switch to AWB Continuous. The camera will continuously check and adjust WB value.
                 *pIEnumBalanceWhite = "Continuous";
                 break;
@@ -335,11 +344,13 @@ void funcExposureGainMonitor(GenApi::CNodeMapPtr nodeMap)
             getch();
             return;
         }
+        // 値を設定するため、ノードをCFloatPtrに変換します。
         // Convert Node to CFloatPtr for setting value
         GenApi::CFloatPtr pFloatExpoTime(pNodeExposureTime);
 
         // Get Node for Gain
         GenApi::CNodePtr pNodeGain = nodeMap->GetNode("Gain");
+        // 値を設定するため、ノードをCFloatPtrに変換します。
         // Convert Node to CFloatPtr for setting value
         GenApi::CFloatPtr pFloatGain(pNodeGain);
 
@@ -458,10 +469,12 @@ int main(int /* argc */, char ** /* argv */)
         // Register callback function. Note that by different usage, we pass different kinds/numbers of parameters in.
         RegisterCallback(pIStDataStream, &OnStCallbackCFunction, (UserParam_t)pIStImageDisplayWnd);
 
+        // パラメーター操作用のNodeMapを取得します。
         // Create NodeMap pointer for accessing parameters
         GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
         // ==== Camera Setting Initial Part ====
+        // TriggerModeをOffに設定し、トリガーを無効にします。
         // Switch off Trigger Mode(IEnumeration).
         GenApi::CEnumerationPtr pIEnumTrigMode(pNodeMapCameraParam->GetNode("TriggerMode"));
         *pIEnumTrigMode = "Off";

@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 			printf("Device=%s\r\n", szDisplayName);
 		}
 
-				eStApiCError = psApiFunctions->StApi->IStDevice->CreateIStDataStream(&sIStDeviceHandle, 0, NULL, &sIStDataStreamHandle);
+		eStApiCError = psApiFunctions->StApi->IStDevice->CreateIStDataStream(&sIStDeviceHandle, 0, NULL, &sIStDataStreamHandle);
 		if (eStApiCError != StApiCError_NoError) break;
 
 // ==============================================================================================================
@@ -82,6 +82,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIIntegerHandleMaximumResendRequestsPerBlock = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapDataStreamHandle, "MaximumResendRequestsPerBlock", &sIIntegerHandleMaximumResendRequestsPerBlock);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// MaximumResendRequestsPerBlockを0に設定します。
+		// Set MaximumResendRequestsPerBlock to 0.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleMaximumResendRequestsPerBlock, 0, false);
 		if (eStApiCError != StApiCError_NoError) break;
 

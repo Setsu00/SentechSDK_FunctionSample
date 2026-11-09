@@ -19,14 +19,17 @@ try:
     # ============================================================
     # Demostration of setting Binning Horizontal / Binning Veritcal to 1
     
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
     
-    # Get Node for Binning Horizontal and set it to 1
+    # BinningHorizontalノードを取得し、1に設定します。
+    # Get the BinningHorizontal node and set it to 1.
     binning_h = nodemap_remote.get_node("BinningHorizontal")
     binning_h.value = 1
     
-    # Get Node for Binning Vertical and set it to 1
+    # BinningVerticalノードを取得し、1に設定します。
+    # Get the BinningVertical node and set it to 1.
     binning_v = nodemap_remote.get_node("BinningVertical")
     binning_v.value = 1
     
@@ -34,16 +37,24 @@ try:
     
     # Acquire Width node
     width = nodemap_remote.get_node("Width")
+
+    # 最大値を取得するため、PyIIntegerへ変換します。
     # Convert to int node for acquire max value
     int_width = st.PyIInteger(width)
-    # Set the width to max as it can 
+
+    # Widthを最大値に設定します。
+    # Set the width to max as it can
     width.value = int_width.max
     
     # Acquire Height node
     height = nodemap_remote.get_node("Height")
+
+    # 最大値を取得するため、PyIIntegerへ変換します。
     # Convert to int node for acquire max value
     int_height = st.PyIInteger(height)
-    # Set the wiheightdth to max as it can 
+
+    # Heightを最大値に設定します。
+    # Set Height to its maximum value.
     height.value = int_height.max
     
     

@@ -39,9 +39,12 @@ namespace Grab
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
-                    // GainAuto(IEnumeration)に切替
-                    // Switch on Gain Auto(IEnumeration).
+                    // GainAutoノードを取得
+                    // Get the GainAuto node.
                     IEnum enumGainAuto = nodeMap.GetNode<IEnum>("GainAuto");
+
+                    // GainAutoをContinuousに設定し、自動ゲイン調整を継続して動作させる
+                    // Set GainAuto to Continuous to adjust gain automatically and continuously.
                     enumGainAuto.FromString("Continuous");
 
                     // AutoLuminanceTarget(IInteger)ノードを取得

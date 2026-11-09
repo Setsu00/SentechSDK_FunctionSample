@@ -82,6 +82,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleUserSetSelector = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "UserSetSelector", &sIEnumerationHandleUserSetSelector);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// UserSetSelectorをUserSet1に設定します。
+		// Set UserSetSelector to UserSet1.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleUserSetSelector, "UserSet1");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -98,6 +101,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleUserSetDefault = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "UserSetDefault", &sIEnumerationHandleUserSetDefault);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// UserSetDefaultをUserSet1に設定します。
+		// Set UserSetDefault to UserSet1.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleUserSetDefault, "UserSet1");
 		if (eStApiCError != StApiCError_NoError) break;
 

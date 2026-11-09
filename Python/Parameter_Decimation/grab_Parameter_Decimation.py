@@ -19,14 +19,17 @@ try:
     # ============================================================
     # Demostration of setting decimation horizontal/vertical to 2.
     
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
     
-    # Get Node for Decimation Horizontal and set it to 1
+    # DecimationHorizontalノードを取得し、2に設定します。
+    # Get the DecimationHorizontal node and set it to 2.
     decimation_h = nodemap_remote.get_node("DecimationHorizontal")
     decimation_h.value = 2
     
-    # Get Node for Decimation Vertical and set it to 1
+    # DecimationVerticalノードを取得し、2に設定します。
+    # Get the DecimationVertical node and set it to 2.
     decimation_v = nodemap_remote.get_node("DecimationVertical")
     decimation_v.value = 2
     

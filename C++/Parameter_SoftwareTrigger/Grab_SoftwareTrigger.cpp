@@ -5,7 +5,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -38,8 +39,8 @@ int main(int /* argc */, char ** /* argv */)
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// トリガーモードに切替
-		// Switch on Trigger Mode(IEnumeration).
+		// TriggerModeをOnに設定し、トリガーを有効にします。
+		// Set TriggerMode to On to enable triggering.
 		GenApi::CEnumerationPtr pIEnumTrigMode(pNodeMapCameraParam->GetNode("TriggerMode"));
 		*pIEnumTrigMode = "On";
 
@@ -108,8 +109,6 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
-		// 使用後はソフトウェアトリガーをOffに設定
-		// Set Software Trigger OFF after using
 
 		// 取得後トリガーモードをOffに切替
 		// Switch off Trigger Mode(IEnumeration) after acquiring.

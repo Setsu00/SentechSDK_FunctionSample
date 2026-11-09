@@ -32,8 +32,8 @@ Module AutoGainControl
 								' Create NodeMap pointer for accessing parameters
 								Dim nodeMap As INodeMap = device.GetRemoteIStPort().GetINodeMap()
 
-								' GainAuto（IEnumeration）を有効にします。
-								' Switch on Gain Auto(IEnumeration).
+								' GainAutoをContinuousに設定し、自動ゲイン調整を継続します。
+								' Set GainAuto to Continuous to adjust gain automatically and continuously.
 								Dim enumGainAuto As IEnum = nodeMap.GetNode(Of IEnum)("GainAuto")
 								enumGainAuto.FromString("Continuous")
 

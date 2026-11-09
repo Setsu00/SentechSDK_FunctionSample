@@ -4,7 +4,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #include <StApi_IP.h>
 #ifdef ENABLED_ST_GUI
@@ -36,7 +37,8 @@ int main(int /* argc */, char ** /* argv */)
 		// Create an ReverseConverter filter object.
 		CIStReverseConverterPtr filter(CreateIStConverter(StConverterType_Reverse));
 
-		// Set ReverseConverter reverse to clock wise 90 degree.
+		// 回転モードをClockwise90に設定し、時計回りに90度回転させます。
+		// Set the rotation mode to Clockwise90 to rotate images 90 degrees clockwise.
 		filter->SetRotationMode(StRotationMode_Clockwise90);
 
 		// ==============================================================================================================

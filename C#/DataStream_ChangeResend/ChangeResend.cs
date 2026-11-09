@@ -1,6 +1,7 @@
 ﻿// ChangeResend.cs : 
 //
 // このサンプルはIStDataStreamのMaximum Resend Requests Per Blockを50(Default)から0に変更する方法を示します。
+// This sample shows how to change IStDataStream's MaximumResendRequestsPerBlock from the default of 50 to 0.
 //
 
 using System;
@@ -30,8 +31,11 @@ namespace DataStream_ChangeResend
                     INodeMap nodeMap = dataStream.GetIStPort().GetINodeMap();
 
                     // Maximum Resend Requests Per Blockのノードを取得
+                    // Get the MaximumResendRequestsPerBlock node.
                     IInteger IntegerResendRequests = nodeMap.GetNode<IInteger>("MaximumResendRequestsPerBlock");
+
                     // Maximum Resend Requests Per Blockに0を設定
+                    // Set MaximumResendRequestsPerBlock to 0.
                     IntegerResendRequests.Value = 0;
 
                     // ==============================================================================================================
@@ -47,6 +51,7 @@ namespace DataStream_ChangeResend
                             if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
                             {
                                 IStImage stImage = streamBuffer.GetIStImage();
+                                // 取得した画像の情報を表示
                                 // Display the information of the acquired image data.
                                 Byte[] imageData = stImage.GetByteArray();
                                 Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);

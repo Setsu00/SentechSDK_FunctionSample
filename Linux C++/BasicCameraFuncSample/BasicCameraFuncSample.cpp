@@ -119,10 +119,12 @@ void funcSWTrigger(GenApi::CNodeMapPtr nodeMap)
         // Initial Software Trigger related parameter
         cout << "Software Trigger Operation." << endl;
 
-        // Switch on Trigger Mode(IEnumeration).
+        // TriggerModeをOnに設定し、トリガーを有効にします。
+        // Set TriggerMode to On to enable triggering.
         GenApi::CEnumerationPtr pIEnumTrigMode(nodeMap->GetNode("TriggerMode"));
         *pIEnumTrigMode = "On";
 
+        // TriggerSourceをSoftwareに設定します。
         // Set Trigger Source to Software
         GenApi::CEnumerationPtr pIEnumTrigSource(nodeMap->GetNode("TriggerSource"));
         *pIEnumTrigSource = "Software";
@@ -137,7 +139,8 @@ void funcSWTrigger(GenApi::CNodeMapPtr nodeMap)
             if (getch() == ESC_KEY)
                 break;
 
-            // Send software trigger 
+            // SoftwareTriggerコマンドを実行し、トリガーを送信します。
+            // Send software trigger
             pcICommandTriggerSoftTrg->Execute();
 
             cout << "\rSoftware Trigger Sent.";
@@ -151,6 +154,7 @@ void funcSWTrigger(GenApi::CNodeMapPtr nodeMap)
         getch();
     }
 
+    // 実行後はTriggerModeをOffに設定します。
     // Switch off trigger mode after demostration.
     GenApi::CEnumerationPtr pIEnumTrigMode(nodeMap->GetNode("TriggerMode"));
     *pIEnumTrigMode = "Off";
@@ -166,11 +170,13 @@ void funcHWTrigger(GenApi::CNodeMapPtr nodeMap)
         // Initial Software Trigger related parameter
         cout << "Hardware Trigger Operation." << endl;
 
-        // Switch on Trigger Mode(IEnumeration).
+        // TriggerModeをOnに設定し、トリガーを有効にします。
+        // Set TriggerMode to On to enable triggering.
         GenApi::CEnumerationPtr pIEnumTrigMode(nodeMap->GetNode("TriggerMode"));
         *pIEnumTrigMode = "On";
 
-        // Set Trigger Source to Software
+        // ハードウェア入力のLine0をTriggerSourceに設定します。
+        // Set TriggerSource to Line0 for hardware triggering.
         GenApi::CEnumerationPtr pIEnumTrigSource(nodeMap->GetNode("TriggerSource"));
         *pIEnumTrigSource = "Line0";
 
@@ -196,6 +202,7 @@ void funcHWTrigger(GenApi::CNodeMapPtr nodeMap)
     // Set off hardware trigger handling flag
     g_hwtrg_active = false;
 
+    // 実行後はTriggerModeをOffに設定します。
     // Switch off trigger mode after demostration.
     GenApi::CEnumerationPtr pIEnumTrigMode(nodeMap->GetNode("TriggerMode"));
     *pIEnumTrigMode = "Off";
@@ -209,10 +216,12 @@ void funcExposureSetting(GenApi::CNodeMapPtr nodeMap)
 {
     try
     {
+        // 露光時間を設定できるよう、ExposureAutoをOffに設定します。
         // Switch off exposure auto. If exposure auto is on, exposure time cannot be set.
         GenApi::CEnumerationPtr pIEnumExpoAuto(nodeMap->GetNode("ExposureAuto"));
         *pIEnumExpoAuto = "Off";
 
+        // 露光時間を設定できるよう、ExposureModeをTimedに設定します。
         // For setting camera exposure time, exposure mode must set to Timed to enable value input
         GenApi::CEnumerationPtr pIEnumExpoMode(nodeMap->GetNode("ExposureMode"));
         *pIEnumExpoMode = "Timed";
@@ -228,6 +237,7 @@ void funcExposureSetting(GenApi::CNodeMapPtr nodeMap)
             getch();
             return;
         }
+        // 値を設定するため、ノードをCFloatPtrに変換します。
         // Convert Node to CFloatPtr for setting value
 
         GenApi::CFloatPtr pFloatExpoTime(pNodeExposureTime);
@@ -242,6 +252,7 @@ void funcExposureSetting(GenApi::CNodeMapPtr nodeMap)
 
             double fExpoTime = ::atof(sExpoTime.c_str());
 
+            // 入力値が範囲内の場合はカメラへ設定し、範囲外の場合は無視します。
             // If input value is between min and max, set it to camera; otherwise ignore it.
             if (fExpoTime >= pFloatExpoTime->GetMin() && fExpoTime <= pFloatExpoTime->GetMax())
             {
@@ -265,10 +276,12 @@ void funcGainSetting(GenApi::CNodeMapPtr nodeMap)
 {
     try
     {
+        // ゲインを設定できるよう、GainAutoをOffに設定します。
         // Switch off gain auto. If gain auto is on, gain value cannot be set.
         GenApi::CEnumerationPtr pIEnumGainAuto(nodeMap->GetNode("GainAuto"));
         *pIEnumGainAuto = "Off";
 
+        // アナログゲインを制御するため、GainSelectorをAnalogAllに設定します。
         // For setting analog gain, gain selector need to be set to AnalogAll to access analog gain.
         // If GainSelector node is not exist, the gain setting method is not supported and we end current setting.
         try
@@ -286,6 +299,7 @@ void funcGainSetting(GenApi::CNodeMapPtr nodeMap)
 
         // Get Node for Gain
         GenApi::CNodePtr pNodeGain = nodeMap->GetNode("Gain");
+        // 値を設定するため、ノードをCFloatPtrに変換します。
         // Convert Node to CFloatPtr for setting value
         GenApi::CFloatPtr pFloatGain(pNodeGain);
 
@@ -304,6 +318,7 @@ void funcGainSetting(GenApi::CNodeMapPtr nodeMap)
             // Convert input to float
             double fGain = ::atof(sGain.c_str());
 
+            // 入力値が範囲内の場合はカメラへ設定し、範囲外の場合は無視します。
             // If the value is in the range, set the value to camera; otherwise ignore it.
             if (fGain >= pFloatGain->GetMin() && fGain <= pFloatGain->GetMax())
             {
@@ -326,6 +341,7 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
 {
     try
     {
+        // 手動設定のため、BalanceWhiteAutoをOffに設定します。
         // Switch BalanceWhiteAuto to off for manual input
         // If BalanceWhiteAuto node is not exist, the camera does not support white balance adjustment and function will comes to end.
         try
@@ -346,6 +362,7 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
         
         // Get Node for BalanceRatio
         GenApi::CNodePtr pNodeBalanceRatio = nodeMap->GetNode("BalanceRatio");
+        // 値を設定するため、ノードをCFloatPtrに変換します。
         // Convert Node to CFloatPtr for setting value
         GenApi::CFloatPtr pFloatBalanceRatio(pNodeBalanceRatio);
 
@@ -354,16 +371,19 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
             string sNewRedRatio, sNewGreenRatio, sNewBlueRatio;
 
             // Acquire current red ratio value
+            // 赤の比率にアクセスするため、BalanceRatioSelectorをRedに設定します。
             // Switch balance ration selector to Red for access Red ratio value
             GenApi::CEnumerationPtr pIEnumBalanceRatioSelect(nodeMap->GetNode("BalanceRatioSelector"));
             *pIEnumBalanceRatioSelect = "Red";
             fRedRatio = pFloatBalanceRatio->GetValue();
 
+            // 緑の比率にアクセスするため、BalanceRatioSelectorをGreenに設定します。
             // Switch balance ration selector to Green for access Green ratio value
             *pIEnumBalanceRatioSelect = "Green";
             // Acquire current green ratio value
             fGreenRatio = pFloatBalanceRatio->GetValue();
 
+            // 青の比率にアクセスするため、BalanceRatioSelectorをBlueに設定します。
             // Switch balance ration selector to Blue for access Blue ratio value
             *pIEnumBalanceRatioSelect = "Blue";
             // Acquire current blue ratio value
@@ -388,7 +408,9 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
 
                 // Convert input to float
                 fNewRedRatio = ::atof(sNewRedRatio.c_str());
-                // Implement value to setting. Value out of setting range will be ignored.
+
+                // 対象の色を選択し、入力したBalanceRatioを設定します。範囲外の値は無視します。
+                // Select the color and set the entered BalanceRatio. Values outside the range are ignored.
                 *pIEnumBalanceRatioSelect = "Red";
                 if (fNewRedRatio >= pFloatBalanceRatio->GetMin() && fNewRedRatio <= pFloatBalanceRatio->GetMax())
                 {
@@ -402,7 +424,9 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
 
                 // Convert input to float
                 fNewGreenRatio = ::atof(sNewGreenRatio.c_str());
-                // Implement value to setting. Value out of setting range will be ignored.
+
+                // 対象の色を選択し、入力したBalanceRatioを設定します。範囲外の値は無視します。
+                // Select the color and set the entered BalanceRatio. Values outside the range are ignored.
                 *pIEnumBalanceRatioSelect = "Green";
                 if (fNewGreenRatio >= pFloatBalanceRatio->GetMin() && fNewGreenRatio <= pFloatBalanceRatio->GetMax())
                 {
@@ -416,7 +440,9 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
 
                 // Convert input to float
                 fNewBlueRatio = ::atof(sNewBlueRatio.c_str());
-                // Implement value to setting. Value out of setting range will be ignored.
+
+                // 対象の色を選択し、入力したBalanceRatioを設定します。範囲外の値は無視します。
+                // Select the color and set the entered BalanceRatio. Values outside the range are ignored.
                 *pIEnumBalanceRatioSelect = "Blue";
                 if (fNewBlueRatio >= pFloatBalanceRatio->GetMin() && fNewBlueRatio <= pFloatBalanceRatio->GetMax())
                 {
@@ -453,6 +479,7 @@ void funcSaveCameraSettingAsDefault(IStDevice * pDevice, IStDataStream * pDataSt
         pDataStream->StopAcquisition();
         cout << "Done." << endl;
 
+        // 設定の保存先としてUserSetSelectorをUserSet0に設定します。
         // Switch UserSet to UserSet0 for saving camera setting inside.
         try
         {
@@ -468,13 +495,16 @@ void funcSaveCameraSettingAsDefault(IStDevice * pDevice, IStDataStream * pDataSt
             return;
         }
 
-        // Save current setting to UserSet0. 
+        // 現在の設定をUserSet0に保存します。
+        // Save current setting to UserSet0.
+        // IPアドレス関連の設定は保存されません。
         // *Be noted the IP address related setting will not be saved.
         cout << "Executing UserSet Save command...";
         GenApi::CCommandPtr pcICommandUserSetSave(nodeMap->GetNode("UserSetSave"));
         pcICommandUserSetSave->Execute();
         cout << "Done." << endl;
 
+        // 起動時にUserSet0を使うため、UserSetDefaultをUserSet0に設定します。
         // Set UserSet Default to "UserSet0" for indicating the UserSet for camera when start up.
         cout << "Set default UserSet to UserSet0." << endl;
         GenApi::CEnumerationPtr pIEnumUserSetDefault(nodeMap->GetNode("UserSetDefault"));
@@ -511,11 +541,13 @@ void funcLoadDefaultSetting(IStDevice * pDevice, IStDataStream * pDataStream, Ge
         pDataStream->StopAcquisition();
         cout << "Done." << endl;
 
+        // 既定設定を読み込むため、UserSetSelectorをDefaultに設定します。
         // Switch User Set to Default for reading the default setting.
         cout << "Switching UserSet Selector to Default." << endl;
         GenApi::CEnumerationPtr pIEnumUserSetSelector(nodeMap->GetNode("UserSetSelector"));
         *pIEnumUserSetSelector = "Default";
 
+        // UserSetLoadコマンドを実行し、選択した設定を読み込みます。
         // Execute Load command
         cout << "Executing UserSet Load command...";
         GenApi::CCommandPtr pcICommandUserSetLoad(nodeMap->GetNode("UserSetLoad"));
@@ -639,26 +671,32 @@ int main(int /* argc */, char ** /* argv */)
         // Register callback function. Note that by different usage, we pass different kinds/numbers of parameters in.
         RegisterCallback(pIStDataStream, &OnStCallbackCFunction, (UserParam_t)pIStImageDisplayWnd);
 
+        // パラメーター操作用のNodeMapを取得します。
         // Create NodeMap pointer for accessing parameters
         GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
         // ==== Camera Setting Initial Part ====
-        // Switch on Trigger Mode(IEnumeration).
+        // TriggerModeをOffに設定し、トリガーを無効にします。
+        // Set TriggerMode to Off to disable triggering.
         GenApi::CEnumerationPtr pIEnumTrigMode(pNodeMapCameraParam->GetNode("TriggerMode"));
         *pIEnumTrigMode = "Off";
 
+        // 機能デモのため、ExposureModeをTimedに設定します。
         // Set camera exposure mode to timed here for function demo
         GenApi::CEnumerationPtr pIEnumExpoMode(pNodeMapCameraParam->GetNode("ExposureMode"));
         *pIEnumExpoMode = "Timed";
 
+        // 露光時間を設定できるよう、ExposureAutoをOffに設定します。
         // Switch off exposure auto. If exposure auto is on, exposure time cannot be set.
         GenApi::CEnumerationPtr pIEnumExpoAuto(pNodeMapCameraParam->GetNode("ExposureAuto"));
         *pIEnumExpoAuto = "Off";
 
+        // ゲインを設定できるよう、GainAutoをOffに設定します。
         // Switch off gain auto. If gain auto is on, gain value cannot be set.
         GenApi::CEnumerationPtr pIEnumGainAuto(pNodeMapCameraParam->GetNode("GainAuto"));
         *pIEnumGainAuto = "Off";
 
+        // 利用可能な場合はBalanceWhiteAutoをOffに設定します。
         // Also set white balance auto to off if avaliable
         try
         {

@@ -39,8 +39,8 @@ namespace Grab
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
-                    // トリガーモードに切替
-                    // Switch on Trigger Mode(IEnumeration).
+                    // TriggerModeをOnに設定し、トリガーを有効にする
+                    // Set TriggerMode to On to enable triggering.
                     IEnum enumTriggerMode = nodeMap.GetNode<IEnum>("TriggerMode");
                     enumTriggerMode.FromString("On");
 

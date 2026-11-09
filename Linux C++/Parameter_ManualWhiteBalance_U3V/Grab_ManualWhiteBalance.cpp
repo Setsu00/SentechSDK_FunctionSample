@@ -4,7 +4,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -32,13 +33,16 @@ int main(int /* argc */, char ** /* argv */)
 		// ==============================================================================================================
 		// Demostration of changing white balance to manual with setting all balance ratio to 10
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Switch BalanceWhiteAuto to Preset0 for manual input value
+		// 手動設定のため、BalanceWhiteAutoをOffに設定します。
+		// Set BalanceWhiteAuto to Off for manual adjustment.
 		GenApi::CEnumerationPtr pIEnumBalanceWhite(pNodeMapCameraParam->GetNode("BalanceWhiteAuto"));
 		*pIEnumBalanceWhite = "Off";
 
+		// 赤の比率にアクセスするため、BalanceRatioSelectorをRedに設定します。
 		// Switch balance ration selector to Red for access Red ratio value
 		GenApi::CEnumerationPtr pIEnumBalanceRatioSelect(pNodeMapCameraParam->GetNode("BalanceRatioSelector"));
 		*pIEnumBalanceRatioSelect = "Red";
@@ -46,21 +50,27 @@ int main(int /* argc */, char ** /* argv */)
 		// Get Node for BalanceRatio
 		GenApi::CNodePtr pNodeBalanceRatio = pNodeMapCameraParam->GetNode("BalanceRatio");
 
+		// 値を設定するため、ノードをCFloatPtrに変換します。
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatBalanceRatio(pNodeBalanceRatio);
 
+		// BalanceRatioを10に設定します。
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);
 
+		// 青の比率にアクセスするため、BalanceRatioSelectorをBlueに設定します。
 		// Switch balance ration selector to Blue for access Blue ratio value
 		*pIEnumBalanceRatioSelect = "Blue";
 
+		// BalanceRatioを10に設定します。
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);
 
+		// 緑の比率にアクセスするため、BalanceRatioSelectorをGreenに設定します。
 		// Switch balance ration selector to Green for access Green ratio value
 		*pIEnumBalanceRatioSelect = "Green";
 
+		// BalanceRatioを10に設定します。
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);
 

@@ -30,8 +30,8 @@ Module AutoShutter
 								' Get the NodeMap used to access camera parameters.
 								Dim nodeMap As INodeMap = device.GetRemoteIStPort().GetINodeMap()
 
-								' ExposureAuto（IEnumeration）をContinuousに設定する。
-								' Set ExposureAuto (IEnumeration) to Continuous.
+								' ExposureAutoをContinuousに設定し、自動露光を継続します。
+								' Set ExposureAuto to Continuous to adjust exposure automatically and continuously.
 								Dim enumExposureAuto As IEnum = nodeMap.GetNode(Of IEnum)("ExposureAuto")
 								enumExposureAuto.FromString("Continuous")
 

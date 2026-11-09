@@ -25,8 +25,8 @@ try:
     # Get the NodeMap for accessing camera parameters.
     nodemap_remote = st_device.remote_port.nodemap
 
-    # GainAutoをContinuousに設定
-    # Set GainAuto to Continuous.
+    # GainAutoをContinuousに設定し、自動ゲイン調整を継続します。
+    # Set GainAuto to Continuous to adjust gain automatically and continuously.
     gain_auto = nodemap_remote.get_node("GainAuto")
     enum_gain_auto = st.PyIEnumeration(gain_auto)
     enum_gain_auto.from_string("Continuous")

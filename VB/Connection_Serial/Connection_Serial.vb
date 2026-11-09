@@ -33,6 +33,7 @@ Module Connection_Serial
                     If targetID IsNot Nothing Then Exit For
                 Next
                 If targetID Is Nothing Then Throw New InvalidOperationException("Target camera not found.")
+
             ' 一致したデバイスIDを使用してカメラへ接続します。
             ' Connect to the camera using the matched device ID.
             Using device As CStDevice = system.GetIStInterface(targetInterface).CreateStDevice(targetID)

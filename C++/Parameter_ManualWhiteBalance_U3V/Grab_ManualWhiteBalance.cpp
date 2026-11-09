@@ -5,7 +5,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -54,6 +55,7 @@ int main(int /* argc */, char ** /* argv */)
 		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatBalanceRatio(pNodeBalanceRatio);
+
 		// バランス比率に10を設定
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);
@@ -61,6 +63,7 @@ int main(int /* argc */, char ** /* argv */)
 		// 青の比率値にアクセスするためBalanceRatioSelectorをBlueに切替
 		// Switch balance ration selector to Blue for access Blue ratio value
 		*pIEnumBalanceRatioSelect = "Blue";
+
 		// バランス比率に10を設定
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);
@@ -68,6 +71,7 @@ int main(int /* argc */, char ** /* argv */)
 		// 緑の比率値にアクセスするためBalanceRatioSelectorをGreenに切替
 		// Switch balance ration selector to Green for access Green ratio value
 		*pIEnumBalanceRatioSelect = "Green";
+
 		// バランス比率に10を設定
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);

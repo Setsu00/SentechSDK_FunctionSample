@@ -12,7 +12,8 @@ typedef struct DrawingContext
 	StApiHandle_t sIStWndHandle;
 } DrawingContext;
 
-/* 選択された線分の座標を読み、画像のピクセル数へ変換 / Read selected line coordinates in pixels. */
+// 選択された線分の座標を読み、画像のピクセル数へ変換
+// Read selected line coordinates in pixels.
 static void STAPI_CALLTYPE OnDrawingChanged(PStApiHandle_t psChangedNodeHandle, void *pUserContext)
 {
 	DrawingContext *pContext = (DrawingContext *)pUserContext;
@@ -32,24 +33,36 @@ static void STAPI_CALLTYPE OnDrawingChanged(PStApiHandle_t psChangedNodeHandle, 
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->StApi->IStImage->GetImageHeight(&sIStImageHandle, &nImageHeight);
 		if (eStApiCError != StApiCError_NoError) break;
-		/* DrawingObjectPointSelectorノードを取得・制御 / Get and control DrawingObjectPointSelector. */
+		
+		// DrawingObjectPointSelectorノードを取得・制御 
+		// Get and control DrawingObjectPointSelector.
 		StApiHandle_t sIIntegerDrawingObjectPointSelectorHandle = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapHandle, "DrawingObjectPointSelector", &sIIntegerDrawingObjectPointSelectorHandle);
 		if (eStApiCError != StApiCError_NoError) break;
-		/* DrawingObjectPointXノードを取得・制御 / Get and control DrawingObjectPointX. */
+		
+		// DrawingObjectPointXノードを取得・制御 
+		// Get and control DrawingObjectPointX. 
 		StApiHandle_t sIFloatDrawingObjectPointXHandle = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapHandle, "DrawingObjectPointX", &sIFloatDrawingObjectPointXHandle);
 		if (eStApiCError != StApiCError_NoError) break;
-		/* DrawingObjectPointYノードを取得・制御 / Get and control DrawingObjectPointY. */
+		
+		// DrawingObjectPointYノードを取得・制御 
+		// Get and control DrawingObjectPointY.
 		StApiHandle_t sIFloatDrawingObjectPointYHandle = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapHandle, "DrawingObjectPointY", &sIFloatDrawingObjectPointYHandle);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// DrawingObjectPointSelectorを0に設定し、始点を選択します。
+		// Set DrawingObjectPointSelector to 0 to select the first endpoint.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerDrawingObjectPointSelectorHandle, 0, true);
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->GenApi->IFloat->GetValue(&sIFloatDrawingObjectPointXHandle, true, false, &x1);
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->GenApi->IFloat->GetValue(&sIFloatDrawingObjectPointYHandle, true, false, &y1);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// DrawingObjectPointSelectorを1に設定し、終点を選択します。
+		// Set DrawingObjectPointSelector to 1 to select the second endpoint.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerDrawingObjectPointSelectorHandle, 1, true);
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->GenApi->IFloat->GetValue(&sIFloatDrawingObjectPointXHandle, true, false, &x2);
@@ -145,12 +158,15 @@ int main(void)
 				{
 					eStApiCError = psApiFunctions->StApi->IStWnd->GetINodeMap(&sIStWndHandle, &sINodeMapHandle);
 					if (eStApiCError != StApiCError_NoError) break;
-					/* DrawingObjectSelectorノードを取得・制御 / Get and control DrawingObjectSelector. */
+
+					// DrawingObjectSelectorノードを取得・制御
+					// Get and control DrawingObjectSelector.
 					StApiHandle_t sIIntegerDrawingObjectSelectorHandle = { NULL };
 					eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapHandle, "DrawingObjectSelector", &sIIntegerDrawingObjectSelectorHandle);
 					if (eStApiCError != StApiCError_NoError) break;
-				// DrawingObjectSelectorの変更コールバックを登録します。
-				// Register a callback for changes to DrawingObjectSelector.
+
+					// DrawingObjectSelectorの変更コールバックを登録します。
+					// Register a callback for changes to DrawingObjectSelector.
 					eStApiCError = psApiFunctions->GenApi->INode->RegisterCallback(&sIIntegerDrawingObjectSelectorHandle, OnDrawingChanged, cbPostOutsideLock, &sDrawingContext, &sIStRegisteredCallbackHandle);
 					if (eStApiCError != StApiCError_NoError) break;
 					eStApiCError = psApiFunctions->StApi->IStWnd->Show(&sIStWndHandle, NULL, StWindowMode_ModalessOnNewThread);

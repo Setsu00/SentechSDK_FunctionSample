@@ -83,6 +83,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "BinningHorizontal", &sIIntegerHandleBinningHorizontal);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// BinningHorizontalを2に設定します。
+		// Set BinningHorizontal to 2.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleBinningHorizontal, 2, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -92,6 +94,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "BinningVertical", &sIIntegerHandleBinningVertical);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// BinningVerticalを2に設定します。
+		// Set BinningVertical to 2.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleBinningVertical, 2, false);
 		if (eStApiCError != StApiCError_NoError) break;
 

@@ -1,4 +1,7 @@
-/* 画像をMono8へ変換 / Convert acquired images to Mono8. */
+/*
+	画像をMono8へ変換
+	Convert acquired images to Mono8.
+*/
 #include <StApi_C.h>
 #include <stdio.h>
 
@@ -36,10 +39,12 @@ int main(void)
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->StApi->IStPixelFormatConverter->GetIStPixelFormatConverter(&sIStConverterHandle, &sIStPixelFormatConverterHandle);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 変換後のピクセルフォーマットをMono8に設定します。
 		// Set the destination pixel format to Mono8.
 		eStApiCError = psApiFunctions->StApi->IStPixelFormatConverter->SetDestinationPixelFormat(&sIStPixelFormatConverterHandle, StPFNC_Mono8);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 変換後の画像を格納するバッファを生成します。
 		// Create a buffer for the converted image.
 		eStApiCError = psApiFunctions->StApi->IStImageBuffer->CreateIStImageBuffer(NULL, &sIStImageBufferHandle);
@@ -70,6 +75,7 @@ int main(void)
 			{
 				eStApiCError = psApiFunctions->StApi->IStStreamBuffer->GetIStImage(&sIStStreamBufferHandle, &sIStImageHandle);
 				if (eStApiCError != StApiCError_NoError) break;
+
 				// 取得画像をMono8へ変換します。
 				// Convert the acquired image to Mono8.
 				eStApiCError = psApiFunctions->StApi->IStConverter->Convert(&sIStConverterHandle, &sIStImageHandle, &sIStImageBufferHandle);

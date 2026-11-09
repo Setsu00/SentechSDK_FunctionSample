@@ -39,9 +39,12 @@ namespace Grab
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
-                    //ExposureAuto(IEnumeration)に切替
-                    // Switch on Exposure Auto(IEnumeration).
+                    // ExposureAutoノードを取得
+                    // Get the ExposureAuto node.
                     IEnum enumExposureAuto = nodeMap.GetNode<IEnum>("ExposureAuto");
+
+                    // ExposureAutoをContinuousに設定し、自動露光を継続して動作させる
+                    // Set ExposureAuto to Continuous to adjust exposure automatically and continuously.
                     enumExposureAuto.FromString("Continuous");
 
                     // AutoLuminanceTarget(IInteger)ノードを取得

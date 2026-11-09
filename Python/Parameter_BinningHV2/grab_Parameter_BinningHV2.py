@@ -17,16 +17,20 @@ try:
     print('Device=', st_device.info.display_name)
     
     # ============================================================
-    # Demostration of setting Binning Horizontal / Binning Veritcal to 1
+    # 水平・垂直ビニングを2に設定します。
+    # Set horizontal and vertical binning to 2.
     
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
     
-    # Get Node for Binning Horizontal and set it to 1
+    # BinningHorizontalノードを取得し、2に設定します。
+    # Get the BinningHorizontal node and set it to 2.
     binning_h = nodemap_remote.get_node("BinningHorizontal")
     binning_h.value = 2
     
-    # Get Node for Binning Vertical and set it to 1
+    # BinningVerticalノードを取得し、2に設定します。
+    # Get the BinningVertical node and set it to 2.
     binning_v = nodemap_remote.get_node("BinningVertical")
     binning_v.value = 2
     

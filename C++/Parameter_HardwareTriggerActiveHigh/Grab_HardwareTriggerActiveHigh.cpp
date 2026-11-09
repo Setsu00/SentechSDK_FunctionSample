@@ -38,15 +38,17 @@ int main(int /* argc */, char ** /* argv */)
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Line0に入力を設定
-		// Set Line0 to input
+		// LineSelectorをLine0に設定し、入力に使うラインを選択します。
+		// Set LineSelector to Line0 to select the input line.
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line0";
 		GenApi::CEnumerationPtr pIEnumLine0Mode(pNodeMapCameraParam->GetNode("LineMode"));
+		// LineModeをInputに設定し、選択したラインを入力にします。
+		// Set LineMode to Input to use the selected line as an input.
 		*pIEnumLine0Mode = "Input";
 
-		// TriggerMode(IEnumeration)をOnに切替
-		// Switch on Trigger Mode(IEnumeration).
+		// TriggerModeをOnに設定し、トリガーを有効にします。
+		// Set TriggerMode to On to enable triggering.
 		GenApi::CEnumerationPtr pIEnumTrigMode(pNodeMapCameraParam->GetNode("TriggerMode"));
 		*pIEnumTrigMode = "On";
 
@@ -55,8 +57,8 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumTrigSource(pNodeMapCameraParam->GetNode("TriggerSource"));
 		*pIEnumTrigSource = "Line0";
 
-		// TriggerActivationにアクティブハイを設定
-		// Set trigger activation to active high
+		// TriggerActivationをRisingEdgeに設定し、立ち上がりエッジでトリガーを受け付けます。
+		// Set TriggerActivation to RisingEdge to trigger on a rising edge.
 		GenApi::CEnumerationPtr pIEnumTrigActivation(pNodeMapCameraParam->GetNode("TriggerActivation"));
 		*pIEnumTrigActivation = "RisingEdge";
 
@@ -109,7 +111,6 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
-		// Set Software Trigger OFF after using
 
 		// 取得後はTriggerMode(IEnumeration)をOffに切替
 		// Switch off Trigger Mode(IEnumeration) after acquiring.

@@ -73,6 +73,9 @@ int main(int argc, char **argv)
 			// Set the IPv4 address on GevDeviceDiscoveryCommandDestinationIPAddress.
 			eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapHandle, "GevDeviceDiscoveryCommandDestinationIPAddress", &sIIntegerHandleDestinationIPAddress);
 			if (eStApiCError != StApiCError_NoError) break;
+
+			// GevDeviceDiscoveryCommandDestinationIPAddressに入力値を設定します。
+			// Set GevDeviceDiscoveryCommandDestinationIPAddress to the entered value.
 			eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleDestinationIPAddress, nIPAddress, false);
 			if (eStApiCError != StApiCError_NoError) break;
 

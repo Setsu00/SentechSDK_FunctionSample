@@ -32,8 +32,8 @@ Module SoftwareTrigger
 								' Create NodeMap pointer for accessing parameters
 								Dim nodeMap As INodeMap = device.GetRemoteIStPort().GetINodeMap()
 
-								' TriggerMode（IEnumeration）を有効にします。
-								' Switch on Trigger Mode(IEnumeration)
+								' TriggerModeをOnに設定し、トリガーを有効にします。
+								' Set TriggerMode to On to enable triggering.
 								Dim enumTriggerMode As IEnum = nodeMap.GetNode(Of IEnum)("TriggerMode")
 								enumTriggerMode.FromString("On")
 
@@ -92,8 +92,6 @@ Module SoftwareTrigger
 								dataStream.StopAcquisition()
 
 								' ==============================================================================================================
-								' 使用後にソフトウェアトリガー設定を解除します。
-								' Set Software Trigger OFF after using
 
 								' 画像取得後にTriggerMode（IEnumeration）をOffに設定します。
 								' Switch off Trigger Mode(IEnumeration) after acquiring.

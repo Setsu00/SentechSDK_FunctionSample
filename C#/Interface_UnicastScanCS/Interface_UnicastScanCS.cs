@@ -34,7 +34,7 @@ namespace Grab
 
 					IPAddress ipaddr;
 
-                    // 終了プログラムに失敗した場合は、入力アドレスを解析してください。
+                    // 入力アドレスを解析し、解析に失敗した場合は終了
                     // Try parse the input address, if failed exit program.
                     if (!IPAddress.TryParse(value.Trim(), out ipaddr))
 					{
@@ -47,6 +47,7 @@ namespace Grab
                     // IPアドレス文字列を32ビットの数値に変換します。
                     // Convert the IP address string to a 32-bit number.
                     byte[] bytes = ipaddr.GetAddressBytes();
+
 					// IPv4アドレスを、SDKノードへ設定する32ビット値へ変換します。
 					// Convert the IPv4 address to the 32-bit value used by the SDK node.
 					uint uiTgtDevIPAddress = ((uint)bytes[0] << 24) |

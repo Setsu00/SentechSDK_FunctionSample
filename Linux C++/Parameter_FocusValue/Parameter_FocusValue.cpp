@@ -5,7 +5,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -47,6 +48,8 @@ int main(int /* argc */, char ** /* argv */)
 		int64_t nValue;
 		cin >> nValue;
 		if (nValue == 99999) return(0);
+		// 入力した値をFocusValueに設定します。
+		// Set FocusValue to the entered value.
 		pIntegerFocusValue->SetValue(nValue);
 		cout << "FocusValue set to: " << nValue << endl;
 

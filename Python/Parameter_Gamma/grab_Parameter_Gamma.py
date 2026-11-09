@@ -19,13 +19,18 @@ try:
     # ============================================================
     # Demostration of set Gamma value to 4
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
     
     # Get Node for gamma
     gamma = nodemap_remote.get_node("Gamma")
+
+    # 操作用にPyIFloatへ変換します。
     # Convert to IFloat type for operating
     float_gamma = st.PyIFloat(gamma)
+
+    # Gammaを4に設定します。
     # Set Gamma to 4.
     float_gamma.value = 4
 

@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 			printf("Device=%s\r\n", szDisplayName);
 		}
 
-				eStApiCError = psApiFunctions->StApi->IStDevice->CreateIStDataStream(&sIStDeviceHandle, 0, NULL, &sIStDataStreamHandle);
+		eStApiCError = psApiFunctions->StApi->IStDevice->CreateIStDataStream(&sIStDeviceHandle, 0, NULL, &sIStDataStreamHandle);
 		if (eStApiCError != StApiCError_NoError) break;
 
 // ==============================================================================================================

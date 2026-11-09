@@ -19,27 +19,38 @@ try:
     # ============================================================
     # Demostration of changing acquisition frame rate (FPS)
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
     # Switch off exposure auto.
     # If exposure auto is on, FPS setting may not able to implemented.
     exposure_auto = nodemap_remote.get_node("ExposureAuto")
+
+    # 操作用にPyIEnumerationへ変換します。
     # Convert to IEnum type for operating
     enum_exposure_auto = st.PyIEnumeration(exposure_auto)
+
+    # ExposureAutoをOffに設定し、自動露光を無効にします。
     # Set Exposure Auto to Off
     enum_exposure_auto.from_string("Off")
 
     # Also switch Exposure Mode to Off for not letting exposure time
     # to influence the actual FPS.
     exposure_mode = nodemap_remote.get_node("ExposureMode")
+
+    # 操作用にPyIEnumerationへ変換します。
     # Convert to IEnum type for operating
     enum_exposure_mode = st.PyIEnumeration(exposure_mode)
+
+    # ExposureModeをOffに設定します。
     # Set Exposure Mode to Off
     enum_exposure_mode.from_string("Off")
 
     # Get Node for Acquisition Frame Rate (FPS)
     acq_frame_rate = nodemap_remote.get_node("AcquisitionFrameRate")
+
+    # AcquisitionFrameRateを2 fpsに設定します。
     # Set FPS to 2
     acq_frame_rate.value = 2
     

@@ -82,6 +82,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleBalanceWhiteAuto = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "BalanceWhiteAuto", &sIEnumerationHandleBalanceWhiteAuto);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// BalanceWhiteAutoをPreset0に設定します。
+		// Set BalanceWhiteAuto to Preset0.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleBalanceWhiteAuto, "Preset0");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -98,6 +101,9 @@ int main(int argc, char **argv)
 		// Select Red and set BalanceRatio to 10.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleBalanceRatioSelector, "Red");
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// BalanceRatioを10に設定します。
+		// Set BalanceRatio to 10.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleBalanceRatio, 10, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -105,6 +111,9 @@ int main(int argc, char **argv)
 		// Select Blue and set BalanceRatio to 10.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleBalanceRatioSelector, "Blue");
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// BalanceRatioを10に設定します。
+		// Set BalanceRatio to 10.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleBalanceRatio, 10, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -112,6 +121,9 @@ int main(int argc, char **argv)
 		// Select Green and set BalanceRatio to 10.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleBalanceRatioSelector, "Green");
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// BalanceRatioを10に設定します。
+		// Set BalanceRatio to 10.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleBalanceRatio, 10, false);
 		if (eStApiCError != StApiCError_NoError) break;
 

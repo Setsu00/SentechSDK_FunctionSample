@@ -4,7 +4,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -32,34 +33,43 @@ int main(int /* argc */, char ** /* argv */)
 		// ==============================================================================================================
 		// Demostration of setting ROI to 640 x 480 with offset (100, 200).
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
 		// Get Node for Width
 		GenApi::CNodePtr pNodeWidth = pNodeMapCameraParam->GetNode("Width");
+		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntWidthl(pNodeWidth);
+		// Widthを640 pixelに設定します。
 		// Set Width to 640
 		pIntWidthl->SetValue(640);
 
 		// Get Node for Height
 		GenApi::CNodePtr pNodeHeight = pNodeMapCameraParam->GetNode("Height");
+		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntHeight(pNodeHeight);
+		// Heightを480 pixelに設定します。
 		// Set Height to 480
 		pIntHeight->SetValue(480);
 
 		// Get Node for Offset X
 		GenApi::CNodePtr pNodeOffX = pNodeMapCameraParam->GetNode("OffsetX");
+		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntOffX(pNodeOffX);
+		// OffsetXを100 pixelに設定します。
 		// Set Offset X to 100
 		pIntOffX->SetValue(100);
 
 		// Get Node for Offset Y
 		GenApi::CNodePtr pNodeOffY = pNodeMapCameraParam->GetNode("OffsetY");
+		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntOffY(pNodeOffY);
+		// OffsetYを200 pixelに設定します。
 		// Set Offset Y to 200
 		pIntOffY->SetValue(200);
 

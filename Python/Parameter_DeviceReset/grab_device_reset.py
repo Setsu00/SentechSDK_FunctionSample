@@ -20,9 +20,11 @@ try:
     # Demostrate how to reset device
     # (This sample code work within 1 camera environment)
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
+    # DeviceResetコマンドを取得します。
     # Acquire Device Reset command
     device_reset = nodemap_remote.get_node("DeviceReset")
     cmd_device_reset = st.PyICommand(device_reset)

@@ -79,6 +79,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleTriggerMode = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "TriggerMode", &sIEnumerationHandleTriggerMode);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// TriggerModeをOnに設定します。
+		// Set TriggerMode to On.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleTriggerMode, "On");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -87,6 +90,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleTriggerSource = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "TriggerSource", &sIEnumerationHandleTriggerSource);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// TriggerSourceをSoftwareに設定します。
+		// Set TriggerSource to Software.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleTriggerSource, "Software");
 		if (eStApiCError != StApiCError_NoError) break;
 

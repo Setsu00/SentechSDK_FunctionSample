@@ -5,7 +5,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -46,7 +47,8 @@ int main(int /* argc */, char ** /* argv */)
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatBlackLevel(pNodeBlackLevel);
 
-		// BlackLevelを0.0に設定します。 // Set BlackLevel to 0.0
+		// BlackLevelを0.0に設定します。
+		// Set BlackLevel to 0.0
 		pFloatBlackLevel->SetValue(0.0);
 
 		// ==============================================================================================================

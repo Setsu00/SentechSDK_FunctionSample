@@ -39,8 +39,8 @@ namespace Grab
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
-                    // 上下反転に切替
-                    // Switch on Reverse Y.
+                    // ReverseYをtrueに設定し、上下反転を有効にする
+                    // Set ReverseY to true to enable vertical reversal.
                     IBool boolReverY = nodeMap.GetNode<IBool>("ReverseY");
                     boolReverY.Value = true;
 

@@ -38,11 +38,13 @@ int main(int /* argc */, char ** /* argv */)
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Line1に出力を設定
-		// Set Line1 to output
+		// LineSelectorをLine1に設定し、出力に使うラインを選択します。
+		// Set LineSelector to Line1 to select the output line.
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line1";
 		GenApi::CEnumerationPtr pIEnumLineMode(pNodeMapCameraParam->GetNode("LineMode"));
+		// LineModeをOutputに設定し、選択したラインを出力にします。
+		// Set LineMode to Output to use the selected line as an output.
 		*pIEnumLineMode = "Output";
 
 		// LineSourceにExposureActiveを設定

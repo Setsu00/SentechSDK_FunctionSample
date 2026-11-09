@@ -19,13 +19,18 @@ try:
     # ============================================================
     # Demostration of set Heartbeat Timeout to 30 sec (30000000us)
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
     
     # Get Node for Heartbeat Timeout
     heartbeattimeout = nodemap_remote.get_node("DeviceLinkHeartbeatTimeout")
+
+    # 操作用にPyIFloatへ変換します。
     # Convert to IFloat type for operating
     float_heartbeattimeout = st.PyIFloat(heartbeattimeout)
+
+    # ハートビートのタイムアウトを30秒に設定します。
     # Set heartbeattimeout to 30 sec.
     float_heartbeattimeout.value = 30000000
 

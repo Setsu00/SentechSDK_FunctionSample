@@ -82,6 +82,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleGainAuto = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "GainAuto", &sIEnumerationHandleGainAuto);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// GainAutoをContinuousに設定し、ゲインを継続して自動調整します。
+		// Set GainAuto to Continuous to adjust gain automatically and continuously.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleGainAuto, "Continuous");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -90,6 +93,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIIntegerHandleAutoLuminanceTarget = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "AutoLuminanceTarget", &sIIntegerHandleAutoLuminanceTarget);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// AutoLuminanceTargetを128に設定します。
+		// Set AutoLuminanceTarget to 128.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleAutoLuminanceTarget, 128, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -98,6 +104,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleGainSelector = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "GainSelector", &sIEnumerationHandleGainSelector);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// GainSelectorをAnalogAllに設定します。
+		// Set GainSelector to AnalogAll.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleGainSelector, "AnalogAll");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -106,6 +115,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIFloatHandleGainAutoLimitMin = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "GainAutoLimitMin", &sIFloatHandleGainAutoLimitMin);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// GainAutoLimitMinを0に設定します。
+		// Set GainAutoLimitMin to 0.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleGainAutoLimitMin, 0, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -114,6 +126,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIFloatHandleGainAutoLimitMax = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "GainAutoLimitMax", &sIFloatHandleGainAutoLimitMax);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// GainAutoLimitMaxを100に設定します。
+		// Set GainAutoLimitMax to 100.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleGainAutoLimitMax, 100, false);
 		if (eStApiCError != StApiCError_NoError) break;
 

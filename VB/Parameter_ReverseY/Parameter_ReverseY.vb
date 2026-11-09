@@ -32,8 +32,8 @@ Module ReverseY
 								' Create NodeMap pointer for accessing parameters
 								Dim nodeMap As INodeMap = device.GetRemoteIStPort().GetINodeMap()
 
-								' ReverseYを有効にします。
-								' Switch on Reverse Y
+								' ReverseYをTrueに設定し、上下反転を有効にします。
+								' Set ReverseY to True to enable vertical reversal.
 								Dim boolReverY As IBool = nodeMap.GetNode(Of IBool)("ReverseY")
 								boolReverY.Value = True
 

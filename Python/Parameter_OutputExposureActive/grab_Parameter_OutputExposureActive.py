@@ -19,18 +19,24 @@ try:
     # ============================================================
     # Demostration of Setting Line1 as Exposure Active
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
-    # Set Line1 to output
+    # LineSelectorをLine1に設定し、出力に使うラインを選択します。
+    # Set LineSelector to Line1 to select the output line.
     line_selector = nodemap_remote.get_node("LineSelector")
     enum_line_selector = st.PyIEnumeration(line_selector)
     enum_line_selector.from_string("Line1")
     
     line_mode = nodemap_remote.get_node("LineMode")
     enum_line_mode = st.PyIEnumeration(line_mode)
+
+    # LineModeをOutputに設定し、選択したラインを出力にします。
+    # Set LineMode to Output to use the selected line as an output.
     enum_line_mode.from_string("Output")
     
+    # LineSourceをExposureActiveに設定し、露光期間の信号を出力します。
     # Set LineSource to Exposure Active
     line_source = nodemap_remote.get_node("LineSource")
     enum_line_source = st.PyIEnumeration(line_source)

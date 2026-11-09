@@ -37,8 +37,8 @@ int main(int /* argc */, char ** /* argv */)
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// GainAuto(IEnumeration)に切替
-		// Switch on Gain Auto(IEnumeration).
+		// GainAutoをContinuousに設定し、自動ゲイン調整を継続します。
+		// Set GainAuto to Continuous to adjust gain automatically and continuously.
 		GenApi::CEnumerationPtr pIEnumGainAuto(pNodeMapCameraParam->GetNode("GainAuto"));
 		*pIEnumGainAuto = "Continuous";
 

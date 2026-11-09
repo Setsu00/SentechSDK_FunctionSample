@@ -40,10 +40,13 @@ namespace Grab
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
-                    // Line2に出力を設定
-                    // Set Line2 to output
+                    // LineSelectorをLine2に設定し、出力に使用するラインを選択
+                    // Set LineSelector to Line2 to select the output line.
                     IEnum enumLineSelector = nodeMap.GetNode<IEnum>("LineSelector");
                     enumLineSelector.FromString("Line2");
+
+                    // 選択したLine2のLineModeをOutputに設定
+                    // Set LineMode for the selected Line2 to Output.
                     IEnum enumLineMode = nodeMap.GetNode<IEnum>("LineMode");
                     enumLineMode.FromString("Output");
 
@@ -52,8 +55,8 @@ namespace Grab
                     IEnum enumLineSource = nodeMap.GetNode<IEnum>("LineSource");
                     enumLineSource.FromString("Timer0Active");
 
-                    // Timer0のTriggerSourceをExposure Startに設定すると、カメラの露光開始時にTimer0が信号を出力
-                    // Set Timer 0 trigger source to Exposure Start, which means Timer 0 will output signal when camera start exposure
+                    // TimerSelectorをTimer0に設定し、制御するタイマーを選択
+                    // Set TimerSelector to Timer0 to select the timer to configure.
                     IEnum enumTimerSelector = nodeMap.GetNode<IEnum>("TimerSelector");
                     enumTimerSelector.FromString("Timer0");
 

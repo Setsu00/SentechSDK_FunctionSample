@@ -83,6 +83,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "LineSelector", &sIEnumerationHandleLineSelector);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// LineSelectorをLine1に設定します。
+		// Set LineSelector to Line1.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleLineSelector, "Line1");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -92,6 +94,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "LineMode", &sIEnumerationHandleLineMode);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// LineModeをOutputに設定し、選択したラインを出力にします。
+		// Set LineMode to Output to use the selected line as an output.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleLineMode, "Output");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -101,6 +105,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "LineSource", &sIEnumerationHandleLineSource);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// LineSourceをExposureActiveに設定します。
+		// Set LineSource to ExposureActive.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleLineSource, "ExposureActive");
 		if (eStApiCError != StApiCError_NoError) break;
 

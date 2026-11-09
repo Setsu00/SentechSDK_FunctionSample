@@ -24,16 +24,16 @@ namespace Grab
                     System.Console.WriteLine("Please input serial number of target camera: ");
                     string sTgtCameraSerial = System.Console.ReadLine();
 
-                    // 入力をクリア
+                    // インターフェースの数を取得
                     // Acquire interface counts.
                     uint uiInterfaceCnt = system.InterfaceCount;
 
-                    // インターフェースの数を取得
-                    // Prepear gcstring for saving device ID if hit.
+                    // 見つかったカメラのデバイスIDを保存する変数を準備
+                    // Prepare a variable to store the matched camera's device ID.
                     string strTgtDeviceID = "";
 
-                    // ヒットした場合、デバイスIDを保存するためのgcstringを準備
-                    // Prepear for # of interface for later use.
+                    // 見つかったカメラのインターフェース番号を保存する変数を準備
+                    // Prepare a variable to store the matched camera's interface index.
                     uint uiTgtInterfaceNo = 0;
 
                     // ヒットフラグ
@@ -90,6 +90,7 @@ namespace Grab
                                     if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
                                     {
                                         IStImage stImage = streamBuffer.GetIStImage();
+                                        // 取得した画像の情報を表示
                                         // Display the information of the acquired image data.
                                         Byte[] imageData = stImage.GetByteArray();
                                         Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);

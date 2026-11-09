@@ -39,10 +39,13 @@ namespace Grab
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
-                    // Line1に出力を設定
-                    // Set Line1 to output
+                    // LineSelectorをLine1に設定し、出力に使用するラインを選択
+                    // Set LineSelector to Line1 to select the output line.
                     IEnum enumLineSelector = nodeMap.GetNode<IEnum>("LineSelector");
                     enumLineSelector.FromString("Line1");
+
+                    // 選択したLine1のLineModeをOutputに設定
+                    // Set LineMode for the selected Line1 to Output.
                     IEnum enumLineMode = nodeMap.GetNode<IEnum>("LineMode");
                     enumLineMode.FromString("Output");
 

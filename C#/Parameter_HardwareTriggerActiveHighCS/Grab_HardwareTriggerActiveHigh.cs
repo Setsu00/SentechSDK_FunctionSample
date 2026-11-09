@@ -39,10 +39,13 @@ namespace Grab
                     // Create NodeMap pointer for accessing parameters
                     INodeMap nodeMap = device.GetRemoteIStPort().GetINodeMap();
 
-                    // Line0に入力を設定
-                    // Set Line0 to input
+                    // LineSelectorをLine0に設定し、入力に使用するラインを選択
+                    // Set LineSelector to Line0 to select the input line.
                     IEnum enumLineSelector = nodeMap.GetNode<IEnum>("LineSelector");
                     enumLineSelector.FromString("Line0");
+
+                    // 選択したLine0のLineModeをInputに設定
+                    // Set LineMode for the selected Line0 to Input.
                     IEnum enumLineMode = nodeMap.GetNode<IEnum>("LineMode");
                     enumLineMode.FromString("Input");
 
@@ -56,8 +59,8 @@ namespace Grab
                     IEnum enumTriggerSource = nodeMap.GetNode<IEnum>("TriggerSource");
                     enumTriggerSource.FromString("Line0");
 
-                    // TriggerActivationにアクティブハイを設定
-                    // Set trigger activation to active high
+                    // TriggerActivationをRisingEdgeに設定し、立ち上がりエッジでトリガーを受け付ける
+                    // Set TriggerActivation to RisingEdge to trigger on a rising edge.
                     IEnum enumTriggerActive = nodeMap.GetNode<IEnum>("TriggerActivation");
                     enumTriggerActive.FromString("RisingEdge");
 
@@ -100,7 +103,6 @@ namespace Grab
 					dataStream.StopAcquisition();
 
                     // ==============================================================================================================
-                    // Set Software Trigger OFF after using
 
                     // 取得後はTriggerMode(IEnumeration)をOffに切替
                     // Switch off Trigger Mode(IEnumeration) after acquiring.

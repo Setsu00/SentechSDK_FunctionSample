@@ -4,7 +4,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -32,10 +33,12 @@ int main(int /* argc */, char ** /* argv */)
 		// ==============================================================================================================
 		// Demostration of switching on Reverse Y of camera.
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Switch on Reverse Y.
+		// ReverseYをtrueに設定し、上下反転を有効にします。
+		// Set ReverseY to true to enable vertical reversal.
 		GenApi::CBooleanPtr pIBoolReverseY(pNodeMapCameraParam->GetNode("ReverseY"));
 		pIBoolReverseY->SetValue(true);
 

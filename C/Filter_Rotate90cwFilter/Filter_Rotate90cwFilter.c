@@ -1,4 +1,7 @@
-/* 画像を時計回りに90度回転 / Rotate images clockwise by 90 degrees. */
+/*
+	画像を時計回りに90度回転
+	Rotate images clockwise by 90 degrees.
+*/
 #include <StApi_C.h>
 #include <stdio.h>
 
@@ -36,10 +39,12 @@ int main(void)
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->StApi->IStReverseConverter->GetIStReverseConverter(&sIStConverterHandle, &sIStReverseConverterHandle);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 回転方向を時計回り90度に設定します。
 		// Set the rotation mode to 90 degrees clockwise.
 		eStApiCError = psApiFunctions->StApi->IStReverseConverter->SetRotationMode(&sIStReverseConverterHandle, StRotationMode_Clockwise90);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 回転後の画像を格納するバッファを生成します。
 		// Create a buffer for the rotated image.
 		eStApiCError = psApiFunctions->StApi->IStImageBuffer->CreateIStImageBuffer(NULL, &sIStImageBufferHandle);
@@ -70,6 +75,7 @@ int main(void)
 			{
 				eStApiCError = psApiFunctions->StApi->IStStreamBuffer->GetIStImage(&sIStStreamBufferHandle, &sIStImageHandle);
 				if (eStApiCError != StApiCError_NoError) break;
+
 				// 取得画像を時計回りに90度回転します。
 				// Rotate the acquired image 90 degrees clockwise.
 				eStApiCError = psApiFunctions->StApi->IStConverter->Convert(&sIStConverterHandle, &sIStImageHandle, &sIStImageBufferHandle);

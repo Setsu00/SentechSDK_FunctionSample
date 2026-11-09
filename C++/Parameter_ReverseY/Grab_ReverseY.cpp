@@ -37,8 +37,8 @@ int main(int /* argc */, char ** /* argv */)
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// 上下反転に切替
-		// Switch on Reverse Y.
+		// ReverseYをtrueに設定し、上下反転を有効にします。
+		// Set ReverseY to true to enable vertical reversal.
 		GenApi::CBooleanPtr pIBoolReverseY(pNodeMapCameraParam->GetNode("ReverseY"));
 		pIBoolReverseY->SetValue(true);
 

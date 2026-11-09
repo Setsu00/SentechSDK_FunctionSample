@@ -83,6 +83,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "GainAuto", &sIEnumerationHandleGainAuto);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// GainAutoをOffに設定します。
+		// Set GainAuto to Off.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleGainAuto, "Off");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -92,6 +94,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "GainSelector", &sIEnumerationHandleGainSelector);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// GainSelectorをDigitalAllに設定します。
+		// Set GainSelector to DigitalAll.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleGainSelector, "DigitalAll");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -101,6 +105,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "Gain", &sIFloatHandleGain);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// Gainを128に設定します。
+		// Set Gain to 128.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleGain, 128, false);
 		if (eStApiCError != StApiCError_NoError) break;
 

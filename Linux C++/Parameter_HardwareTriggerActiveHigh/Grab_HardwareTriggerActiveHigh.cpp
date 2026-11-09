@@ -4,7 +4,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -33,24 +34,31 @@ int main(int /* argc */, char ** /* argv */)
 #endif
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Set Line0 to input
+		// LineSelectorをLine0に設定し、入力に使うラインを選択します。
+		// Set LineSelector to Line0 to select the input line.
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line0";
 		GenApi::CEnumerationPtr pIEnumLine0Mode(pNodeMapCameraParam->GetNode("LineMode"));
+		// LineModeをInputに設定し、選択したラインを入力にします。
+		// Set LineMode to Input to use the selected line as an input.
 		*pIEnumLine0Mode = "Input";
 
-		// Switch on Trigger Mode(IEnumeration).
+		// TriggerModeをOnに設定し、トリガーを有効にします。
+		// Set TriggerMode to On to enable triggering.
 		GenApi::CEnumerationPtr pIEnumTrigMode(pNodeMapCameraParam->GetNode("TriggerMode"));
 		*pIEnumTrigMode = "On";
 
+		// ハードウェア入力を使うため、TriggerSourceをLine0に設定します。
 		// Set Trigger Source to Line0 as Hardware input
 		GenApi::CEnumerationPtr pIEnumTrigSource(pNodeMapCameraParam->GetNode("TriggerSource"));
 		*pIEnumTrigSource = "Line0";
 
-		// Set trigger activation to active high
+		// TriggerActivationをRisingEdgeに設定し、立ち上がりエッジでトリガーを受け付けます。
+		// Set TriggerActivation to RisingEdge to trigger on a rising edge.
 		GenApi::CEnumerationPtr pIEnumTrigActivation(pNodeMapCameraParam->GetNode("TriggerActivation"));
 		*pIEnumTrigActivation = "RisingEdge";
 
@@ -102,8 +110,8 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
-		// Set Software Trigger OFF after using
 
+		// 取得後はTriggerModeをOffに設定します。
 		// Switch off Trigger Mode(IEnumeration) after acquiring.
 		*pIEnumTrigMode = "Off";
 

@@ -19,35 +19,52 @@ try:
     # ============================================================
     # Demostration of setting ROI to 640 x 480 with offset (100, 200).
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
     # Acquire Width node
     width = nodemap_remote.get_node("Width")
+
+    # 操作用にPyIIntegerへ変換します。
     # Convert to int node for operating
     int_width = st.PyIInteger(width)
-    # Set the width to 640 
+
+    # Widthを640 pixelに設定します。
+    # Set the width to 640
     width.value = 640
     
     # Acquire Height node
     height = nodemap_remote.get_node("Height")
+
+    # 操作用にPyIIntegerへ変換します。
     # Convert to int node for operating
     int_height = st.PyIInteger(height)
+
+    # Heightを480 pixelに設定します。
     # Set the height to 480
     int_height.value = 480
     
     # Acquire OffsetX node
     offset_x = nodemap_remote.get_node("OffsetX")
+
+    # 操作用にPyIIntegerへ変換します。
     # Convert to int node for operating
     int_offset_x = st.PyIInteger(offset_x)
-    # Set the Offset X to 100 
+
+    # OffsetXを100 pixelに設定します。
+    # Set the Offset X to 100
     int_offset_x.value = 100
     
     # Acquire OffsetY node
     offset_y = nodemap_remote.get_node("OffsetY")
+
+    # 操作用にPyIIntegerへ変換します。
     # Convert to int node for operating
     int_offset_y = st.PyIInteger(offset_y)
-    # Set the Offset Y to 200 
+
+    # OffsetYを200 pixelに設定します。
+    # Set the Offset Y to 200
     int_offset_y.value = 200
     
     

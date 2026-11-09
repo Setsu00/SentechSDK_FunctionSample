@@ -19,9 +19,11 @@ try:
     # ============================================================
     # Demostration of PixelFormat change.
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
+    # PixelFormatをMono8に設定します。
     # Set Pixel Format to Mono8.
     pixel_format = nodemap_remote.get_node("PixelFormat")
     enum_pixel_format = st.PyIEnumeration(pixel_format)

@@ -26,12 +26,14 @@ try:
     # Get the NodeMap for accessing camera parameters.
     nodemap_remote = st_device.remote_port.nodemap
 
-    # Line2を出力に設定
-    # Set Line2 to output.
+    # LineSelectorをLine2に設定し、出力に使うラインを選択します。
+    # Set LineSelector to Line2 to select the output line.
     line_selector = nodemap_remote.get_node("LineSelector")
     enum_line_selector = st.PyIEnumeration(line_selector)
     enum_line_selector.from_string("Line2")
 
+    # LineModeをOutputに設定し、選択したLine2を出力にします。
+    # Set LineMode to Output to use the selected Line2 as an output.
     line_mode = nodemap_remote.get_node("LineMode")
     enum_line_mode = st.PyIEnumeration(line_mode)
     enum_line_mode.from_string("Output")
@@ -42,16 +44,20 @@ try:
     enum_line_source = st.PyIEnumeration(line_source)
     enum_line_source.from_string("Timer0Active")
 
-    # Timer0をExposureStartで起動し、出力期間を1000 usに設定
-    # Start Timer0 at ExposureStart and set its output duration to 1000 us.
+    # TimerSelectorをTimer0に設定し、制御するタイマーを選択します。
+    # Set TimerSelector to Timer0 to select the timer to configure.
     timer_selector = nodemap_remote.get_node("TimerSelector")
     enum_timer_selector = st.PyIEnumeration(timer_selector)
     enum_timer_selector.from_string("Timer0")
 
+    # TimerTriggerSourceをExposureStartに設定し、露光開始でTimer0を開始します。
+    # Set TimerTriggerSource to ExposureStart to start Timer0 when exposure starts.
     timer_trigger_source = nodemap_remote.get_node("TimerTriggerSource")
     enum_timer_trigger_source = st.PyIEnumeration(timer_trigger_source)
     enum_timer_trigger_source.from_string("ExposureStart")
 
+    # TimerDurationを1000 µsに設定します。
+    # Set TimerDuration to 1000 µs.
     timer_duration = nodemap_remote.get_node("TimerDuration")
     timer_duration.value = 1000
 

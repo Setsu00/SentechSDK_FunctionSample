@@ -41,26 +41,32 @@ int main(void)
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->StApi->IStPixelFormatConverter->GetIStPixelFormatConverter(&sIStConverterHandle, &sIStPixelFormatConverterHandle);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 変換後のピクセルフォーマットをBGR8に設定します。
 		// Set the destination pixel format to BGR8.
 		eStApiCError = psApiFunctions->StApi->IStPixelFormatConverter->SetDestinationPixelFormat(&sIStPixelFormatConverterHandle, StPFNC_BGR8);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 変換器のNodeMapを取得します。
 		// Acquire the converter's NodeMap.
 		eStApiCError = psApiFunctions->StApi->IStConverter->GetINodeMap(&sIStConverterHandle, &sINodeMapConverterHandle);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 偏光画像変換方式のノードを取得します。
 		// Get the polarization image transformation method node.
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapConverterHandle, "PolarizationImageTransformationMethod", &sIEnumerationPolarizationMethodHandle);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 直線偏光の角度と偏光度（ADOLP）への変換を設定します。
 		// Set conversion to angle and degree of linear polarization (ADOLP).
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationPolarizationMethodHandle, "AngleAndDegreeOfLinearPolarization");
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// 変換後の画像を格納するバッファを生成します。
 		// Create a buffer for the converted image.
 		eStApiCError = psApiFunctions->StApi->IStImageBuffer->CreateIStImageBuffer(NULL, &sIStImageBufferHandle);
 		if (eStApiCError != StApiCError_NoError) break;
+
 		// ADOLP画像を表示するウィンドウを生成します。
 		// Create a window to display ADOLP images.
 		eStApiCError = psApiFunctions->StApi->IStWnd->CreateIStWnd(StWindowType_ImageDisplay, &sIStWndHandle);
@@ -93,6 +99,7 @@ int main(void)
 			{
 				eStApiCError = psApiFunctions->StApi->IStStreamBuffer->GetIStImage(&sIStStreamBufferHandle, &sIStImageHandle);
 				if (eStApiCError != StApiCError_NoError) break;
+
 				// 表示前に、取得した偏光画像をADOLP画像へ変換します。
 				// Convert the acquired polarization image to an ADOLP image before display.
 				eStApiCError = psApiFunctions->StApi->IStConverter->Convert(&sIStConverterHandle, &sIStImageHandle, &sIStImageBufferHandle);
@@ -106,6 +113,7 @@ int main(void)
 				eStApiCError = psApiFunctions->StApi->IStStreamBufferInfo->GetFrameID(&sIStInfoHandle, &iFrameID);
 				if (eStApiCError != StApiCError_NoError) break;
 				printf("BlockID=%llu Size=%zu x %zu\n", (unsigned long long)iFrameID, nImageWidth, nImageHeight);
+
 				// 変換後の画像を表示します。
 				// Display the converted image.
 				{

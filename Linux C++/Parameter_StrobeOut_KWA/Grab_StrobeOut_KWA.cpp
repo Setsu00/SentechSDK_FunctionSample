@@ -5,7 +5,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -34,27 +35,35 @@ int main(int /* argc */, char ** /* argv */)
 #endif
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Set Line2 to output
+		// LineSelectorをLine2に設定し、出力に使うラインを選択します。
+		// Set LineSelector to Line2 to select the output line.
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line2";
 		GenApi::CEnumerationPtr pIEnumLineMode(pNodeMapCameraParam->GetNode("LineMode"));
+		// LineModeをOutputに設定し、選択したラインを出力にします。
+		// Set LineMode to Output to use the selected line as an output.
 		*pIEnumLineMode = "Output";
 
+		// LineSourceをTimer0Activeに設定し、Timer0の動作期間を出力します。
 		// Switch Line2 output source to Timer 0 Active
 		GenApi::CEnumerationPtr pIEnumLineSource(pNodeMapCameraParam->GetNode("LineSource"));
 		*pIEnumLineSource = "Timer0Active";
 
-		// Set Timer 0 trigger source to Exposure Start, which means Timer 0 will output signal when camera start exposure
+		// TimerSelectorをTimer0に設定し、制御するタイマーを選択します。
+		// Set TimerSelector to Timer0 to select the timer to configure.
 		GenApi::CEnumerationPtr pIEnumTimerSelector(pNodeMapCameraParam->GetNode("TimerSelector"));
 		*pIEnumTimerSelector = "Timer0";
 
+		// TimerTriggerSourceをExposureStartに設定し、露光開始でTimer0を開始します。
 		// Set exposure start as the trigger source of Timer0
 		GenApi::CEnumerationPtr pIEnumTimerTrigSource(pNodeMapCameraParam->GetNode("TimerTriggerSource"));
 		*pIEnumTimerTrigSource = "ExposureStart";
 
+		// TimerDurationを1000 µsに設定します。
 		// Set Timer0 output duration to 1000us
 		GenApi::CFloatPtr pIFloatTimerDuration(pNodeMapCameraParam->GetNode("TimerDuration"));
 		pIFloatTimerDuration->SetValue(1000);

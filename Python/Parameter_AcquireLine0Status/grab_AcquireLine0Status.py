@@ -19,16 +19,21 @@ try:
     # ============================================================
     # 
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
-    # Set Line0 to input
+    # LineSelectorをLine0に設定し、入力に使うラインを選択します。
+    # Set LineSelector to Line0 to select the input line.
     line_selector = nodemap_remote.get_node("LineSelector")
     enum_line_selector = st.PyIEnumeration(line_selector)
     enum_line_selector.from_string("Line0")
     
     line_mode = nodemap_remote.get_node("LineMode")
     enum_line_mode = st.PyIEnumeration(line_mode)
+
+    # LineModeをInputに設定し、選択したラインを入力にします。
+    # Set LineMode to Input to use the selected line as an input.
     enum_line_mode.from_string("Input")
 
     # Prepear interface for acquiring Line status

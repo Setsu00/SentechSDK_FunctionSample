@@ -82,6 +82,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleExposureAuto = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "ExposureAuto", &sIEnumerationHandleExposureAuto);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// ExposureAutoをContinuousに設定し、露光を継続して自動調整します。
+		// Set ExposureAuto to Continuous to adjust exposure automatically and continuously.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleExposureAuto, "Continuous");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -90,6 +93,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIIntegerHandleAutoLuminanceTarget = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "AutoLuminanceTarget", &sIIntegerHandleAutoLuminanceTarget);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// AutoLuminanceTargetを128に設定します。
+		// Set AutoLuminanceTarget to 128.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleAutoLuminanceTarget, 128, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -98,6 +104,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIFloatHandleExposureAutoLimitMin = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "ExposureAutoLimitMin", &sIFloatHandleExposureAutoLimitMin);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// ExposureAutoLimitMinを1000 µsに設定します。
+		// Set ExposureAutoLimitMin to 1000 µs.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleExposureAutoLimitMin, 1000, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -106,6 +115,9 @@ int main(int argc, char **argv)
 		StApiHandle_t sIFloatHandleExposureAutoLimitMax = { NULL };
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "ExposureAutoLimitMax", &sIFloatHandleExposureAutoLimitMax);
 		if (eStApiCError != StApiCError_NoError) break;
+
+		// ExposureAutoLimitMaxを150000 µsに設定します。
+		// Set ExposureAutoLimitMax to 150000 µs.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleExposureAutoLimitMax, 150000, false);
 		if (eStApiCError != StApiCError_NoError) break;
 

@@ -52,6 +52,7 @@ namespace Grab
                     // BalanceRatioのノードを取得
                     // Get Node for BalanceRatio
                     IFloat floatBalanceRatio = nodeMap.GetNode<IFloat>("BalanceRatio");
+
                     // バランス比率に10を設定
                     // Set BalanceRatio to 10
                     floatBalanceRatio.Value = 10;
@@ -59,6 +60,7 @@ namespace Grab
                     // 青の比率値にアクセスするためBalanceRatioSelectorをBlueに切替
                     // Switch balance ration selector to Blue for access Blue ratio value
                     enumBalanceRatioSelector.FromString("Blue");
+
                     // バランス比率に10を設定
                     // Set BalanceRatio to 10
                     floatBalanceRatio.Value = 10;
@@ -66,6 +68,7 @@ namespace Grab
                     // 緑の比率値にアクセスするためBalanceRatioSelectorをGreenに切替
                     // Switch balance ration selector to Green for access Green ratio value
                     enumBalanceRatioSelector.FromString("Green");
+
                     // バランス比率に10を設定
                     // Set BalanceRatio to 10
                     floatBalanceRatio.Value = 10;

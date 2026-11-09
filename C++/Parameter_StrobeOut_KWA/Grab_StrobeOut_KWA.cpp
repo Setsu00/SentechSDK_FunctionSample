@@ -39,11 +39,13 @@ int main(int /* argc */, char ** /* argv */)
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Line2に出力を設定
-		// Set Line2 to output
+		// LineSelectorをLine2に設定し、出力に使うラインを選択します。
+		// Set LineSelector to Line2 to select the output line.
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line2";
 		GenApi::CEnumerationPtr pIEnumLineMode(pNodeMapCameraParam->GetNode("LineMode"));
+		// LineModeをOutputに設定し、選択したラインを出力にします。
+		// Set LineMode to Output to use the selected line as an output.
 		*pIEnumLineMode = "Output";
 
 		// Line2出力をTimer 0 Activeに切替
@@ -51,8 +53,8 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumLineSource(pNodeMapCameraParam->GetNode("LineSource"));
 		*pIEnumLineSource = "Timer0Active";
 
-		// Timer0のTriggerSourceをExposure Startに設定すると、カメラの露光開始時にTimer0が信号を出力
-		// Set Timer 0 trigger source to Exposure Start, which means Timer 0 will output signal when camera start exposure
+		// TimerSelectorをTimer0に設定し、制御するタイマーを選択します。
+		// Set TimerSelector to Timer0 to select the timer to configure.
 		GenApi::CEnumerationPtr pIEnumTimerSelector(pNodeMapCameraParam->GetNode("TimerSelector"));
 		*pIEnumTimerSelector = "Timer0";
 

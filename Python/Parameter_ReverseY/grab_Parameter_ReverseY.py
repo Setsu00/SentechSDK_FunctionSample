@@ -19,10 +19,12 @@ try:
     # ============================================================
     # Demostration of switching on Reverse Y of camera.
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
-    # Switch on Reverse Y.
+    # ReverseYをtrueに設定し、上下反転を有効にします。
+    # Set ReverseY to true to enable vertical reversal.
     reverse_y = nodemap_remote.get_node("ReverseY")
     bool_reverse_y = st.PyIBoolean(reverse_y)
     bool_reverse_y.set_value(True, False)

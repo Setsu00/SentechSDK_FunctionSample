@@ -84,14 +84,20 @@ int main(int argc, char **argv)
 		StApiHandle_t sIEnumerationHandleTimerTriggerSource = { NULL };
 		StApiHandle_t sIFloatHandleTimerDuration = { NULL };
 
-		// Line2をOutputに設定します。
-		// Set Line2 to Output.
+		// LineSelectorをLine2に設定し、出力に使うラインを選択します。
+		// Set LineSelector to Line2 to select the output line.
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "LineSelector", &sIEnumerationHandleLineSelector);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// LineSelectorをLine2に設定します。
+		// Set LineSelector to Line2.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleLineSelector, "Line2");
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "LineMode", &sIEnumerationHandleLineMode);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// LineModeをOutputに設定し、選択したラインを出力にします。
+		// Set LineMode to Output to use the selected line as an output.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleLineMode, "Output");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -99,17 +105,26 @@ int main(int argc, char **argv)
 		// Set LineSource to Timer0Active.
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "LineSource", &sIEnumerationHandleLineSource);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// LineSourceをTimer0Activeに設定します。
+		// Set LineSource to Timer0Active.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleLineSource, "Timer0Active");
 		if (eStApiCError != StApiCError_NoError) break;
 
-		// Timer0のトリガー源をExposureStartに設定します。
-		// Set the Timer0 trigger source to ExposureStart.
+		// TimerSelectorをTimer0に設定し、制御するタイマーを選択します。
+		// Set TimerSelector to Timer0 to select the timer to configure.
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "TimerSelector", &sIEnumerationHandleTimerSelector);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// TimerSelectorをTimer0に設定します。
+		// Set TimerSelector to Timer0.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleTimerSelector, "Timer0");
 		if (eStApiCError != StApiCError_NoError) break;
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "TimerTriggerSource", &sIEnumerationHandleTimerTriggerSource);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// TimerTriggerSourceをExposureStartに設定し、露光開始でタイマーを開始します。
+		// Set TimerTriggerSource to ExposureStart to start the timer when exposure starts.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleTimerTriggerSource, "ExposureStart");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -117,6 +132,9 @@ int main(int argc, char **argv)
 		// Set TimerDuration to 1,000 µs.
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "TimerDuration", &sIFloatHandleTimerDuration);
 		if (eStApiCError != StApiCError_NoError) break;
+		
+		// TimerDurationを1000 µsに設定します。
+		// Set TimerDuration to 1000 µs.
 		eStApiCError = psApiFunctions->GenApi->IFloat->SetValue(&sIFloatHandleTimerDuration, 1000, false);
 		if (eStApiCError != StApiCError_NoError) break;
 

@@ -112,6 +112,8 @@ def do_focus_adjust(nodemap, stop_event):
                break
 
            if min_focus <= user_focus <= max_focus:
+               # 入力値をFocusValueに設定します。
+               # Set FocusValue to the entered value.
                focus_value.value = user_focus
                print(f"FocusValue set to: {user_focus}")
            else:

@@ -25,7 +25,8 @@ try:
         st_node_discovery_cmd_desIP = st_interface.port.nodemap.get_node("GevDeviceDiscoveryCommandDestinationIPAddress")
         
         if (st_node_discovery_cmd_desIP.is_readable):
-            # Set Discovery Command Distination IP Address to enable the unicast camera scanning.
+            # 検出コマンドの宛先IPアドレスを設定して、ユニキャスト検出を行います。
+            # Set the discovery-command destination IP address for unicast discovery.
             st_node_discovery_cmd_desIP.get().set_value(tgt_device_ip_int)
             # After setting distination IP, call update for actual scanning process.
             # Unicast scanning package will be sent via this function.

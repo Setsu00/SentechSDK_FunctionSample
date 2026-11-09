@@ -37,8 +37,8 @@ int main(int /* argc */, char ** /* argv */)
 		// Get the NodeMap used to access camera parameters.
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// ExposureAuto（IEnumeration）をContinuousに設定する。
-		// Set ExposureAuto (IEnumeration) to Continuous.
+		// ExposureAutoをContinuousに設定し、自動露光を継続します。
+		// Set ExposureAuto to Continuous to adjust exposure automatically and continuously.
 		GenApi::CEnumerationPtr pIEnumExpoAuto(pNodeMapCameraParam->GetNode("ExposureAuto"));
 		*pIEnumExpoAuto = "Continuous";
 

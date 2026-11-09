@@ -4,7 +4,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -32,13 +33,16 @@ int main(int /* argc */, char ** /* argv */)
 		// ==============================================================================================================
 		// Demostration of changing exposure time(us) of camera.
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// 露光時間を設定できるよう、ExposureAutoをOffに設定します。
 		// Switch off exposure auto. If exposure auto is on, exposure time cannot be set.
 		GenApi::CEnumerationPtr pIEnumExpoAuto(pNodeMapCameraParam->GetNode("ExposureAuto"));
 		*pIEnumExpoAuto = "Off";
 
+		// 露光時間を設定できるよう、ExposureModeをTimedに設定します。
 		// For setting camera exposure time, exposure mode must set to Timed to enable value input
 		GenApi::CEnumerationPtr pIEnumExpoMode(pNodeMapCameraParam->GetNode("ExposureMode"));
 		*pIEnumExpoMode = "Timed";
@@ -46,9 +50,11 @@ int main(int /* argc */, char ** /* argv */)
 		// Get Node for ExposureTime
 		GenApi::CNodePtr pNodeExposureTime = pNodeMapCameraParam->GetNode("ExposureTime");
 
+		// 値を設定するため、ノードをCFloatPtrに変換します。
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatExpoTime(pNodeExposureTime);
 
+		// 露光時間を100000 µsに設定します。
 		// Set Exposure time to 100,000 usec
 		pFloatExpoTime->SetValue(100000);
 

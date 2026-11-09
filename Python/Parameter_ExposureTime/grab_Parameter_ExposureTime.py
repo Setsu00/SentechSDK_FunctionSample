@@ -19,25 +19,38 @@ try:
     # ============================================================
     # Demostration of Setting Auto Shutter with dedicated range.
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
     
-    # Switch on Exposure Auto.
+    # ExposureAutoノードで自動露光の動作を設定します。
+    # Configure automatic exposure with the ExposureAuto node.
     exposure_auto = nodemap_remote.get_node("ExposureAuto")
+
+    # 操作用にPyIEnumerationへ変換します。
     # Convert to IEnum type for operating
     enum_exposure_auto = st.PyIEnumeration(exposure_auto)
+
+    # ExposureAutoをOffに設定し、自動露光を無効にします。
     # Set Exposure Auto to Off
     enum_exposure_auto.from_string("Off")
     
+    # ExposureModeをTimedに設定し、指定露光時間で動作させます。
     # Switch Exposure Mode to Timed
     exposure_mode = nodemap_remote.get_node("ExposureMode")
+
+    # 操作用にPyIEnumerationへ変換します。
     # Convert to IEnum type for operating
     enum_exposure_mode = st.PyIEnumeration(exposure_mode)
+
+    # ExposureModeをTimedに設定し、指定露光時間で動作させます。
     # Set Exposure Mode to Timed
     enum_exposure_mode.from_string("Timed")
 
     # Get Node for ExposureTime
     alc_tgt = nodemap_remote.get_node("ExposureTime")
+
+    # 露光時間を100000 µsに設定します。
     # Set Exposure time to 100,000 usec
     alc_tgt.value = 100000
 

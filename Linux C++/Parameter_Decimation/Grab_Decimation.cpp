@@ -4,7 +4,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -32,20 +33,25 @@ int main(int /* argc */, char ** /* argv */)
 		// ==============================================================================================================
 		// Demostration of setting decimation horizontal/vertical to 2.
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
 		// Get Node for Horizontal Decimation
 		GenApi::CNodePtr pNodeDeciH = pNodeMapCameraParam->GetNode("DecimationHorizontal");
+		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntDeciHorizontal(pNodeDeciH);
+		// DecimationHorizontalを2に設定します。
 		// Set Decimation Horizontal to 2.
 		pIntDeciHorizontal->SetValue(2);
 
 		// Get Node for Vertical Decimation
 		GenApi::CNodePtr pNodeDeciV = pNodeMapCameraParam->GetNode("DecimationVertical");
+		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntDeciVertical(pNodeDeciV);
+		// DecimationVerticalを2に設定します。
 		// Set Decimation Vertical to 2.
 		pIntDeciVertical->SetValue(2);
 

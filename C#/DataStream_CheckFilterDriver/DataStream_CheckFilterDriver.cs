@@ -2,10 +2,10 @@
 // DataStream_CheckFilterDriver.cs : 
 // 
 // このサンプルはIStDataStreamのStreamDriverTypeを読み出す方法を示します。
-// 読み出した情報よりフィルタドライバ使用しているかどうかの確認はできます。
+// 読み出した情報よりフィルタドライバを使用しているか確認できます。
 // 
 // This sample shows how to acquire the setting of IStDataStream for StreamDriverType.
-// By checking the entry it can confirm if the filter driver is installed or not.
+// The entry indicates whether the current DataStream uses the filter driver.
 // 
 
 using System;
@@ -56,6 +56,7 @@ namespace DataStream_CheckFilterDriver
                             if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
                             {
                                 IStImage stImage = streamBuffer.GetIStImage();
+                                // 取得した画像の情報を表示
                                 // Display the information of the acquired image data.
                                 Byte[] imageData = stImage.GetByteArray();
                                 Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);

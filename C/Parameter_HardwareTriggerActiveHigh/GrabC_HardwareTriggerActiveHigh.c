@@ -83,6 +83,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "LineSelector", &sIEnumerationHandleLineSelector);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// LineSelectorをLine0に設定します。
+		// Set LineSelector to Line0.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleLineSelector, "Line0");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -92,6 +94,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "LineMode", &sIEnumerationHandleLineMode);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// LineModeをInputに設定し、選択したラインを入力にします。
+		// Set LineMode to Input to use the selected line as an input.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleLineMode, "Input");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -101,6 +105,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "TriggerMode", &sIEnumerationHandleTriggerMode);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// TriggerModeをOnに設定します。
+		// Set TriggerMode to On.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleTriggerMode, "On");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -110,6 +116,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "TriggerSource", &sIEnumerationHandleTriggerSource);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// TriggerSourceをLine0に設定します。
+		// Set TriggerSource to Line0.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleTriggerSource, "Line0");
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -119,6 +127,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "TriggerActivation", &sIEnumerationHandleTriggerActivation);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// TriggerActivationをRisingEdgeに設定し、立ち上がりエッジでトリガーを受け付けます。
+		// Set TriggerActivation to RisingEdge to trigger on a rising edge.
 		eStApiCError = psApiFunctions->GenApi->IEnumeration->SetStringValueA(&sIEnumerationHandleTriggerActivation, "RisingEdge");
 		if (eStApiCError != StApiCError_NoError) break;
 

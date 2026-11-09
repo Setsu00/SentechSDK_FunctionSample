@@ -19,26 +19,38 @@ try:
     # ============================================================
     # Demostration of set analog Gain to 2dB.
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
     # Switch off gain auto.
     # If Gain auto is on, gain value cannot be set
     gain_auto = nodemap_remote.get_node("GainAuto")
+
+    # 操作用にPyIEnumerationへ変換します。
     # Convert to IEnum type for operating
     enum_gain_auto = st.PyIEnumeration(gain_auto)
+
+    # GainAutoをOffに設定し、自動ゲイン調整を無効にします。
     # Set Gain Auto to Off
     enum_gain_auto.from_string("Off")
 
+    # アナログゲインを制御するため、GainSelectorをAnalogAllに設定します。
     # For setting analog gain, gain selector need to be set to AnalogAll to access analog gain.
     gain_selector = nodemap_remote.get_node("GainSelector")
+
+    # 操作用にPyIEnumerationへ変換します。
     # Convert to IEnum type for operating
     enum_gain_selector = st.PyIEnumeration(gain_selector)
+
+    # アナログゲインを制御するため、GainSelectorをAnalogAllに設定します。
     # Set selector to AnalogAll to control analog gain
     enum_gain_selector.from_string("AnalogAll")
 
     # Get Node for Gain
     gain_node = nodemap_remote.get_node("Gain")
+
+    # アナログゲインを2 dBに設定します。
     # Set Gain to 2 dB
     gain_node.value = 20
     

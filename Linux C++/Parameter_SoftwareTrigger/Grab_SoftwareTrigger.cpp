@@ -4,7 +4,8 @@
 
 #define ENABLED_ST_GUI
 
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
 #include <StApi_GUI.h>
@@ -32,13 +33,16 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 		// Demostration of Setting Software Trigger ON
 
+		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// Switch on Trigger Mode(IEnumeration).
+		// TriggerModeをOnに設定し、トリガーを有効にします。
+		// Set TriggerMode to On to enable triggering.
 		GenApi::CEnumerationPtr pIEnumTrigMode(pNodeMapCameraParam->GetNode("TriggerMode"));
 		*pIEnumTrigMode = "On";
 
+		// TriggerSourceをSoftwareに設定します。
 		// Set Trigger Source to Software
 		GenApi::CEnumerationPtr pIEnumTrigSource(pNodeMapCameraParam->GetNode("TriggerSource"));
 		*pIEnumTrigSource = "Software";
@@ -54,6 +58,7 @@ int main(int /* argc */, char ** /* argv */)
 		{
 
 			// ===============================================================================
+			// ソフトウェアトリガーを送信します。
 			// Demostration sending software trigger
 			pcICommandTriggerSoftTrg->Execute();
 			cout << "Software Trigger Sent." << endl;
@@ -100,8 +105,8 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
-		// Set Software Trigger OFF after using
 
+		// 取得後はTriggerModeをOffに設定します。
 		// Switch off Trigger Mode(IEnumeration) after acquiring.
 		*pIEnumTrigMode = "Off";
 

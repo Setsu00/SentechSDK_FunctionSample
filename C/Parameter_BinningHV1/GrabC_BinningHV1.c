@@ -83,6 +83,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "BinningHorizontal", &sIIntegerHandleBinningHorizontal);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// BinningHorizontalを1に設定します。
+		// Set BinningHorizontal to 1.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleBinningHorizontal, 1, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -92,6 +94,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->INodeMap->GetNodeA(&sINodeMapRemoteHandle, "BinningVertical", &sIIntegerHandleBinningVertical);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// BinningVerticalを1に設定します。
+		// Set BinningVertical to 1.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleBinningVertical, 1, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -105,6 +109,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->IInteger->GetMax(&sIIntegerHandleWidth, &nMaximumWidth);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// Widthを最大値に設定します。
+		// Set Width to its maximum value.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleWidth, nMaximumWidth, false);
 		if (eStApiCError != StApiCError_NoError) break;
 
@@ -118,6 +124,8 @@ int main(int argc, char **argv)
 		eStApiCError = psApiFunctions->GenApi->IInteger->GetMax(&sIIntegerHandleHeight, &nMaximumHeight);
 		if (eStApiCError != StApiCError_NoError) break;
 
+		// Heightを最大値に設定します。
+		// Set Height to its maximum value.
 		eStApiCError = psApiFunctions->GenApi->IInteger->SetValue(&sIIntegerHandleHeight, nMaximumHeight, false);
 		if (eStApiCError != StApiCError_NoError) break;
 

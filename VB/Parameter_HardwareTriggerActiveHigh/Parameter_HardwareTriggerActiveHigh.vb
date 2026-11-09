@@ -32,15 +32,17 @@ Module HardwareTriggerActiveHigh
 								' Create NodeMap pointer for accessing parameters
 								Dim nodeMap As INodeMap = device.GetRemoteIStPort().GetINodeMap()
 
-								' Line0を入力に設定します。
-								' Set Line0 to input
+								' LineSelectorをLine0に設定し、入力に使うラインを選択します。
+								' Set LineSelector to Line0 to select the input line.
 								Dim enumLineSelector As IEnum = nodeMap.GetNode(Of IEnum)("LineSelector")
 								enumLineSelector.FromString("Line0")
 								Dim enumLineMode As IEnum = nodeMap.GetNode(Of IEnum)("LineMode")
+								' LineModeをInputに設定し、選択したラインを入力にします。
+								' Set LineMode to Input to use the selected line as an input.
 								enumLineMode.FromString("Input")
 
-								' TriggerMode（IEnumeration）を有効にします。
-								' Switch on Trigger Mode(IEnumeration)
+								' TriggerModeをOnに設定し、トリガーを有効にします。
+								' Set TriggerMode to On to enable triggering.
 								Dim enumTriggerMode As IEnum = nodeMap.GetNode(Of IEnum)("TriggerMode")
 								enumTriggerMode.FromString("On")
 
@@ -49,8 +51,8 @@ Module HardwareTriggerActiveHigh
 								Dim enumTriggerSource As IEnum = nodeMap.GetNode(Of IEnum)("TriggerSource")
 								enumTriggerSource.FromString("Line0")
 
-								' トリガー条件をアクティブHighに設定します。
-								' Set trigger activation to active high
+								' TriggerActivationをRisingEdgeに設定し、立ち上がりエッジでトリガーを受け付けます。
+								' Set TriggerActivation to RisingEdge to trigger on a rising edge.
 								Dim enumTriggerActive As IEnum = nodeMap.GetNode(Of IEnum)("TriggerActivation")
 								enumTriggerActive.FromString("RisingEdge")
 
@@ -90,8 +92,6 @@ Module HardwareTriggerActiveHigh
 								dataStream.StopAcquisition()
 
 								' ==============================================================================================================
-								' 使用後にソフトウェアトリガー設定を解除します。
-								' Set Software Trigger OFF after using
 
 								' 画像取得後にTriggerMode（IEnumeration）をOffに設定します。
 								' Switch off Trigger Mode(IEnumeration) after acquiring.

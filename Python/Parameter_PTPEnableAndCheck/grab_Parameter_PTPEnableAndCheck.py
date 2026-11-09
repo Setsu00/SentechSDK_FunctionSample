@@ -19,6 +19,7 @@ try:
     # ============================================================
     # Demostration of enable PTP function and wait for status confirmed
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
@@ -26,7 +27,9 @@ try:
     ptp_enable = nodemap_remote.get_node("PtpEnable")
     # Convert to IBool type for operating
     bool_ptp_enable = st.PyIBoolean(ptp_enable)
-    # Set PTP on
+
+    # PtpEnableをTrueに設定し、PTPを有効にします。
+    # Set PtpEnable to True to enable PTP.
     bool_ptp_enable.set_value(True)
 
     # Acquire Node for updating PTP status
@@ -40,16 +43,23 @@ try:
     # ============================================================
 
     while True:
-        # Update current PTP status
+        # PtpDataSetLatchコマンドで現在のPTP情報を更新します。
+        # Execute PtpDataSetLatch to update the current PTP information.
         command_ptp_latch.execute()
-        # Acquire current PTP status
-        print("Current PTP status: " , enum_ptp_status.to_string(True, True))
-        if(enum_ptp_status.to_string() != "Listening"):
+
+        # キャッシュを使わずに現在のPTP状態を取得して表示します。
+        # Read and display the current PTP status without using the cache.
+        current_ptp_status = enum_ptp_status.to_string(True, True)
+        print("Current PTP status: " , current_ptp_status)
+
+        # MasterまたはSlaveになるまで待ちます。
+        # Wait until the status becomes Master or Slave.
+        if current_ptp_status in ("Master", "Slave"):
             break
         time.sleep(1)
         
 
-    print("PTP sync done.")
+    print("PTP role confirmed.")
     print("Note PTP sync will be disabled when connection lost.")
         
 

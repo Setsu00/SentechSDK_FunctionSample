@@ -19,41 +19,61 @@ try:
     # ============================================================
     # Demostration of changing white balance to manual with setting all balance ratio to 10
 
+    # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
     # Switch BalanceWhiteAuto to Off for manual input value
     # Acquire Node for BalanceWhiteAuto
     balance_auto = nodemap_remote.get_node("BalanceWhiteAuto")
+
+    # 操作用にPyIEnumerationへ変換します。
     # Convert to IEnum type for operating
     enum_balance_auto = st.PyIEnumeration(balance_auto)
+
+    # BalanceWhiteAutoをOffに設定し、自動ホワイトバランスを無効にします。
     # Set BalanceWhiteAuto to Off
     enum_balance_auto.from_string("Off")
     
+    # 赤の比率にアクセスするため、BalanceRatioSelectorをRedに設定します。
     # Switch balance ration selector to Red for access Red ratio value
     # Acquire Node for BalanceRatioSelector
     balance_ratio_selector = nodemap_remote.get_node("BalanceRatioSelector")
+
+    # 操作用にPyIEnumerationへ変換します。
     # Convert to IEnum type for operating
     enum_balance_ratio_selector = st.PyIEnumeration(balance_ratio_selector)
+
+    # 赤の比率にアクセスするため、BalanceRatioSelectorをRedに設定します。
     # Switch to Red for Red ratio handling
     enum_balance_ratio_selector.from_string("Red")
     
     # Get Node for value of BalanceRatio
     balance_ratio = nodemap_remote.get_node("BalanceRatio")
+
+    # 操作用にPyIFloatへ変換します。
     # Convert to IFloat type for operating
     float_balance_ratio = st.PyIFloat(balance_ratio)
+
+    # BalanceRatioを10に設定します。
     # Set Balance Ratio to 10.
     # For that selector is now Red, the value modified is the Red balance ratio rather than other color.
     float_balance_ratio.value = 10
     
+    # 青の比率にアクセスするため、BalanceRatioSelectorをBlueに設定します。
     # Switch BalanceRatioSelector to Blue for accessing Blue ratio value
     enum_balance_ratio_selector.from_string("Blue")
+
+    # BalanceRatioを10に設定します。
     # Set Balance Ratio to 10.
     # For that selector is now set to Blue, the ablue modified is the Blue balance ratio rather than other color.
     float_balance_ratio.value = 10
     
+    # 緑の比率にアクセスするため、BalanceRatioSelectorをGreenに設定します。
     # Switch BalanceRatioSelector to Green for accessing Green ratio value
     enum_balance_ratio_selector.from_string("Green")
+
+    # BalanceRatioを10に設定します。
     # Set Balance Ratio to 10.
     # For that selector is now set to Green, the ablue modified is the Green balance ratio rather than other color.
     float_balance_ratio.value = 10

@@ -6,7 +6,8 @@
 #define ENABLED_ST_GUI
 
 using System;
-// このサンプルの基本操作と対象機能の制御手順を示します。 / This sample demonstrates the basic operation and control procedure for the target feature.
+// このサンプルの基本操作と対象機能の制御手順を示します。
+// This sample demonstrates the basic operation and control procedure for the target feature.
 using Sentech.GenApiDotNET;
 using Sentech.StApiDotNET;
 
@@ -52,6 +53,7 @@ namespace Parameter_ManualWhiteBalance_U3V
                     // BalanceRatioのノードを取得
                     // Get Node for BalanceRatio
                     IFloat floatBalanceRatio = nodeMap.GetNode<IFloat>("BalanceRatio");
+
                     // バランス比率に10を設定
                     // Set BalanceRatio to 10
                     floatBalanceRatio.Value = 10;
@@ -59,6 +61,7 @@ namespace Parameter_ManualWhiteBalance_U3V
                     // 青の比率値にアクセスするためBalanceRatioSelectorをBlueに切替
                     // Switch balance ration selector to Blue for access Blue ratio value
                     enumBalanceRatioSelector.FromString("Blue");
+
                     // バランス比率に10を設定
                     // Set BalanceRatio to 10
                     floatBalanceRatio.Value = 10;
@@ -66,6 +69,7 @@ namespace Parameter_ManualWhiteBalance_U3V
                     // 緑の比率値にアクセスするためBalanceRatioSelectorをGreenに切替
                     // Switch balance ration selector to Green for access Green ratio value
                     enumBalanceRatioSelector.FromString("Green");
+
                     // バランス比率に10を設定
                     // Set BalanceRatio to 10
                     floatBalanceRatio.Value = 10;

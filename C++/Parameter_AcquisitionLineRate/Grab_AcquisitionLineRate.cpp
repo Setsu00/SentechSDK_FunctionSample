@@ -29,18 +29,23 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// AcquisitionLineRateを385 Hzに設定するデモ。
+		// Demonstration of setting AcquisitionLineRate to 385 Hz.
 
 		// パラメータにアクセスするためのノードマップポインタを生成
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
-		// 
+		// AcquisitionLineRateノードを取得します。
+		// Get the AcquisitionLineRate node.
 		GenApi::CNodePtr pNodeLR = pNodeMapCameraParam->GetNode("AcquisitionLineRate");
 
-		// 
+		// 設定用にCFloatPtrへ変換します。
+		// Convert to CFloatPtr for setting the value.
 		GenApi::CFloatPtr pFloatLR(pNodeLR);
 
-		//
+		// AcquisitionLineRateを385 Hzに設定します。
+		// Set AcquisitionLineRate to 385 Hz.
 		pFloatLR->SetValue(385);
 
 		// ==============================================================================================================
