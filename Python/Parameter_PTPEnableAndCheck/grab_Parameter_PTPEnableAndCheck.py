@@ -17,25 +17,31 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # PTPを有効にし、状態の確認を待つデモです。
     # Demostration of enable PTP function and wait for status confirmed
 
     # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
+    # PTPを有効にします。
     # Enable PTP function.
     ptp_enable = nodemap_remote.get_node("PtpEnable")
-    # Convert to IBool type for operating
+
+    # 操作用にPyIBooleanへ変換します。
+    # Convert to PyIBoolean type for operating
     bool_ptp_enable = st.PyIBoolean(ptp_enable)
 
     # PtpEnableをTrueに設定し、PTPを有効にします。
     # Set PtpEnable to True to enable PTP.
     bool_ptp_enable.set_value(True)
 
+    # PTP状態更新用のノードを取得します。
     # Acquire Node for updating PTP status
     ptp_latch = nodemap_remote.get_node("PtpDataSetLatch")
     command_ptp_latch = st.PyICommand(ptp_latch)
 
+    # PTP状態確認用のノードを取得します。
     # Acquire Node for checking PTP status
     ptp_status = nodemap_remote.get_node("PtpStatus")
     enum_ptp_status = st.PyIEnumeration(ptp_status)

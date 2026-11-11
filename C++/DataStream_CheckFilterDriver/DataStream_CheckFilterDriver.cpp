@@ -36,6 +36,7 @@ int main(int /* argc */, char ** /* argv */)
 		// StreamDriverTypeのノードを取得
 		// Acquire Node for "StreamDriverType" to check if current DataStream is using Filter Driver
 		GenApi::CEnumerationPtr pEnumDriverType(pNodeMapCameraParam->GetNode("StreamDriverType"));
+
 		// 今の設定を示す
 		// Display current setting
 		cout << "Current stream driver type: " << pEnumDriverType->GetCurrentEntry()->GetSymbolic() << endl;

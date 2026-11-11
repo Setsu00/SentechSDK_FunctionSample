@@ -52,6 +52,7 @@ namespace Grab
                     // Gainノードを取得
                     // Get Node for Gain
                     IFloat floatGain = nodeMap.GetNode<IFloat>("Gain");
+
                     // ゲインに2dBを設定
                     // Set Gain to 2 dB.
                     floatGain.Value = 20;

@@ -19,6 +19,7 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # 自動露光の範囲を設定するデモです。
     # Demostration of Setting Auto Shutter with dedicated range.
 
     # カメラのパラメーター操作用のNodeMapを取得します。
@@ -49,6 +50,7 @@ try:
     # Set ExposureAuto to Continuous to adjust exposure automatically and continuously.
     enum_exposure_auto.from_string("Continuous")
 
+    # AutoLuminanceTargetノードを取得します。
     # Get Node for Auto Luminance Target
     alc_tgt = nodemap_remote.get_node("AutoLuminanceTarget")
 
@@ -56,6 +58,7 @@ try:
     # Set Auto Luminance Target to 128
     alc_tgt.value = 128
         
+    # ExposureAutoLimitMinノードを取得します。
     # Get Node for ExposureAutoLimitMin
     alc_limit_min = nodemap_remote.get_node("ExposureAutoLimitMin")
 
@@ -63,6 +66,7 @@ try:
     # Set Auto Exposure time Min to 1,000 usec
     alc_limit_min.value = 1000
     
+    # ExposureAutoLimitMaxノードを取得します。
     # Get Node for ExposureAutoLimitMax
     alc_limit_max = nodemap_remote.get_node("ExposureAutoLimitMax")
 

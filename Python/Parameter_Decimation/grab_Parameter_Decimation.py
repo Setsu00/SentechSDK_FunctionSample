@@ -17,6 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
     
     # ============================================================
+    # 水平方向・垂直方向のデシメーションを2に設定するデモです。
     # Demostration of setting decimation horizontal/vertical to 2.
     
     # カメラのパラメーター操作用のNodeMapを取得します。

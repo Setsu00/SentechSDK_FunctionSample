@@ -28,6 +28,7 @@ int main(int /* argc */, char ** /* argv */)
 		// MaximumResendRequestsPerBlockノードを取得
 		// Get the MaximumResendRequestsPerBlock node.
 		GenApi::CIntegerPtr pIntegerResendRequests(pNodeMapDataStream->GetNode("MaximumResendRequestsPerBlock"));
+
 		// MaximumResendRequestsPerBlockを0（単位なし、無制限）に設定します。
 		// Set MaximumResendRequestsPerBlock to 0 (unitless, unlimited).
 		pIntegerResendRequests->SetValue(0);

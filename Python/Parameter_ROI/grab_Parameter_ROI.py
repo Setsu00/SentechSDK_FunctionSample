@@ -17,12 +17,14 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # ROIを640×480、オフセットを（100, 200）に設定するデモです。
     # Demostration of setting ROI to 640 x 480 with offset (100, 200).
 
     # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
+    # Widthノードを取得します。
     # Acquire Width node
     width = nodemap_remote.get_node("Width")
 
@@ -34,6 +36,7 @@ try:
     # Set the width to 640
     width.value = 640
     
+    # Heightノードを取得します。
     # Acquire Height node
     height = nodemap_remote.get_node("Height")
 
@@ -45,6 +48,7 @@ try:
     # Set the height to 480
     int_height.value = 480
     
+    # OffsetXノードを取得します。
     # Acquire OffsetX node
     offset_x = nodemap_remote.get_node("OffsetX")
 
@@ -56,6 +60,7 @@ try:
     # Set the Offset X to 100
     int_offset_x.value = 100
     
+    # OffsetYノードを取得します。
     # Acquire OffsetY node
     offset_y = nodemap_remote.get_node("OffsetY")
 

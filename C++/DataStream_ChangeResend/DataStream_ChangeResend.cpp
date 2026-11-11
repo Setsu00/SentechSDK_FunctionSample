@@ -34,8 +34,9 @@ int main(int /* argc */, char ** /* argv */)
 		// Maximum Resend Requests Per Blockのノードを取得
 		// Acquire Node for "MaximumResendRequestsPerBlock"
 		GenApi::CIntegerPtr pIntegerResendRequests(pNodeMapCameraParam->GetNode("MaximumResendRequestsPerBlock"));
+
 		// Maximum Resend Requests Per Blockに0を設定
-		// Set MaximumResendRequestsPerBloxk to 0 (to disable the limited of resend.
+		// Set MaximumResendRequestsPerBlock to 0 (unlimited resend requests).
 		pIntegerResendRequests->SetValue(0);
 
 		// ==============================================================================================================

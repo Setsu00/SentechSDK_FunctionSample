@@ -40,9 +40,11 @@ int main(int /* argc */, char ** /* argv */)
 		// BinningHorizontalノードを取得
 		// Get Node for Binning Horizontal
 		GenApi::CNodePtr pNodeBinningH = pNodeMapCameraParam->GetNode("BinningHorizontal");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntBinningH(pNodeBinningH);
+
 		// BinningHorizontalに2を設定
 		// Set BinningHorizontal to 2
 		pIntBinningH->SetValue(2);
@@ -50,9 +52,11 @@ int main(int /* argc */, char ** /* argv */)
 		// BinningVerticalノードを取得
 		// Get Node for Binning Vertical
 		GenApi::CNodePtr pNodeBinningV = pNodeMapCameraParam->GetNode("BinningVertical");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntBinningV(pNodeBinningV);
+
 		// BinningVerticalに2を設定
 		// Set BinningVertical to 2
 		pIntBinningV->SetValue(2);

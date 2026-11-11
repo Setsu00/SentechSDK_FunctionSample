@@ -36,6 +36,7 @@ try:
     # Set LineMode to Input to use the selected line as an input.
     enum_line_mode.from_string("Input")
 
+    # ライン状態取得用のインターフェースを準備します。
     # Prepear interface for acquiring Line status
     line_status = nodemap_remote.get_node("LineStatus")
     line_status_bool = st.PyIBoolean(line_status)
@@ -56,8 +57,12 @@ try:
                       st_buffer.info.frame_id,
                       st_image.width, st_image.height,
                       st_image.get_image_data()[0]))
+
+                # ラインの状態を取得します。
                 # Acquire line status
                 line_status_value = line_status_bool.get_value(False, True)
+
+                # 現在のライン状態を表示します。
                 # Print out current line status
                 print("Current Line0 status:", line_status_value)
             else:

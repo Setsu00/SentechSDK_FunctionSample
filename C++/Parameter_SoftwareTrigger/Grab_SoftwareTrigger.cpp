@@ -32,6 +32,7 @@ int main(int /* argc */, char ** /* argv */)
 		CIStImageDisplayWndPtr pIStImageDisplayWnd(CreateIStWnd(StWindowType_ImageDisplay));
 #endif
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
+
 		// ソフトウェアトリガーをOnに設定するデモ
 		// Demostration of Setting Software Trigger ON
 

@@ -1,4 +1,5 @@
 ﻿/*
+	Line1をセンサー露光中信号の出力に設定します。
 	Output Exposure Active: Set camera Line1 as output for sensor exposure active signal(period of exposuring of sensor).
 */
 
@@ -27,6 +28,7 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
+		// Line1を露光中信号の出力に設定するデモです。
 		// Demostration of Setting Line1 as Exposure Active
 
 #ifdef ENABLED_ST_GUI
@@ -43,6 +45,7 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line1";
 		GenApi::CEnumerationPtr pIEnumLineMode(pNodeMapCameraParam->GetNode("LineMode"));
+
 		// LineModeをOutputに設定し、選択したラインを出力にします。
 		// Set LineMode to Output to use the selected line as an output.
 		*pIEnumLineMode = "Output";
@@ -59,7 +62,8 @@ int main(int /* argc */, char ** /* argv */)
 		while (pIStDataStream->IsGrabbing())
 		{
 
-			// Retrieve a frame right after a software trigger is sent.
+			// 画像のフレームを取得します。
+			// Retrieve an image frame.
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
 			{

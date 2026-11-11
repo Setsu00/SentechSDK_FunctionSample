@@ -45,6 +45,7 @@ namespace Parameter_BinningHV1
                     // BinningHorizontalのノードを取得
                     // Acquire Binning Horizontal node
                     IInteger intBinningHorizontal = nodeMap.GetNode<IInteger>("BinningHorizontal");
+
                     // BinningHorizontalに1を設定
                     // Set BinningHorizontal to 1
                     intBinningHorizontal.Value = 1;
@@ -52,6 +53,7 @@ namespace Parameter_BinningHV1
                     // BinningVerticalのノードを取得
                     // Acquire Binning Vertical node
                     IInteger intBinningVertical = nodeMap.GetNode<IInteger>("BinningVertical");
+
                     // BinningVerticalに1を設定
                     // Set BinningVertical to 1
                     intBinningVertical.Value = 1;
@@ -62,6 +64,7 @@ namespace Parameter_BinningHV1
                     // Widthノードを取得
                     // Acquire Width node
                     IInteger intWidth = nodeMap.GetNode<IInteger>("Width");
+
                     // Widthに可能な限り最大値を設定
                     // Set Width to Max as it can
                     intWidth.Value = intWidth.Maximum;
@@ -69,6 +72,7 @@ namespace Parameter_BinningHV1
                     // Heightノードを取得
                     // Acquire Height node
                     IInteger intHeight = nodeMap.GetNode<IInteger>("Height");
+
                     // Heightに可能な限り最大値を設定
                     // Set Height to Max as it can
                     intHeight.Value = intHeight.Maximum;

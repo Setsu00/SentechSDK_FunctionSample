@@ -17,12 +17,14 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # アナログゲインを2 dBに設定するデモです。
     # Demostration of set analog Gain to 2dB.
 
     # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
+    # ゲインを設定できるよう、自動ゲインを無効にします。
     # Switch off gain auto.
     # If Gain auto is on, gain value cannot be set
     gain_auto = nodemap_remote.get_node("GainAuto")
@@ -47,6 +49,7 @@ try:
     # Set selector to AnalogAll to control analog gain
     enum_gain_selector.from_string("AnalogAll")
 
+    # Gainノードを取得します。
     # Get Node for Gain
     gain_node = nodemap_remote.get_node("Gain")
 

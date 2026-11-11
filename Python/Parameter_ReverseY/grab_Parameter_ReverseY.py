@@ -17,6 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # ReverseYを有効にするデモです。
     # Demostration of switching on Reverse Y of camera.
 
     # カメラのパラメーター操作用のNodeMapを取得します。

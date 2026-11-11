@@ -1,4 +1,5 @@
 ﻿/*
+	Line0を入力とし、立ち上がりエッジでハードウェアトリガーを検出します。
 	Hardware Trigger (Active High): Set camera to hardware trigger mode for Line0 as input and active high (Trigger activation as rising edge).
 */
 
@@ -27,6 +28,7 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
+		// Active Highのハードウェアトリガーを有効にするデモです。
 		// Demostration of Setting Hardware Trigger ON with active high
 
 #ifdef ENABLED_ST_GUI
@@ -43,6 +45,7 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line0";
 		GenApi::CEnumerationPtr pIEnumLine0Mode(pNodeMapCameraParam->GetNode("LineMode"));
+
 		// LineModeをInputに設定し、選択したラインを入力にします。
 		// Set LineMode to Input to use the selected line as an input.
 		*pIEnumLine0Mode = "Input";
@@ -69,7 +72,8 @@ int main(int /* argc */, char ** /* argv */)
 		while (pIStDataStream->IsGrabbing())
 		{
 
-			// Retrieve a frame right after a software trigger is sent.
+			// ハードウェアトリガーで取得したフレームを取り出します。
+			// Retrieve a frame acquired by a hardware trigger.
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
 			{

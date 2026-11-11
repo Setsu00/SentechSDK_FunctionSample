@@ -17,6 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # ピクセルフォーマットを変更するデモです。
     # Demostration of PixelFormat change.
 
     # カメラのパラメーター操作用のNodeMapを取得します。

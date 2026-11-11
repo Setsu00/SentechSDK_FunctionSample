@@ -62,6 +62,7 @@ int main(int /* argc */, char ** /* argv */)
 			// インターフェース取得
 			// Acquire interface
 			IStInterface * pInterface = pIStSystem->GetIStInterface(i);
+
 			// 新しいデバイスを検出した場合インターフェースを更新
 			// Update interface to see if any newer device comes in.
 			pInterface->UpdateDeviceList();

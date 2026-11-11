@@ -37,6 +37,7 @@ Module OutputExposureActive
 								Dim enumLineSelector As IEnum = nodeMap.GetNode(Of IEnum)("LineSelector")
 								enumLineSelector.FromString("Line1")
 								Dim enumLineMode As IEnum = nodeMap.GetNode(Of IEnum)("LineMode")
+
 								' LineModeをOutputに設定し、選択したラインを出力にします。
 								' Set LineMode to Output to use the selected line as an output.
 								enumLineMode.FromString("Output")

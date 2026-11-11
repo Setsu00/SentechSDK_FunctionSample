@@ -1,4 +1,5 @@
 ﻿/*
+	フレームレートを2 FPSに設定し、20枚取得します。
 	Acquisition Frame Rate: Set camera FPS to 2 then take 20 pics.
 */
 
@@ -31,6 +32,7 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// 取得フレームレートを変更するデモです。
 		// Demostration of changing acquisition frame rate (FPS)
 
 		// パラメーター操作用のNodeMapを取得します。
@@ -47,6 +49,7 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumExpoMode(pNodeMapCameraParam->GetNode("ExposureMode"));
 		*pIEnumExpoMode = "Off";
 
+		// AcquisitionFrameRateノードを取得します。
 		// Get Node for Acquisition Frame Rate.
 		GenApi::CNodePtr pNodeFPS = pNodeMapCameraParam->GetNode("AcquisitionFrameRate");
 

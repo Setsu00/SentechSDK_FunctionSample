@@ -17,12 +17,14 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # Gammaを4に設定するデモです。
     # Demostration of set Gamma value to 4
 
     # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
     
+    # Gammaノードを取得します。
     # Get Node for gamma
     gamma = nodemap_remote.get_node("Gamma")
 

@@ -40,9 +40,11 @@ int main(int /* argc */, char ** /* argv */)
 		// BinningHorizontalのノードを取得
 		// Get Node for Binning Horizontal
 		GenApi::CNodePtr pNodeBinningH = pNodeMapCameraParam->GetNode("BinningHorizontal");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntBinningH(pNodeBinningH);
+
 		// BinningHorizontalに1を設定
 		// Set BinningHorizontal to 1
 		pIntBinningH->SetValue(1);
@@ -50,9 +52,11 @@ int main(int /* argc */, char ** /* argv */)
 		// BinningVerticalのノードを取得
 		// Get Node for Binning Vertical
 		GenApi::CNodePtr pNodeBinningV = pNodeMapCameraParam->GetNode("BinningVertical");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntBinningV(pNodeBinningV);
+
 		// BinningVerticalに1を設定
 		// Set BinningVertical to 1
 		pIntBinningV->SetValue(1);
@@ -63,9 +67,11 @@ int main(int /* argc */, char ** /* argv */)
 		// Widthノードを取得
 		// Get Node for Width
 		GenApi::CNodePtr pNodeWidth = pNodeMapCameraParam->GetNode("Width");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntWidthl(pNodeWidth);
+
 		// Widthに可能な限り最大値を設定
 		// Set Width to Max as it can
 		pIntWidthl->SetValue(pIntWidthl->GetMax());
@@ -73,9 +79,11 @@ int main(int /* argc */, char ** /* argv */)
 		// Heightノードを取得
 		// Get Node for Height
 		GenApi::CNodePtr pNodeHeight = pNodeMapCameraParam->GetNode("Height");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntHeight(pNodeHeight);
+
 		// Heightに可能な限り最大値を設定
 		// Set Height to Max as it can
 		pIntHeight->SetValue(pIntHeight->GetMax());

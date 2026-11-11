@@ -5,6 +5,7 @@
 
 #include <StApi_TL.h>
 
+// IPアドレス変換用の関数
 #include <arpa/inet.h> // inet_addr / ntohl
 
 

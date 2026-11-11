@@ -42,6 +42,7 @@ namespace Grab
                     // Widthノードを取得
                     // Get Node for Width
                     IInteger intWidth = nodeMap.GetNode<IInteger>("Width");
+
                     // 幅を640に設定
                     // Set Width to 640
                     intWidth.Value = 640;
@@ -49,6 +50,7 @@ namespace Grab
                     // Heightノードを取得
                     // Get Node for Height
                     IInteger intHeight = nodeMap.GetNode<IInteger>("Height");
+
                     // 高さを480に設定
                     // Set Height to 480
                     intHeight.Value = 480;
@@ -56,6 +58,7 @@ namespace Grab
                     // OffsetXのノードを取得
                     // Get Node for Offset X
                     IInteger intOffsetX = nodeMap.GetNode<IInteger>("OffsetX");
+
                     // Xオフセットに100を設定
                     // Set Offset X to 100
                     intOffsetX.Value = 100;
@@ -63,6 +66,7 @@ namespace Grab
                     // OffsetYのノードを取得
                     // Get Node for Offset Y
                     IInteger intOffsetY = nodeMap.GetNode<IInteger>("OffsetY");
+
                     // Yオフセットに200を設定
                     // Set Offset Y to 200
                     intOffsetY.Value = 200;

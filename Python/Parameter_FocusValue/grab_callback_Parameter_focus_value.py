@@ -10,9 +10,11 @@ import threading
 import numpy as np
 import stapipy as st
 
+# グローバルなタイムスタンプ変数
 # Global timestamp variable
 g_timeStampRec = 0
 
+# OpenCV表示時の画像倍率
 # Image scale when displaying using OpenCV.
 DISPLAY_RESIZE_FACTOR = 0.3
 
@@ -43,23 +45,29 @@ class CMyCallback:
         st_datastream = handle.module
         if st_datastream:
             with st_datastream.retrieve_buffer() as st_buffer:
+                # 取得データに画像が含まれているか確認します。
                 # Check if the acquired data contains image data.
                 if st_buffer.info.is_image_present:
+                    # 画像オブジェクトを生成します。
                     # Create an image object.
                     st_image = st_buffer.get_image()
 
+                    # 入力画像のピクセルフォーマットを確認します。
                     # Check the pixelformat of the input image.
                     pixel_format = st_image.pixel_format
                     pixel_format_info = st.get_pixel_format_info(pixel_format)
 
+                    # MonoまたはBayer画像だけを処理します。
                     # Only mono or bayer is processed.
                     if not(pixel_format_info.is_mono or
                            pixel_format_info.is_bayer):
                         return
 
+                    # 画像の生データを取得します。
                     # Get raw image data.
                     data = st_image.get_image_data()
 
+                    # 各成分が8ビットを超える画像（10/12ビット等）は画素値をスケーリングします。
                     # Perform pixel value scaling if each pixel component is
                     # larger than 8bit. Example: 10bit Bayer/Mono, 12bit, etc.
                     if pixel_format_info.each_component_total_bit_count > 8:
@@ -70,9 +78,11 @@ class CMyCallback:
                     else:
                         nparr = np.frombuffer(data, np.uint8)
 
+                    # 表示用に画像を処理します。
                     # Process image for display.
                     nparr = nparr.reshape(st_image.height, st_image.width, 1)
 
+                    # Bayer画像の色変換を行います。
                     # Perform color conversion for Bayer.
                     if pixel_format_info.is_bayer:
                         bayer_type = pixel_format_info.get_pixel_color_filter()
@@ -85,6 +95,7 @@ class CMyCallback:
                         elif bayer_type == st.EStPixelColorFilter.BayerBG:
                             nparr = cv2.cvtColor(nparr, cv2.COLOR_BAYER_BG2RGB)
 
+                    # 画像をリサイズしてself._imageへ格納します。
                     # Resize image and store to self._image.
                     nparr = cv2.resize(nparr, None,
                                        fx=DISPLAY_RESIZE_FACTOR,
@@ -93,6 +104,7 @@ class CMyCallback:
                     self._image = nparr
                     self._lock.release()
 
+# FocusValue入力用スレッド
 # For FocusValue inputing thread
 def do_focus_adjust(nodemap, stop_event):
     focus_value = nodemap.get_node("FocusValue")
@@ -101,14 +113,18 @@ def do_focus_adjust(nodemap, stop_event):
         min_focus = focus_value_int.min
         max_focus = focus_value_int.max
 
-        while not stop_event.is_set():  # Check if stop event is set
+        # 停止イベントが設定されているか確認します。
+        # Check if stop event is set
+        while not stop_event.is_set():
            current_focus = focus_value.value
            print(f"FocusValue range: Min={min_focus}, Max={max_focus}")
            print(f"Current Value: {current_focus}")
            user_focus = int(input("Enter a FocusValue (99999 to exit): "))
 
            if user_focus == 99999:
-               stop_event.set()  # Signal to stop the main loop
+               # メインループの停止を通知します。
+               # Signal to stop the main loop
+               stop_event.set()
                break
 
            if min_focus <= user_focus <= max_focus:
@@ -126,7 +142,10 @@ def do_focus_adjust(nodemap, stop_event):
 def main():
     my_callback = CMyCallback()
     cb_func = my_callback.datastream_callback
-    stop_event = threading.Event()  # Create a stop event to signal stopping the loop
+
+    # ループ停止通知用のイベントを生成します。
+    # Create a stop event to signal stopping the loop
+    stop_event = threading.Event()
 
     try:
         st.initialize()
@@ -138,9 +157,11 @@ def main():
         st_datastream = st_device.create_datastream()
         callback = st_datastream.register_callback(cb_func)
 
+        # パラメーター操作用のNodeMapを取得します。
         # Access the NodeMap for parameters
         nodemap = st_device.remote_port.nodemap
 
+        # OpticControllerSelectorノードの有無を確認します。
         # Check if OpticControllerSelector exists
         optic_selector = nodemap.get_node("OpticControllerSelector")
         if optic_selector is not None:
@@ -152,14 +173,18 @@ def main():
             focus_adj_thread = threading.Thread(target=do_focus_adjust, args=(nodemap, stop_event))
             focus_adj_thread.start()
 
-            # Display image using OpenCV.
-            while not stop_event.is_set():  # Break the loop when stop_event is set
+            # OpenCVで画像を表示し、stop_event設定時にループを終了します。
+            # Display images using OpenCV until stop_event is set.
+            while not stop_event.is_set():
                 output_image = my_callback.image
                 if output_image is not None:
                     cv2.imshow('image', output_image)
                 key_input = cv2.waitKey(1)
-                if key_input == 27:  # Exit when 'ESC' key is pressed
-                    stop_event.set()  # Also set stop_event if ESC is pressed
+
+                # ESC入力時はstop_eventを設定して終了します。
+                # Set stop_event and exit when ESC is pressed.
+                if key_input == 27:
+                    stop_event.set()
                     break
 
             focus_adj_thread.join()

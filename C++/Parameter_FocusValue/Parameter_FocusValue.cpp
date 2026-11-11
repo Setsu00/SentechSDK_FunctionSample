@@ -1,10 +1,12 @@
 ﻿/*!
 	Parameter_FocusValue.cpp
+	FocusValue対応カメラで光学フォーカスを制御します。
 	Demostrates for those module that having focus value for controlling optical focus via camera setting.
 */
 
 #define ENABLED_ST_GUI
 
+// StApi用ヘッダーをインクルードします。
 // Include files for using StApi.
 #include <StApi_TL.h>
 #ifdef ENABLED_ST_GUI
@@ -14,12 +16,15 @@
 #include <conio.h>
 #include <iomanip>
 
+// StApiの名前空間
 // Namespace for using StApi.
 using namespace StApi;
 
+// GenApiの名前空間
 // Namespace for GenAPI
 using namespace GenApi;
 
+// cout用の名前空間
 // Namespace for using cout
 using namespace std;
 
@@ -32,6 +37,7 @@ typedef void*	UserParam_t;
 static uint64_t g_timeStampRec = 0;
 
 //-----------------------------------------------------------------------------
+// コールバック処理用の関数
 // Function for handling callback action
 //-----------------------------------------------------------------------------
 void OnCallback(IStCallbackParamBase *pIStCallbackParamBase, UserParam_t pvContext)
@@ -84,6 +90,7 @@ void OnCallback(IStCallbackParamBase *pIStCallbackParamBase, UserParam_t pvConte
 		}
 		catch (const GenICam::GenericException &e)
 		{
+			// 例外の説明を表示します。
 			// If any exception occurred, display the description of the error here.
 			cerr << endl << "An exception occurred." << endl << e.GetDescription() << endl;
 		}
@@ -91,6 +98,7 @@ void OnCallback(IStCallbackParamBase *pIStCallbackParamBase, UserParam_t pvConte
 }
 
 //-----------------------------------------------------------------------------
+// 登録用のコールバック関数
 // Callback function for registering
 //-----------------------------------------------------------------------------
 void __stdcall OnStCallbackCFunction(IStCallbackParamBase *pIStCallbackParamBase, UserParam_t pvContext)
@@ -99,6 +107,7 @@ void __stdcall OnStCallbackCFunction(IStCallbackParamBase *pIStCallbackParamBase
 }
 
 //-----------------------------------------------------------------------------
+// メインスレッド
 // Main thread
 //-----------------------------------------------------------------------------
 int main(int /* argc */, char ** /* argv */)
@@ -123,12 +132,14 @@ int main(int /* argc */, char ** /* argv */)
 #endif
 
 		// ==============================================================================================================
+		// フォーカス機能を確認し、画像表示と入力値によるフォーカス制御を行うデモです。
 		// Demostration of Checking if Focus function is availavble, with showing image and providing value input.
 
 		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// OpticControllerSelectorノードの有無を確認します。
 		// Confirm if OpticControllerSelector exist
 		CEnumerationPtr pOpticControllerSelector = pNodeMapCameraParam->GetNode("OpticControllerSelector");
 		if (IsAvailable(pOpticControllerSelector) && IsReadable(pOpticControllerSelector))
@@ -138,10 +149,12 @@ int main(int /* argc */, char ** /* argv */)
 			pIStDataStream->StartAcquisition();
 			pIStDevice->AcquisitionStart();
 
+			// 制御対象のFocusValueノードを取得します。
 			// Acquire FocusValue node for control
 			CIntegerPtr pFocusValue = pNodeMapCameraParam->GetNode("FocusValue");
 			if (IsAvailable(pFocusValue) && IsReadable(pFocusValue))
 			{
+				// FocusValueの最小値・最大値を取得します。
 				// Acquire min/max of FocusValue
 				int iMinFocus = pFocusValue->GetMin();
 				int iMaxFocus = pFocusValue->GetMax();
@@ -156,6 +169,7 @@ int main(int /* argc */, char ** /* argv */)
 					int userFocus;
 					std::cin >> userFocus;
 
+					// 入力値に応じて処理します。
 					// Related action by input value.
 					if (userFocus == 99999)
 					{
@@ -185,6 +199,7 @@ int main(int /* argc */, char ** /* argv */)
 		}
 		else
 		{
+			// OpticControllerSelectorがない場合はメッセージを表示して終了します。
 			// If OpticControllerSelector not exist, showing message then exit.
 			std::cout << "This camera does not support focus adjustment." << std::endl;
 		}

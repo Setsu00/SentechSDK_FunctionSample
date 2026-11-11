@@ -1,4 +1,5 @@
 ﻿/*
+	デジタルゲインを2倍に設定します。
 	Digital Gain Setting: Set digital gain to 2 times.
 */
 
@@ -31,6 +32,7 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// デジタルゲインを2倍に設定するデモです。
 		// Demostration of set digital Gain to 2 times.
 
 		// パラメーター操作用のNodeMapを取得します。
@@ -47,11 +49,14 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumGainSelector(pNodeMapCameraParam->GetNode("GainSelector"));
 		*pIEnumGainSelector = "DigitalAll";
 
+		// Gainノードを取得します。
 		// Get Node for Gain
 		GenApi::CNodePtr pNodeGain = pNodeMapCameraParam->GetNode("Gain");
+
 		// 値を設定するため、ノードをCFloatPtrに変換します。
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatGain(pNodeGain);
+
 		// デジタルゲインを2倍（設定値128）に設定します。
 		// Set digital gain to 2 times(128).
 		pFloatGain->SetValue(128);

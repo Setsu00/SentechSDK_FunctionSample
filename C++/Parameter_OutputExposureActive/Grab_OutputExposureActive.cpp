@@ -43,6 +43,7 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line1";
 		GenApi::CEnumerationPtr pIEnumLineMode(pNodeMapCameraParam->GetNode("LineMode"));
+
 		// LineModeをOutputに設定し、選択したラインを出力にします。
 		// Set LineMode to Output to use the selected line as an output.
 		*pIEnumLineMode = "Output";
@@ -59,8 +60,8 @@ int main(int /* argc */, char ** /* argv */)
 		while (pIStDataStream->IsGrabbing())
 		{
 
-			// ソフトウェアトリガーが送信された直後のフレームを取得
-			// Retrieve a frame right after a software trigger is sent.
+			// 画像のフレームを取得します。
+			// Retrieve an image frame.
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
 			{

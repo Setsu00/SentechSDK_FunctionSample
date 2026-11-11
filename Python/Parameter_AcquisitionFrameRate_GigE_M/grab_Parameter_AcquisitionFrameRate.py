@@ -17,12 +17,14 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # 取得フレームレートを変更するデモです。
     # Demostration of changing acquisition frame rate (FPS)
 
     # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
 
+    # FPSを設定できるよう、自動露光を無効にします。
     # Switch off exposure auto.
     # If exposure auto is on, FPS setting may not able to implemented.
     exposure_auto = nodemap_remote.get_node("ExposureAuto")
@@ -35,6 +37,7 @@ try:
     # Set Exposure Auto to Off
     enum_exposure_auto.from_string("Off")
 
+    # 露光時間が実際のFPSに影響しないよう、ExposureModeをOffにします。
     # Also switch Exposure Mode to Off for not letting exposure time
     # to influence the actual FPS.
     exposure_mode = nodemap_remote.get_node("ExposureMode")
@@ -47,6 +50,7 @@ try:
     # Set Exposure Mode to Off
     enum_exposure_mode.from_string("Off")
 
+    # AcquisitionFrameRateノードを取得します。
     # Get Node for Acquisition Frame Rate (FPS)
     acq_frame_rate = nodemap_remote.get_node("AcquisitionFrameRate")
 

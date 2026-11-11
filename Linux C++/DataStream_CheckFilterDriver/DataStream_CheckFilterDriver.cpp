@@ -28,6 +28,7 @@ int main(int /* argc */, char ** /* argv */)
 		// 現在のDataStreamが使用するドライバーを確認するため、StreamDriverTypeノードを取得
 		// Get the StreamDriverType node to identify the driver used by the current DataStream.
 		GenApi::CEnumerationPtr pEnumDriverType(pNodeMapDataStream->GetNode("StreamDriverType"));
+
 		// 現在の設定を表示
 		// Display the current setting.
 		cout << "Current stream driver type: " << pEnumDriverType->GetCurrentEntry()->GetSymbolic() << endl;

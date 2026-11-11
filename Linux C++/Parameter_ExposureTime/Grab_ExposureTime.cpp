@@ -1,4 +1,5 @@
 ﻿/*
+	カメラの露光時間を100000 µsに設定します。
 	Exposure Time Setting: Set camera exposure time to 100,000 us.
 */
 
@@ -31,6 +32,7 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// カメラの露光時間をµs単位で変更するデモです。
 		// Demostration of changing exposure time(us) of camera.
 
 		// パラメーター操作用のNodeMapを取得します。
@@ -47,6 +49,7 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumExpoMode(pNodeMapCameraParam->GetNode("ExposureMode"));
 		*pIEnumExpoMode = "Timed";
 
+		// ExposureTimeノードを取得します。
 		// Get Node for ExposureTime
 		GenApi::CNodePtr pNodeExposureTime = pNodeMapCameraParam->GetNode("ExposureTime");
 

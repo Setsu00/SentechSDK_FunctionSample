@@ -42,6 +42,7 @@ namespace Grab
                     // DecimationHorizontalノードを取得
                     // Get Node for Horizontal Decimation
                     IInteger IntDeciH = nodeMap.GetNode<IInteger>("DecimationHorizontal");
+
                     // DecimationHorizontalに2を設定
                     // Set Decimation Horizontal to 2.
                     IntDeciH.Value = 2;
@@ -49,6 +50,7 @@ namespace Grab
                     // DecimationVerticalノードを取得
                     // Get Node for Vertical Decimation
                     IInteger IntDeciV = nodeMap.GetNode<IInteger>("DecimationVertical");
+
                     // DecimationVerticalに2を設定
                     // Set Decimation Vertical to 2.
                     IntDeciV.Value = 2;

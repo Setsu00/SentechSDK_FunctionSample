@@ -137,9 +137,11 @@ void OnNodeCallbackDrawingEvent(GenApi::INode* pINode, EDrawingEventType_t eType
 		// 2点間を選択するためのDrawingObjectPointSelectorを取得
 		// Acquire DrawingObjectPointSelector for select between 2 points
 		GenApi::CIntegerPtr pIInteger_Point = m_pIStImageDisplayWnd->GetINodeMap()->GetNode("DrawingObjectPointSelector");
+
 		// ポイントのX座標を取得するためのノード
 		// Node for acquiring X value of point.
 		GenApi::CFloatPtr pIFloat_X = m_pIStImageDisplayWnd->GetINodeMap()->GetNode("DrawingObjectPointX");
+
 		// ポイントのY座標を取得するためのノード
 		// Node for acquiring Y value of point.
 		GenApi::CFloatPtr pIFloat_Y = m_pIStImageDisplayWnd->GetINodeMap()->GetNode("DrawingObjectPointY");

@@ -1,4 +1,5 @@
 ﻿/*
+	自動ゲインを有効にし、範囲を0～10 dBに設定します。
 	Auto Gain Control: Set auto gain control on with range 0 dB to 10 dB.
 */
 
@@ -31,6 +32,7 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// 自動ゲインの範囲を設定するデモです。
 		// Demostration of Setting Auto Gain Control with dedicated range.
 
 		// パラメーター操作用のNodeMapを取得します。
@@ -42,11 +44,14 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumGainAuto(pNodeMapCameraParam->GetNode("GainAuto"));
 		*pIEnumGainAuto = "Continuous";
 
+		// AutoLuminanceTarget（IInteger）ノードを取得します。
 		// Get Node for Auto Luminance Target(IInteger)
 		GenApi::CNodePtr pNodeAutoLuminTgt = pNodeMapCameraParam->GetNode("AutoLuminanceTarget");
+
 		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntNodeAutoLuminTgt(pNodeAutoLuminTgt);
+
 		// AutoLuminanceTargetを128に設定します。
 		// Set Auto Luminance Target to 128
 		pIntNodeAutoLuminTgt->SetValue(128);
@@ -56,20 +61,26 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumGainSelector(pNodeMapCameraParam->GetNode("GainSelector"));
 		*pIEnumGainSelector = "AnalogAll";
 		
+		// GainAutoLimitMin（IFloat）ノードを取得します。
 		// Get Node for GainAutoLimitMin(IFloat).
 		GenApi::CNodePtr pNodeAutoGainLimitMin = pNodeMapCameraParam->GetNode("GainAutoLimitMin");
+
 		// 値を設定するため、ノードをCFloatPtrに変換します。
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatNodeAutoGainLimitMin(pNodeAutoGainLimitMin);
+
 		// 自動ゲインの下限を0 dB（設定値0）に設定します。
 		// Set Auto Gain Min to 0 dB (0).
 		pFloatNodeAutoGainLimitMin->SetValue(0);
 
+		// GainAutoLimitMax（IFloat）ノードを取得します。
 		// Get Node for GainAutoLimitMax(IFloat).
 		GenApi::CNodePtr pNodeAutoGainLimitMax = pNodeMapCameraParam->GetNode("GainAutoLimitMax");
+
 		// 値を設定するため、ノードをCFloatPtrに変換します。
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatNodeAutoGainLimitMax(pNodeAutoGainLimitMax);
+
 		// 自動ゲインの上限を10 dB（設定値100）に設定します。
 		// Set Auto Gain Max to 10 dB (100).
 		pFloatNodeAutoGainLimitMax->SetValue(100);

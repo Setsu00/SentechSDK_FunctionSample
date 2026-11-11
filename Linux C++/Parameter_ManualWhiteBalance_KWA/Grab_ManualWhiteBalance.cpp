@@ -1,4 +1,5 @@
 ﻿/*
+	全色のホワイトバランス比率を手動で10に設定します。
 	Manual White Balance: Manually set white balance ratio of all color to 10.
 */
 
@@ -31,6 +32,7 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// 自動ホワイトバランスを無効にし、全色の比率を10に設定するデモです。
 		// Demostration of changing white balance to manual with setting all balance ratio to 10
 
 		// パラメーター操作用のNodeMapを取得します。
@@ -47,11 +49,14 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumBalanceRatioSelect(pNodeMapCameraParam->GetNode("BalanceRatioSelector"));
 		*pIEnumBalanceRatioSelect = "Red";
 
+		// BalanceRatioノードを取得します。
 		// Get Node for BalanceRatio
 		GenApi::CNodePtr pNodeBalanceRatio = pNodeMapCameraParam->GetNode("BalanceRatio");
+
 		// 値を設定するため、ノードをCFloatPtrに変換します。
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatBalanceRatio(pNodeBalanceRatio);
+
 		// BalanceRatioを10に設定します。
 		// Set BalanceRatio to 10
 		pFloatBalanceRatio->SetValue(10);

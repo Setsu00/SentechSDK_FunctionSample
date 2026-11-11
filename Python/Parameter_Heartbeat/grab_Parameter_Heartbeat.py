@@ -17,12 +17,14 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # HeartbeatTimeoutを30秒（30000000 µs）に設定するデモです。
     # Demostration of set Heartbeat Timeout to 30 sec (30000000us)
 
     # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
     nodemap_remote = st_device.remote_port.nodemap
     
+    # HeartbeatTimeoutノードを取得します。
     # Get Node for Heartbeat Timeout
     heartbeattimeout = nodemap_remote.get_node("DeviceLinkHeartbeatTimeout")
 

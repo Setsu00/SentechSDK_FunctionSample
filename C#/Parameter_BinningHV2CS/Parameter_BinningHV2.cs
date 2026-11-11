@@ -41,6 +41,7 @@ namespace Parameter_BinningHV2
                     // BinningHorizontalノードを取得
                     // Acquire Binning Horizontal node
                     IInteger intBinningHorizontal = nodeMap.GetNode<IInteger>("BinningHorizontal");
+
                     // BinningHorizontalに2を設定
                     // Set BinningHorizontal to 2
                     intBinningHorizontal.Value = 2;
@@ -48,6 +49,7 @@ namespace Parameter_BinningHV2
                     // BinningVerticalノードを取得
                     // Acquire Binning Vertical node
                     IInteger intBinningVertical = nodeMap.GetNode<IInteger>("BinningVertical");
+
                     // BinningVerticalに2を設定
                     // Set BinningVertical to 2
                     intBinningVertical.Value = 2;

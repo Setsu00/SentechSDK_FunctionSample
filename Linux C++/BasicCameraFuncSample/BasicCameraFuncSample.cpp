@@ -2,10 +2,12 @@
     BasicCameraFuncSample.cpp
 */
 
+// StApi用ヘッダーをインクルードします。
 // Include files for using StApi.
 #include <StApi_TL.h>
 #include <StApi_GUI.h>
 
+// 入出力用ヘッダーをインクルードします。
 // Include for input/output related functions.
 //#include <curses.h>
 #include <iomanip>
@@ -15,71 +17,90 @@
 #include <unistd.h>   //_getch
 #include <termios.h>  //_getch
 
+//StApiの名前空間
 //Namespace for using StApi.
 using namespace StApi;
 
+//cout用の名前空間
 //Namespace for using cout.
 using namespace std;
 
+//GenApiの名前空間
 //Namespace for using GenApi.
 using namespace GenApi;
 
 typedef IStImageDisplayWnd* UserParam_t;
 
+// ESCキーの定義
 // Define for ESC key input.
 #define ESC_KEY        0x1B
 #define BACKSPACE_KEY  0x7F
 
+// 入力補助関数の宣言
 // Declearation of input helper function.
 bool ValueInputChk(string * result);
 
+// getch入力補助関数の宣言
 // Declearation of input helper of getch().
 char getch();
 
+// ハードウェアトリガー処理中のフラグ
 // Hardware Triggering checking flag
 bool g_hwtrg_active = false;
 
 //-----------------------------------------------------------------------------
+// コールバック処理用の関数
 // Function for handling callback action
 //-----------------------------------------------------------------------------
 void OnCallback(IStCallbackParamBase *pIStCallbackParamBase, UserParam_t pvContext)
 {
+    // コールバック種別を確認し、NewBufferイベントだけを処理します。
     // Check callback type. Only NewBuffer event is handled in here
     if(pIStCallbackParamBase->GetCallbackType() == StCallbackType_GenTLEvent_DataStreamNewBuffer)
     {
+        // NewBufferイベントの受信パラメーターをIStCallbackParamGenTLEventNewBufferへ変換します。
         // In case of receiving a NewBuffer events:
         // Convert received callback parameter into IStCallbackParamGenTLEventNewBuffer for acquiring additional information.
         IStCallbackParamGenTLEventNewBuffer *pIStCallbackParamGenTLEventNewBuffer = dynamic_cast<IStCallbackParamGenTLEventNewBuffer*>(pIStCallbackParamBase);
         
         try
         {
+            // 受信したコールバックパラメーターからIStDataStreamを取得します。
             // Get the IStDataStream interface pointer from the received callback parameter.
             IStDataStream *pIStDataStream = pIStCallbackParamGenTLEventNewBuffer->GetIStDataStream();
 
+            // コールバックで通知されたバッファーを取得します。
             // Retrieve the buffer pointer of image data for that callback indicated there is a buffer received.
             CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(0));
 
+            // 取得データに画像が含まれているか確認します。
             // Check if the acquired data contains image data.
             if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
             {
 
+                // 画像を扱うためのIStImageオブジェクトを生成します。
                 // If yes, we create a IStImage object for further image handling.
                 IStImage *pIStImage = pIStStreamBuffer->GetIStImage();
 
+                // 表示ウィンドウが表示されているか確認します。
                 // Check if display window is visible.
                 if (!pvContext->IsVisible())
                 {
+                    // ウィンドウの位置とサイズを設定します。
                     // Set the position and size of the window.
                     pvContext->SetPosition(600, 0, pIStImage->GetImageWidth(), pIStImage->GetImageHeight());
 
+                    // 別スレッドでウィンドウを表示します。
                     // Create a new thread to display the window.
                     pvContext->Show(NULL, StWindowMode_Modaless);
                 }
 
+                // 表示画像を登録します。画像データはコピーされ、元のバッファーを解放できます。
                 // Register the image to be displayed.
                 // This will have a copy of the image data and original buffer can be released if necessary.
                 pvContext->RegisterIStImage(pIStImage);
 
+                // ハードウェアトリガー関連メッセージ
                 // [Hardware Trigger related message]
                 if (g_hwtrg_active)
                 {
@@ -89,12 +110,14 @@ void OnCallback(IStCallbackParamBase *pIStCallbackParamBase, UserParam_t pvConte
             }
             else
             {
+                // 取得データに画像が含まれていない場合
                 // If the acquired data contains no image data...
                 //cout << "Image data does not exist." << endl;
             }
         }
         catch (const GenICam::GenericException &e)
         {
+            // 例外の説明を表示します。
             // If any exception occurred, display the description of the error here.
             cerr << endl << "An exception occurred." << endl << e.GetDescription() << endl;
         }
@@ -102,6 +125,7 @@ void OnCallback(IStCallbackParamBase *pIStCallbackParamBase, UserParam_t pvConte
 }
 
 //-----------------------------------------------------------------------------
+// 登録用のコールバック関数
 // Callback function for registering
 //-----------------------------------------------------------------------------
 void OnStCallbackCFunction(IStCallbackParamBase *pIStCallbackParamBase, UserParam_t pvContext)
@@ -110,12 +134,14 @@ void OnStCallbackCFunction(IStCallbackParamBase *pIStCallbackParamBase, UserPara
 }
 
 //-----------------------------------------------------------------------------
+// ソフトウェアトリガー処理用の関数
 // SW Trigger Handling function
 //-----------------------------------------------------------------------------
 void funcSWTrigger(GenApi::CNodeMapPtr nodeMap)
 {
     try
     {
+        // ソフトウェアトリガー関連のパラメーターを初期化します。
         // Initial Software Trigger related parameter
         cout << "Software Trigger Operation." << endl;
 
@@ -129,10 +155,13 @@ void funcSWTrigger(GenApi::CNodeMapPtr nodeMap)
         GenApi::CEnumerationPtr pIEnumTrigSource(nodeMap->GetNode("TriggerSource"));
         *pIEnumTrigSource = "Software";
 
+        // 呼び出し用のソフトウェアトリガーコマンドを準備します。
         // Prepear Software Trigger Command for later calling
         GenApi::CCommandPtr pcICommandTriggerSoftTrg(nodeMap->GetNode("TriggerSoftware"));
 
         cout << "Press any key to send software trigger command; press ESC to exit and switch back to freerun mode." << endl;
+
+        // トリガー待機ループ
         // Waiting Trigger Loop
         for (;;)
         {
@@ -161,12 +190,14 @@ void funcSWTrigger(GenApi::CNodeMapPtr nodeMap)
 }
 
 //-----------------------------------------------------------------------------
+// ハードウェアトリガー（Line0）処理用の関数
 // HW Trigger Handling function (Line 0)
 //-----------------------------------------------------------------------------
 void funcHWTrigger(GenApi::CNodeMapPtr nodeMap)
 {
     try
     {
+        // ソフトウェアトリガー関連のパラメーターを初期化します。
         // Initial Software Trigger related parameter
         cout << "Hardware Trigger Operation." << endl;
 
@@ -180,10 +211,13 @@ void funcHWTrigger(GenApi::CNodeMapPtr nodeMap)
         GenApi::CEnumerationPtr pIEnumTrigSource(nodeMap->GetNode("TriggerSource"));
         *pIEnumTrigSource = "Line0";
 
+        // ハードウェアトリガー処理中のフラグを設定します。
         // Set on hardware trigger handling flag
         g_hwtrg_active = true;
 
         cout << "Camera waiting for Hareware triggering. press ESC to exit and switch back to freerun mode." << endl;
+
+        // トリガー待機ループ
         // Waiting Trigger Loop
         for (;;)
         {
@@ -199,6 +233,7 @@ void funcHWTrigger(GenApi::CNodeMapPtr nodeMap)
         getch();
     }
 
+    // ハードウェアトリガー処理中のフラグを解除します。
     // Set off hardware trigger handling flag
     g_hwtrg_active = false;
 
@@ -210,6 +245,7 @@ void funcHWTrigger(GenApi::CNodeMapPtr nodeMap)
 
 
 //-----------------------------------------------------------------------------
+// 露光時間設定用の関数
 // Exposure Setting Handling function
 //-----------------------------------------------------------------------------
 void funcExposureSetting(GenApi::CNodeMapPtr nodeMap)
@@ -226,9 +262,11 @@ void funcExposureSetting(GenApi::CNodeMapPtr nodeMap)
         GenApi::CEnumerationPtr pIEnumExpoMode(nodeMap->GetNode("ExposureMode"));
         *pIEnumExpoMode = "Timed";
 
+        // ExposureTimeノードを取得します。
         // Get Node for ExposureTime
         GenApi::CNodePtr pNodeExposureTime = nodeMap->GetNode("ExposureTime");
         
+        // ExposureTimeノードがない場合は、露光時間設定に対応していないため終了します。
         // If ExposureTime node is not exist, the exposure time setting method is not supported by the camera thus we end current setting.
         if (!pNodeExposureTime.IsValid())
         {
@@ -270,6 +308,7 @@ void funcExposureSetting(GenApi::CNodeMapPtr nodeMap)
 }
 
 //-----------------------------------------------------------------------------
+// ゲイン設定用の関数
 // Gain Setting Handling function
 //-----------------------------------------------------------------------------
 void funcGainSetting(GenApi::CNodeMapPtr nodeMap)
@@ -297,24 +336,29 @@ void funcGainSetting(GenApi::CNodeMapPtr nodeMap)
             return;
         }
 
+        // Gainノードを取得します。
         // Get Node for Gain
         GenApi::CNodePtr pNodeGain = nodeMap->GetNode("Gain");
+
         // 値を設定するため、ノードをCFloatPtrに変換します。
         // Convert Node to CFloatPtr for setting value
         GenApi::CFloatPtr pFloatGain(pNodeGain);
 
         for (;;)
         {
+            // アナログゲインの最小値・最大値を表示し、設定値を入力します。
             // Acquire and display min/max of analog gain value for reference and wait for input.
             cout << "Analog Gain min: " << pFloatGain->GetMin() << "; max: " << pFloatGain->GetMax() << " Current: " << pFloatGain->GetValue() << " (" << pFloatGain->GetValue() / 10 << " dB)"  << endl;
             cout << "Input new Gain value, or press ESC for exit: ";
 
             
+            // 入力値を確認します。ESC入力時はfalseを返して終了します。
             // Check input value. If ESC pressed, function will return false and we force exit.
             string sGain;
             if(!ValueInputChk(&sGain))
                 return;
 
+            // 入力値をfloatに変換します。
             // Convert input to float
             double fGain = ::atof(sGain.c_str());
 
@@ -335,6 +379,7 @@ void funcGainSetting(GenApi::CNodeMapPtr nodeMap)
 }
 
 //-----------------------------------------------------------------------------
+// ホワイトバランス値設定用の関数
 // WB value Setting Handling function
 //-----------------------------------------------------------------------------
 void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
@@ -360,8 +405,10 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
         double fRedRatio, fGreenRatio, fBlueRatio;
         double fNewRedRatio, fNewGreenRatio, fNewBlueRatio;
         
+        // BalanceRatioノードを取得します。
         // Get Node for BalanceRatio
         GenApi::CNodePtr pNodeBalanceRatio = nodeMap->GetNode("BalanceRatio");
+
         // 値を設定するため、ノードをCFloatPtrに変換します。
         // Convert Node to CFloatPtr for setting value
         GenApi::CFloatPtr pFloatBalanceRatio(pNodeBalanceRatio);
@@ -380,12 +427,16 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
             // 緑の比率にアクセスするため、BalanceRatioSelectorをGreenに設定します。
             // Switch balance ration selector to Green for access Green ratio value
             *pIEnumBalanceRatioSelect = "Green";
+
+            // 現在の緑の比率を取得します。
             // Acquire current green ratio value
             fGreenRatio = pFloatBalanceRatio->GetValue();
 
             // 青の比率にアクセスするため、BalanceRatioSelectorをBlueに設定します。
             // Switch balance ration selector to Blue for access Blue ratio value
             *pIEnumBalanceRatioSelect = "Blue";
+
+            // 現在の青の比率を取得します。
             // Acquire current blue ratio value
             fBlueRatio = pFloatBalanceRatio->GetValue();
 
@@ -406,6 +457,7 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
                 if (!ValueInputChk(&sNewRedRatio))
                     break;
 
+                // 入力値をfloatに変換します。
                 // Convert input to float
                 fNewRedRatio = ::atof(sNewRedRatio.c_str());
 
@@ -422,6 +474,7 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
                 if (!ValueInputChk(&sNewGreenRatio))
                     break;
 
+                // 入力値をfloatに変換します。
                 // Convert input to float
                 fNewGreenRatio = ::atof(sNewGreenRatio.c_str());
 
@@ -438,6 +491,7 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
                 if (!ValueInputChk(&sNewBlueRatio))
                     break;
 
+                // 入力値をfloatに変換します。
                 // Convert input to float
                 fNewBlueRatio = ::atof(sNewBlueRatio.c_str());
 
@@ -466,12 +520,14 @@ void funcManualWBSetting(GenApi::CNodeMapPtr nodeMap)
 }
 
 //-----------------------------------------------------------------------------
+// 現在の設定をUserSet0へ保存し、起動時のデフォルトに設定します。
 // Save current camera setting to UserSet0 and set as default (Setting when power on)
 //-----------------------------------------------------------------------------
 void funcSaveCameraSettingAsDefault(IStDevice * pDevice, IStDataStream * pDataStream, GenApi::CNodeMapPtr nodeMap)
 {
     try
     {
+        // UserSet操作前にカメラとDataStreamの画像取得を停止します。
         // For access UserSet, stop camera acquisition first.
         // Also stop data stream to prevent influence by changed setting.
         cout << "Stopping Camera Acquisition...";
@@ -510,6 +566,7 @@ void funcSaveCameraSettingAsDefault(IStDevice * pDevice, IStDataStream * pDataSt
         GenApi::CEnumerationPtr pIEnumUserSetDefault(nodeMap->GetNode("UserSetDefault"));
         *pIEnumUserSetDefault = "UserSet0";
 
+        // 設定保存後、画像取得を再開します。
         // After Saving, restart acquisition
         cout << "Restart Camera Acquisition...";
         pDataStream->StartAcquisition();
@@ -528,12 +585,14 @@ void funcSaveCameraSettingAsDefault(IStDevice * pDevice, IStDataStream * pDataSt
 }
 
 //-----------------------------------------------------------------------------
+// カメラのデフォルト設定を読み込みます。
 // Load default setting of the camera
 //-----------------------------------------------------------------------------
 void funcLoadDefaultSetting(IStDevice * pDevice, IStDataStream * pDataStream, GenApi::CNodeMapPtr nodeMap)
 {
     try
     {
+        // UserSet操作前にカメラとDataStreamの画像取得を停止します。
         // For access UserSet, stop camera acquisition first.
         // Also stop data stream to prevent influence by changed setting.
         cout << "Stopping Camera Acquisition...";
@@ -554,6 +613,7 @@ void funcLoadDefaultSetting(IStDevice * pDevice, IStDataStream * pDataStream, Ge
         pcICommandUserSetLoad->Execute();
         cout << "Done." << endl;
 
+        // 設定読み込み後、カメラの画像取得を再開します。
         // After loading, restart camera acquisition
         cout << "Restart Camera Acquisition...";
         pDataStream->StartAcquisition();
@@ -573,18 +633,22 @@ void funcLoadDefaultSetting(IStDevice * pDevice, IStDataStream * pDataStream, Ge
 
 
 //-----------------------------------------------------------------------------
+// 選択肢の表示処理
 // Display Choice Worker
 //-----------------------------------------------------------------------------
 void displayChoiceWorker(CIStDevicePtr *pIStDevice, CIStDataStreamPtr *pIStDataStream, CNodeMapPtr *pNodeMapCameraParam, bool *isCompleted)
 {
+    // ホスト側の画像取得を開始します。
     // Start the image acquisition of the host (local machine) side.
     (*pIStDataStream)->StartAcquisition();
 
+    // カメラ側の画像取得を開始します。
     // Start the image acquisition of the camera side.
     (*pIStDevice)->AcquisitionStart();
         
     bool endLoop = false;
 
+    // 選択した機能のデモを実行するループ
     // Loop for entering selected function for demostration.
     do
     {
@@ -634,9 +698,11 @@ void displayChoiceWorker(CIStDevicePtr *pIStDevice, CIStDataStreamPtr *pIStDataS
         }
     }while (!endLoop);
 
+    // カメラ側の画像取得を停止します。
     // Stop the image acquisition of the camera side.
     (*pIStDevice)->AcquisitionStop();
 
+    // ホスト側の画像取得を停止します。
     // Stop the image acquisition of the host side.
     (*pIStDataStream)->StopAcquisition();
 
@@ -644,30 +710,38 @@ void displayChoiceWorker(CIStDevicePtr *pIStDevice, CIStDataStreamPtr *pIStDataS
 }
 
 //-----------------------------------------------------------------------------
+// メインスレッド
 // Main thread
 //-----------------------------------------------------------------------------
 int main(int /* argc */, char ** /* argv */)
 {
     try
     {
+        // 使用前にStApiを初期化します。
         // Initialize StApi before using.
         CStApiAutoInit objStApiAutoInit;
 
+        // デバイス検出・接続用のSystemオブジェクトを生成します。
         // Create a system object for device scan and connection.
         CIStSystemPtr pIStSystem(CreateIStSystem(StSystemVendor_Sentech));
 
+        // カメラオブジェクトを生成し、最初に検出したデバイスへ接続します。
         // Create a camera device object and connect to first detected device.
         CIStDevicePtr pIStDevice(pIStSystem->CreateFirstIStDevice());
 
+        // デバイスのDisplayNameを表示します。
         // Displays the DisplayName of the device.
         cout << "Device=" << pIStDevice->GetIStDeviceInfo()->GetDisplayName() << endl;
 
+        // GUIで表示する場合は、表示ウィンドウを生成します。
         // If using GUI for display, create a display window here.
         CIStImageDisplayWndPtr pIStImageDisplayWnd(CreateIStWnd(StWindowType_ImageDisplay));
 
+        // 画像ストリーム用のDataStreamオブジェクトを生成します。
         // Create a DataStream object for handling image stream data.
         CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
+        // コールバックを登録します。用途に応じて引数の種類・数を変更します。
         // Register callback function. Note that by different usage, we pass different kinds/numbers of parameters in.
         RegisterCallback(pIStDataStream, &OnStCallbackCFunction, (UserParam_t)pIStImageDisplayWnd);
 
@@ -705,6 +779,7 @@ int main(int /* argc */, char ** /* argv */)
         }
         catch (const GenICam::GenericException &e)
         {
+            // BalanceWhiteAutoが利用できない場合は何もしません。
             // Do nothing when BalanceWhiteAuto is not avaliable.
         }
         // =====================================
@@ -712,11 +787,13 @@ int main(int /* argc */, char ** /* argv */)
         bool isCompleted = false;
         thread worker(displayChoiceWorker, &pIStDevice, &pIStDataStream, &pNodeMapCameraParam, &isCompleted);
         
+        // スレッドの終了を待つ間、GUIイベントを処理します。
         // Process the GUI event while waiting for thread completion        
         while(!isCompleted)
         {
             if(!pIStImageDisplayWnd->IsVisible())
             {
+                // 別スレッドでウィンドウを表示します。
                 // Create a new thread to display the window.
                 pIStImageDisplayWnd->Show(NULL, StWindowMode_Modaless);
             }
@@ -726,6 +803,7 @@ int main(int /* argc */, char ** /* argv */)
     }
         catch (const GenICam::GenericException &e)
     {
+        // 例外の説明を表示します。
         // If any exception occurred, display the description of the error here.
         cerr << endl << "An exception occurred." << endl << e.GetDescription() << endl;
     }
@@ -734,10 +812,12 @@ int main(int /* argc */, char ** /* argv */)
 }
 
 //-----------------------------------------------------------------------------
+// 設定値入力用の補助関数
 // Helper function for handling value input
 //-----------------------------------------------------------------------------
 bool ValueInputChk(string * result)
 {
+    // 設定値の入力確認ループ
     // Value input checking loop
     char chInput;
     bool bChkLoop = true;
@@ -746,24 +826,29 @@ bool ValueInputChk(string * result)
         chInput = getch();
         switch (chInput)
         {
+        // ESCで終了します。
+        // ESC : Force quit
         case ESC_KEY:
-            // ESC : Force quit
             return false;
             break;
+        // Enterで入力を終了します。
+        // Enter : End input
         case '\n': // Enter
-            // Enter : End input
             bChkLoop = false;
             cout << endl;
             break;
+        // Backspaceで1文字削除します。
+        // Backspace : Erease one character
         case BACKSPACE_KEY: // Backspace
-            // Backspace : Erease one character
             //cout << "BS";
             if (result->size() > 0)
             {
+                // 表示と入力データから1文字削除します。
                 cout << "\b"; cout << " "; cout << "\b";    // Clean up one character of display
                 *result = result->substr(0, result->size() - 1);    // Remove one character of input data
             }
             break;
+        // 数字以外の入力は無視します。
         // Only hanlde number input. Otherwise ignore.
         case '0':
         case '1':
@@ -788,6 +873,7 @@ bool ValueInputChk(string * result)
 }
 
 //-----------------------------------------------------------------------------
+// Linux用getch補助関数
 // Helper function for getch() in Linux
 //-----------------------------------------------------------------------------
 char getch(){

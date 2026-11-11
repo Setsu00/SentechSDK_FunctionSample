@@ -90,6 +90,7 @@ namespace Grab
                                     if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
                                     {
                                         IStImage stImage = streamBuffer.GetIStImage();
+
                                         // 取得した画像の情報を表示
                                         // Display the information of the acquired image data.
                                         Byte[] imageData = stImage.GetByteArray();

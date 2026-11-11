@@ -21,11 +21,13 @@ void OnDrawingChanged(GenApi::INode *, IStImageDisplayWnd *pIStImageDisplayWnd)
         GenApi::CFloatPtr pFloatPointX = pIStImageDisplayWnd->GetINodeMap()->GetNode("DrawingObjectPointX");
         GenApi::CFloatPtr pFloatPointY = pIStImageDisplayWnd->GetINodeMap()->GetNode("DrawingObjectPointY");
         IStImage *pIStImage = pIStImageDisplayWnd->GetRegisteredIStImage();
+
         // DrawingObjectPointSelectorを0に設定し、始点を選択します。
         // Set DrawingObjectPointSelector to 0 to select the first endpoint.
         pIntegerPointSelector->SetValue(0);
         const double x1 = pFloatPointX->GetValue() * pIStImage->GetImageWidth();
         const double y1 = pFloatPointY->GetValue() * pIStImage->GetImageHeight();
+
         // DrawingObjectPointSelectorを1に設定し、終点を選択します。
         // Set DrawingObjectPointSelector to 1 to select the second endpoint.
         pIntegerPointSelector->SetValue(1);

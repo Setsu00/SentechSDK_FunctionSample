@@ -45,9 +45,11 @@ int main(int /* argc */, char ** /* argv */)
 		// AutoLuminanceTarget(IInteger)ノードを取得
 		// Get Node for Auto Luminance Target(IInteger)
 		GenApi::CNodePtr pNodeAutoLuminTgt = pNodeMapCameraParam->GetNode("AutoLuminanceTarget");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntNodeAutoLuminTgt(pNodeAutoLuminTgt);
+
 		// AutoLuminanceTargetを128に設定
 		// Set Auto Luminance Target to 128
 		pIntNodeAutoLuminTgt->SetValue(128);
@@ -60,9 +62,11 @@ int main(int /* argc */, char ** /* argv */)
 		// GainAutoLimitMin(IFloat)ノードを取得
 		// Get Node for GainAutoLimitMin(IFloat).
 		GenApi::CNodePtr pNodeAutoGainLimitMin = pNodeMapCameraParam->GetNode("GainAutoLimitMin");
+
 		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatNodeAutoGainLimitMin(pNodeAutoGainLimitMin);
+
 		// AutoGainの最小値に0dB(0)を設定
 		// Set Auto Gain Min to 0 dB (0).
 		pFloatNodeAutoGainLimitMin->SetValue(0);
@@ -70,9 +74,11 @@ int main(int /* argc */, char ** /* argv */)
 		// GainAutoLimitMax(IFloat)ノードを取得
 		// Get Node for GainAutoLimitMax(IFloat).
 		GenApi::CNodePtr pNodeAutoGainLimitMax = pNodeMapCameraParam->GetNode("GainAutoLimitMax");
+
 		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatNodeAutoGainLimitMax(pNodeAutoGainLimitMax);
+
 		// AutoGainの最大値に10dB(100)を設定
 		// Set Auto Gain Max to 10 dB (100).
 		pFloatNodeAutoGainLimitMax->SetValue(100);

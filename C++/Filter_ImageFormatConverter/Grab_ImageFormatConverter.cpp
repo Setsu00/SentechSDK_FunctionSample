@@ -1,5 +1,6 @@
 ﻿/*
 	Grab_ImageFormatConverter.cpp
+	IStPixelFormatConverterで取得画像をMono8へ変換するデモです。
 	Demostrate to use IStPixelFormatConverter to convert grabbed image into Mono8.
 */
 
@@ -33,9 +34,11 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// 変換用のIStPixelFormatConverterを生成します。
 		// Create IStPixelFormatConverter for conversion.
 		CIStPixelFormatConverterPtr pIStPixelFormatConverter(CreateIStConverter(StConverterType_PixelFormat));
 
+		// 変換先をMono8に設定します。
 		// Set conversion target (result) as Mono8.
 		pIStPixelFormatConverter->SetDestinationPixelFormat(StPFNC_Mono8);
 
@@ -68,12 +71,15 @@ int main(int /* argc */, char ** /* argv */)
 				}
 
 				// ==============================================================================================================
+				// 変換画像を格納するバッファーを生成します。
 				// Create another buffer for storing converted image
 				CIStImageBufferPtr imageBuffer = CreateIStImageBuffer();
 
+				// 元画像を変換し、別のバッファーへ出力します。
 				// Convert original image and output to another buffer
 				pIStPixelFormatConverter->Convert(pIStImage, imageBuffer);
 
+				// 変換後の画像を表示します。
 				// Display converted image
 				pIStImageDisplayWnd->RegisterIStImage(imageBuffer->GetIStImage());
 				// ==============================================================================================================

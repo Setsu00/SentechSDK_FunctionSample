@@ -17,6 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # Line1を露光中信号の出力に設定するデモです。
     # Demostration of Setting Line1 as Exposure Active
 
     # カメラのパラメーター操作用のNodeMapを取得します。

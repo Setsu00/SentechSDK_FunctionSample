@@ -37,6 +37,7 @@ Module HardwareTriggerActiveHigh
 								Dim enumLineSelector As IEnum = nodeMap.GetNode(Of IEnum)("LineSelector")
 								enumLineSelector.FromString("Line0")
 								Dim enumLineMode As IEnum = nodeMap.GetNode(Of IEnum)("LineMode")
+
 								' LineModeをInputに設定し、選択したラインを入力にします。
 								' Set LineMode to Input to use the selected line as an input.
 								enumLineMode.FromString("Input")

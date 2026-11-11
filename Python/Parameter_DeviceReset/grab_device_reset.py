@@ -17,6 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # カメラ1台の環境でデバイスをリセットするデモです。
     # Demostrate how to reset device
     # (This sample code work within 1 camera environment)
 
@@ -31,19 +32,23 @@ try:
     print('Resetting Device...')
     cmd_device_reset.execute()
 
+    # 30秒待機します。必要な待機時間は環境により異なります。
     # Wait for 30 sec. (This may varies depeneds on environment)
     print('Reset command send. Wait for 30 sec. for re-connect...')
     time.sleep(30)
 
+    # 待機後にカメラを再検出・再接続します。再設定せず接続できる固定IPを使用します。
     # After waiting, re-scan for camera then try to connect again
     # Be noticed the IP address of the camera must fixed to a value that is able to be connected again without setting
     print('Updating device list.')
     for index in range(st_system.interface_count):
         st_system.get_interface(index).update_device_list()
 
+    # 再接続前に以前のオブジェクトを解放します。
     # Release previous component before re-connect
     st_device.release()
 
+    # デバイスへ再接続します。
     # Re-connect to a device
     st_device = st_system.create_first_device()
     print('Device=', st_device.info.display_name)

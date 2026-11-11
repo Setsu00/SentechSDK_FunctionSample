@@ -50,9 +50,11 @@ int main(int /* argc */, char ** /* argv */)
 		// Gainノードを取得
 		// Get Node for Gain
 		GenApi::CNodePtr pNodeGain = pNodeMapCameraParam->GetNode("Gain");
+
 		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatGain(pNodeGain);
+
 		// ゲインに2dBを設定
 		// Set Gain to 2 dB.
 		pFloatGain->SetValue(20);

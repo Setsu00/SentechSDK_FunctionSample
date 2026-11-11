@@ -52,6 +52,7 @@ namespace Grab
                     // Gainノードを取得
                     // Get Node for Gain
                     IFloat floatGain = nodeMap.GetNode<IFloat>("Gain");
+
                     // デジタルゲインを2倍(128)に設定
                     // Set digital gain to 2 times(128).
                     floatGain.Value = 128;

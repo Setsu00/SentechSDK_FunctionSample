@@ -1,4 +1,5 @@
 ﻿/*
+	フィルターで画像を時計回りに90度回転します。
 	Rotate90cwFilter: using Filter to rotate image clock wise 90 degree.
 */
 
@@ -32,8 +33,10 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// フィルターで画像を時計回りに90度回転するデモです。
 		// Demostration of using Filter to rotate image clock wise 90 degree.
 
+		// ReverseConverterフィルターオブジェクトを生成します。
 		// Create an ReverseConverter filter object.
 		CIStReverseConverterPtr filter(CreateIStConverter(StConverterType_Reverse));
 
@@ -70,12 +73,15 @@ int main(int /* argc */, char ** /* argv */)
 				}
 
 				// ==============================================================================================================
+				// 回転画像を格納するバッファーを生成します。
 				// Create another buffer for storing rotated image
 				CIStImageBufferPtr imageBuffer(CreateIStImageBuffer());
 
+				// 元画像を回転し、別のバッファーへ出力します。
 				// Rotate original image and output to another buffer
 				filter->Convert(pIStImage, imageBuffer);
 
+				// 回転後の画像を表示します。
 				// Display rotated image
 				pIStImageDisplayWnd->RegisterIStImage(imageBuffer->GetIStImage());
 				processEventGUI();

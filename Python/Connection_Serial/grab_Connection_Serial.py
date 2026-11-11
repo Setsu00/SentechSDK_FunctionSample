@@ -13,12 +13,15 @@ try:
     st_system = st.create_system()
 
     # ============================================================
+    # 接続用のPyStDeviceを準備します。
     # Prepear PyStDevice for connection
     st_device = None
     
+    # 対象デバイスのシリアル番号を取得します。
     # Acquire target device Serial
     tgt_device_serial = input("Input target device serial: ")
 
+    # 全インターフェースのデバイス情報から対象カメラを確認します。
     # Check all interface if target camera is exist.
     # We will use deviceInfo for checking if target camera is exist
     for index in range(st_system.interface_count):
@@ -26,11 +29,13 @@ try:
         for index_device in range(st_interface.device_count):
             st_deviceinfo = st_interface.get_device_info(index_device)
             if tgt_device_serial == st_deviceinfo.serial_number:
+                # 対象カメラが見つかりました。
                 # This means hit target camera
                 st_device = st_interface.create_device_by_index(index_device)
                 if st_device != None:
                     break
 
+    # カメラの検出・接続を確認し、接続できなければ終了します。
     # Finally check if camera found and connected
     # If not, force quit
     if st_device == None:

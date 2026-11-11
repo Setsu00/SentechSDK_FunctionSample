@@ -40,9 +40,11 @@ int main(int /* argc */, char ** /* argv */)
 		// DecimationHorizontalノードを取得
 		// Get Node for Horizontal Decimation
 		GenApi::CNodePtr pNodeDeciH = pNodeMapCameraParam->GetNode("DecimationHorizontal");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntDeciHorizontal(pNodeDeciH);
+
 		// DecimationHorizontalに2を設定
 		// Set Decimation Horizontal to 2.
 		pIntDeciHorizontal->SetValue(2);
@@ -50,9 +52,11 @@ int main(int /* argc */, char ** /* argv */)
 		// DecimationVerticalノードを取得
 		// Get Node for Vertical Decimation
 		GenApi::CNodePtr pNodeDeciV = pNodeMapCameraParam->GetNode("DecimationVertical");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntDeciVertical(pNodeDeciV);
+
 		// DecimationVerticalに2を設定
 		// Set Decimation Vertical to 2.
 		pIntDeciVertical->SetValue(2);

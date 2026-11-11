@@ -1,4 +1,5 @@
 ﻿/*
+	カメラのソフトウェアトリガーモード設定とコマンド送信を示します。
 	Software Trigger: Demostrate how to set camera to Software Trigger mode and how to send Trigger command.
 */
 
@@ -31,6 +32,8 @@ int main(int /* argc */, char ** /* argv */)
 		CIStImageDisplayWndPtr pIStImageDisplayWnd(CreateIStWnd(StWindowType_ImageDisplay));
 #endif
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
+
+		// ソフトウェアトリガーを有効にするデモです。
 		// Demostration of Setting Software Trigger ON
 
 		// パラメーター操作用のNodeMapを取得します。
@@ -47,6 +50,7 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumTrigSource(pNodeMapCameraParam->GetNode("TriggerSource"));
 		*pIEnumTrigSource = "Software";
 
+		// 呼び出し用のソフトウェアトリガーコマンドを準備します。
 		// Prepear Software Trigger Command for later calling
 		GenApi::CCommandPtr pcICommandTriggerSoftTrg(pNodeMapCameraParam->GetNode("TriggerSoftware"));
 
@@ -64,6 +68,7 @@ int main(int /* argc */, char ** /* argv */)
 			cout << "Software Trigger Sent." << endl;
 			// ===============================================================================
 
+			// ソフトウェアトリガー送信直後のフレームを取得します。
 			// Retrieve a frame right after a software trigger is sent.
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())

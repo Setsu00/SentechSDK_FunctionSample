@@ -13,12 +13,15 @@ try:
     st_system = st.create_system()
 
     # ============================================================
+    # 接続用のPyStDeviceを準備します。
     # Prepear PyStDevice for connection
     st_device = None
     
+    # 対象デバイスのIDを取得します。
     # Acquire target device ID
     tgt_device_id = input("Input target device ID: ")
 
+    # 全インターフェースで指定IDのデバイスへの接続を試みます。失敗時は例外処理へ進みます。
     # Check all interfaces with try to connect a device with indicated device ID
     # If not success it will go to exception handling
     for index in range(st_system.interface_count):
@@ -28,10 +31,12 @@ try:
             if st_device != None:
                 break
         except:
+            # 対象IDのデバイスへ接続できない場合は何もしません。
             # We do nothing here if not success to connect to target device
             # This means no device has the same device ID
             pass
 
+    # カメラの検出・接続を確認し、接続できなければ終了します。
     # Finally check if camera found and connected
     # If not, force quit
     if st_device == None:

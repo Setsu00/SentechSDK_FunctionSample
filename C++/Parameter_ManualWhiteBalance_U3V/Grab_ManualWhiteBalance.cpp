@@ -52,6 +52,7 @@ int main(int /* argc */, char ** /* argv */)
 		// BalanceRatioのノードを取得
 		// Get Node for BalanceRatio
 		GenApi::CNodePtr pNodeBalanceRatio = pNodeMapCameraParam->GetNode("BalanceRatio");
+
 		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatBalanceRatio(pNodeBalanceRatio);

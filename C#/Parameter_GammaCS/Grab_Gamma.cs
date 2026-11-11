@@ -42,6 +42,7 @@ namespace Grab
                     // Gammaのノードを取得
                     // Get Node for Gamma
                     IFloat floatGamma = nodeMap.GetNode<IFloat>("Gamma");
+
                     // ガンマに4を設定
                     // Set Gamma to 4.
                     floatGamma.Value = 4;

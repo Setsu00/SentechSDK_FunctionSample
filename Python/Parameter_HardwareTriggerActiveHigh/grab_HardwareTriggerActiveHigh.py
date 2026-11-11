@@ -17,6 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # トリガー入力をLine0、トリガーの検出を立ち上がりエッジに設定するデモです。
     # Demostration of setting trigger source to Line0 with rising edge as trigger activation.
 
     # カメラのパラメーター操作用のNodeMapを取得します。

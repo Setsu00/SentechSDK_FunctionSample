@@ -1,4 +1,5 @@
 ﻿/*
+	水平方向・垂直方向のビニングを2に設定します。
 	BinningHV2: Set Camera Binning Horizontal / Binning Vertical to 2
 */
 
@@ -31,26 +32,33 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// 水平方向・垂直方向のビニングを2に設定するデモです。
 		// Demostration of setting Binning Horizontal / Binning Veritcal to 2
 
 		// パラメーター操作用のNodeMapを取得します。
 		// Create NodeMap pointer for accessing parameters
 		GenApi::CNodeMapPtr pNodeMapCameraParam(pIStDevice->GetRemoteIStPort()->GetINodeMap());
 
+		// BinningHorizontalノードを取得します。
 		// Get Node for Binning Horizontal
 		GenApi::CNodePtr pNodeBinningH = pNodeMapCameraParam->GetNode("BinningHorizontal");
+
 		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntBinningH(pNodeBinningH);
+
 		// BinningHorizontalを2に設定します。
 		// Set BinningHorizontal to 2
 		pIntBinningH->SetValue(2);
 
+		// BinningVerticalノードを取得します。
 		// Get Node for WiBinning Vertical
 		GenApi::CNodePtr pNodeBinningV = pNodeMapCameraParam->GetNode("BinningVertical");
+
 		// 値を設定するため、ノードをCIntegerPtrに変換します。
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntBinningV(pNodeBinningV);
+
 		// BinningVerticalを2に設定します。
 		// Set BinningVertical to 2
 		pIntBinningV->SetValue(2);

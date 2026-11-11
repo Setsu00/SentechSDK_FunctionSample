@@ -17,6 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
     
     # ============================================================
+    # 水平方向・垂直方向のビニングを1に設定するデモです。
     # Demostration of setting Binning Horizontal / Binning Veritcal to 1
     
     # カメラのパラメーター操作用のNodeMapを取得します。
@@ -33,8 +34,10 @@ try:
     binning_v = nodemap_remote.get_node("BinningVertical")
     binning_v.value = 1
     
+    # ビニングを1に設定する場合は、幅・高さを手動で最大値に設定します。
     # For setting Binning to 1, both height and width need to be set to max manually.
     
+    # Widthノードを取得します。
     # Acquire Width node
     width = nodemap_remote.get_node("Width")
 
@@ -46,6 +49,7 @@ try:
     # Set the width to max as it can
     width.value = int_width.max
     
+    # Heightノードを取得します。
     # Acquire Height node
     height = nodemap_remote.get_node("Height")
 

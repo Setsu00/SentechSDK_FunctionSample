@@ -1,4 +1,5 @@
 ﻿/*
+	ReverseYを有効にします。
 	ReverseY: Set camera reverse Y on.
 */
 
@@ -31,6 +32,7 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// ReverseYを有効にするデモです。
 		// Demostration of switching on Reverse Y of camera.
 
 		// パラメーター操作用のNodeMapを取得します。

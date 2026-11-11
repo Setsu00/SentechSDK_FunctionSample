@@ -1,4 +1,5 @@
 ﻿/*
+	STC-MB/MCSシリーズ専用：Line2をストロボ出力とし、露光中に1000 µsの信号を出力します。
 	Strobe Out: Set Line2 as Strobe Out with output 1000us signal. (Output 1000us signal when camera exposure active.)
 	* For STC-MB/MCS Series only
 */
@@ -28,6 +29,7 @@ int main(int /* argc */, char ** /* argv */)
 
 
 		// ==============================================================================================================
+		// Line2をストロボ出力に設定するデモです。
 		// Demostration of Setting Line2 as Strobe Out
 
 #ifdef ENABLED_ST_GUI
@@ -44,6 +46,7 @@ int main(int /* argc */, char ** /* argv */)
 		GenApi::CEnumerationPtr pIEnumLineSelector(pNodeMapCameraParam->GetNode("LineSelector"));
 		*pIEnumLineSelector = "Line2";
 		GenApi::CEnumerationPtr pIEnumLineMode(pNodeMapCameraParam->GetNode("LineMode"));
+
 		// LineModeをOutputに設定し、選択したラインを出力にします。
 		// Set LineMode to Output to use the selected line as an output.
 		*pIEnumLineMode = "Output";
@@ -75,7 +78,8 @@ int main(int /* argc */, char ** /* argv */)
 		while (pIStDataStream->IsGrabbing())
 		{
 
-			// Retrieve a frame right after a software trigger is sent.
+			// 画像のフレームを取得します。
+			// Retrieve an image frame.
 			CIStStreamBufferPtr pIStStreamBuffer(pIStDataStream->RetrieveBuffer(5000));
 			if (pIStStreamBuffer->GetIStStreamBufferInfo()->IsImagePresent())
 			{

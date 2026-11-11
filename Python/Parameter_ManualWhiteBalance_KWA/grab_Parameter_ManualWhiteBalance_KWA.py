@@ -17,6 +17,7 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
+    # 自動ホワイトバランスを無効にし、全色の比率を10に設定するデモです。
     # Demostration of changing white balance to manual with setting all balance ratio to 10
 
     # カメラのパラメーター操作用のNodeMapを取得します。
@@ -49,6 +50,7 @@ try:
     # Switch to Red for Red ratio handling
     enum_balance_ratio_selector.from_string("Red")
     
+    # BalanceRatioの値を操作するノードを取得します。
     # Get Node for value of BalanceRatio
     balance_ratio = nodemap_remote.get_node("BalanceRatio")
 

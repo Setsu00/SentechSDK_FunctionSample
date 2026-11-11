@@ -62,6 +62,7 @@ namespace Grab
 					for (uint i = 0; i < uiCntInterface; i++)
 					{
 						IStInterface pInterface = system.GetIStInterface(i);
+
                         // 検出コマンドの宛先IPアドレスを設定して、ユニキャストカメラスキャンを有効にします。
                         // *ブロードキャストデバイススキャンのデフォルトは255.255.255.255です。
                         // Set the discovery-command destination IP address to enable unicast camera scanning.

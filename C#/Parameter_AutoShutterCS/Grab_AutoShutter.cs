@@ -50,6 +50,7 @@ namespace Grab
                     // AutoLuminanceTarget(IInteger)ノードを取得
                     // Get Node for Auto Luminance Target(IInteger)
                     IInteger intAutoLuminTgt = nodeMap.GetNode<IInteger>("AutoLuminanceTarget");
+
                     // AutoLuminanceTargetに128を設定
                     // Set Auto Luminance Target to 128
                     intAutoLuminTgt.Value = 128;
@@ -57,6 +58,7 @@ namespace Grab
                     // ExposureAutoLimitMin(IFloat)ノードを取得
                     // Get Node for ExposureAutoLimitMin(IFloat).
                     IFloat floatExpoAutoMin = nodeMap.GetNode<IFloat>("ExposureAutoLimitMin");
+
                     // AutoExposure timeの最小値に1000usを設定
                     // Set Auto Exposure time Min to 1,000 usec
                     floatExpoAutoMin.Value = 1000;
@@ -64,6 +66,7 @@ namespace Grab
                     // ExposureAutoLimitMax(IFloat)ノードを取得
                     // Get Node for ExposureAutoLimitMax(IFloat).
                     IFloat floatExpoAutoMax = nodeMap.GetNode<IFloat>("ExposureAutoLimitMax");
+
                     // AutoExposure timeの最大値に150000usを設定
                     // Set Auto Exposure time Max to 150,000 usec
                     floatExpoAutoMax.Value = 150000;

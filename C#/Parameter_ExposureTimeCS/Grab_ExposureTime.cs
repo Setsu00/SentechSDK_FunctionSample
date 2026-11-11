@@ -52,6 +52,7 @@ namespace Grab
                     // ExposureTimeのノードを取得
                     // Get Node for ExposureTime
                     IFloat floatExpoTime = nodeMap.GetNode<IFloat>("ExposureTime");
+
                     // 露光時間に100000usを設定
                     // Set Exposure time to 100,000 usec
                     floatExpoTime.Value = 100000;

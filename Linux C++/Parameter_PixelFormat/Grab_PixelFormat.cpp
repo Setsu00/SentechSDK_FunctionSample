@@ -1,4 +1,5 @@
 ﻿/*
+	出力ピクセルフォーマットをMono8に設定します。
 	PixelFormat: Set output pixel format to Mono8.
 */
 
@@ -31,6 +32,7 @@ int main(int /* argc */, char ** /* argv */)
 		CIStDataStreamPtr pIStDataStream(pIStDevice->CreateIStDataStream(0));
 
 		// ==============================================================================================================
+		// ピクセルフォーマットを変更するデモです。
 		// Demostration of PixelFormat change.
 
 		// パラメーター操作用のNodeMapを取得します。

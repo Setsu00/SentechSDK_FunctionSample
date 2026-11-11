@@ -17,7 +17,8 @@ try:
     print('Device=', st_device.info.display_name)
 
     # ============================================================
-    # Demostration of Setting Auto Shutter with dedicated range.
+    # 露光時間を設定するデモです。
+    # Demonstration of setting exposure time.
 
     # カメラのパラメーター操作用のNodeMapを取得します。
     # Acquire NodeMap for accessing camera parameter
@@ -47,6 +48,7 @@ try:
     # Set Exposure Mode to Timed
     enum_exposure_mode.from_string("Timed")
 
+    # ExposureTimeノードを取得します。
     # Get Node for ExposureTime
     alc_tgt = nodemap_remote.get_node("ExposureTime")
 

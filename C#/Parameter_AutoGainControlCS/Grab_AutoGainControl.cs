@@ -50,6 +50,7 @@ namespace Grab
                     // AutoLuminanceTarget(IInteger)ノードを取得
                     // Get Node for Auto Luminance Target(IInteger)
                     IInteger intAutoLuminTgt = nodeMap.GetNode<IInteger>("AutoLuminanceTarget");
+
                     // AutoLuminanceTargetを128に設定
                     // Set Auto Luminance Target to 128
                     intAutoLuminTgt.Value = 128;
@@ -62,6 +63,7 @@ namespace Grab
                     // GainAutoLimitMin(IFloat)ノードを取得
                     // Get Node for GainAutoLimitMin(IFloat).
                     IFloat floatGainAutoMin = nodeMap.GetNode<IFloat>("GainAutoLimitMin");
+
                     // AutoGainの最小値に0dB(0)を設定
                     // Set Auto Gain Min to 0 dB (0).
                     floatGainAutoMin.Value = 0;
@@ -69,6 +71,7 @@ namespace Grab
                     // GainAutoLimitMax(IFloat)ノードを取得
                     // Get Node for GainAutoLimitMax(IFloat).
                     IFloat floatGainAutoMax = nodeMap.GetNode<IFloat>("GainAutoLimitMax");
+
                     // AutoGainの最大値に10dB(100)を設定
                     // Set Auto Gain Max to 10 dB (100).
                     floatGainAutoMax.Value = 100;

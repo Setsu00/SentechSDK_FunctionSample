@@ -45,9 +45,11 @@ int main(int /* argc */, char ** /* argv */)
 		// AutoLuminanceTarget(IInteger)ノードを取得
 		// Get Node for Auto Luminance Target(IInteger)
 		GenApi::CNodePtr pNodeAutoLuminTgt = pNodeMapCameraParam->GetNode("AutoLuminanceTarget");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntNodeAutoLuminTgt(pNodeAutoLuminTgt);
+
 		// AutoLuminanceTargetに128を設定
 		// Set Auto Luminance Target to 128
 		pIntNodeAutoLuminTgt->SetValue(128);
@@ -55,9 +57,11 @@ int main(int /* argc */, char ** /* argv */)
 		// ExposureAutoLimitMin(IFloat)ノードを取得
 		// Get Node for ExposureAutoLimitMin(IFloat).
 		GenApi::CNodePtr pNodeAutoExpoLimitMin = pNodeMapCameraParam->GetNode("ExposureAutoLimitMin");
+
 		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatNodeAutoExpoLimitMin(pNodeAutoExpoLimitMin);
+
 		// AutoExposure timeの最小値に1000usを設定
 		// Set Auto Exposure time Min to 1,000 usec
 		pFloatNodeAutoExpoLimitMin->SetValue(1000);
@@ -65,9 +69,11 @@ int main(int /* argc */, char ** /* argv */)
 		// ExposureAutoLimitMax(IFloat)ノードを取得
 		// Get Node for ExposureAutoLimitMax(IFloat).
 		GenApi::CNodePtr pNodeAutoExpoLimitMax = pNodeMapCameraParam->GetNode("ExposureAutoLimitMax");
+
 		// 値を設定するためにNodeをCFloatPtrに変換
 		// Convert Node to CFloatPtr for setting value
 		GenApi::CFloatPtr pFloatNodeAutoExpoLimitMax(pNodeAutoExpoLimitMax);
+
 		// AutoExposure timeの最大値に150000usを設定
 		// Set Auto Exposure time Max to 150,000 usec
 		pFloatNodeAutoExpoLimitMax->SetValue(150000);

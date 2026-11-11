@@ -40,9 +40,11 @@ int main(int /* argc */, char ** /* argv */)
 		// Widthノードを取得
 		// Get Node for Width
 		GenApi::CNodePtr pNodeWidth = pNodeMapCameraParam->GetNode("Width");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntWidthl(pNodeWidth);
+
 		// 幅を640に設定
 		// Set Width to 640
 		pIntWidthl->SetValue(640);
@@ -50,9 +52,11 @@ int main(int /* argc */, char ** /* argv */)
 		// Heightノードを取得
 		// Get Node for Height
 		GenApi::CNodePtr pNodeHeight = pNodeMapCameraParam->GetNode("Height");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntHeight(pNodeHeight);
+
 		// 高さに480を設定
 		// Set Height to 480
 		pIntHeight->SetValue(480);
@@ -60,9 +64,11 @@ int main(int /* argc */, char ** /* argv */)
 		// OffsetXのノードを取得
 		// Get Node for Offset X
 		GenApi::CNodePtr pNodeOffX = pNodeMapCameraParam->GetNode("OffsetX");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntOffX(pNodeOffX);
+
 		// Xオフセットに100を設定
 		// Set Offset X to 100
 		pIntOffX->SetValue(100);
@@ -70,9 +76,11 @@ int main(int /* argc */, char ** /* argv */)
 		// OffsetYノードを取得
 		// Get Node for Offset Y
 		GenApi::CNodePtr pNodeOffY = pNodeMapCameraParam->GetNode("OffsetY");
+
 		// 値を設定するためにNodeをCIntegerPtrに変換
 		// Convert Node to CIntegerPtr for setting value
 		GenApi::CIntegerPtr pIntOffY(pNodeOffY);
+
 		// Yオフセットに200を設定
 		// Set Offset Y to 200
 		pIntOffY->SetValue(200);
